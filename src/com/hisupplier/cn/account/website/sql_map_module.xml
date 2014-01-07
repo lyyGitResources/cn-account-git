@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="module">
+
+	<typeAlias alias="Module" type="com.hisupplier.cn.account.entity.WebSiteModule"/>
+ 	
+ 	<insert id="addModules" parameterClass="Module">
+ 		insert into WebSiteModule
+ 			(modName,comId,containerNo,orderNo,createTime)
+ 		values
+ 			(#modName#,#comId#,#containerNo#,#orderNo#,#createTime#)
+ 	</insert>
+
+	<delete id="deleteModules" parameterClass="int">
+		delete from WebSiteModule where comId = #comId#
+	</delete>
+	
+	<select id="findModules" parameterClass="int" resultClass="Module">
+		select * from WebSiteModule where comId = #comId#
+	</select>
+	
+</sqlMap>

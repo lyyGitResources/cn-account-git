@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="image">
+	<typeAlias alias="image" type="com.hisupplier.cn.account.entity.Image"/>
+	<typeAlias alias="miscParams" type="com.hisupplier.cn.account.misc.QueryParams"/>
+	
+	<resultMap id="imageMap" class="java.util.HashMap" >
+		<result property="imgType" column="imgType" javaType="int"/>
+		<result property="count" column="count" javaType="int"/>
+	</resultMap>
+
+	<sql id="findImageListWhere">
+		from Image
+		where state=20 and comId = #loginUser.comId#
+        <isGreaterThan prepend="and" property="imgType" compareValue="-1"> 
+          	imgType = #imgType# 
+		</isGreaterThan>
+		<isEqual prepend="and" property="imgType" compareValue="-1">
+			imgType &lt;&gt; 9 
+		</isEqual>	
+		<isEqual prepend="and" property="queryBy" compareValue="imgName">
+			imgName like Concat('%',#queryText#,'%') 
+		</isEqual>
+	</sql>		
+		
+	<select id="findImageListCount" parameterClass="miscParams" resultClass="int">
+		select count(imgId) <include refid="findImageListWhere"/> 
+	</select>
+			
+	<select id="findImageList" parameterClass="miscParams" resultClass="image">
+		select 
+			imgId,
+			comId,
+			imgName,
+			imgPath,
+			imgSize,
+			imgScale,
+			imgType,
+			state,
+			createTime
+		<include refid="findImageListWhere"/>
+		order by $sortBy$ $sortOrder$
+		limit #startRow#,#pageSize#
+	</select>
+
+	<select id="findImage" parameterClass="miscParams" resultClass="image">
+		select 
+			imgId,
+			comId,
+			imgName,
+			imgPath,
+			imgSize,
+			imgScale,
+			imgType,
+			state,
+			createTime
+		from Image
+		where state=20 and comId = #loginUser.comId# and imgId = #imgId#
+	</select>
+	
+	<select id="findNumByImgType" parameterClass="int" resultMap="imageMap">
+        select 
+        	imgType,
+        	count(*) count
+        from Image 
+        where comId = #value# and state = 20 and imgType &lt;&gt; 9 group by imgType
+    </select>
+    
+    <select id="findNumByUsed" parameterClass="miscParams" resultClass="int">
+        select count(*)
+        from Image, $table$
+        where Image.comId = #loginUser.comId# and Image.imgId=#imgId# 
+        <isNotNull prepend="and" property="field"> 
+		       Image.imgPath= $table$.$field$
+		</isNotNull>
+        <isNull prepend="and" property="field"> 
+		       Image.imgId= $table$.imgId
+		</isNull>
+    </select>
+    
+    <select id="findTableImage" parameterClass="map" resultClass="int">
+        select count(*)
+        from Image, $table$
+        where Image.comId = #loginUser.comId# and Image.imgId=#imgId# and Image.imgId = $table$.imgId
+    </select>
+    
+    <select id="findLicenseCount" parameterClass="int" resultClass="int">
+    	select count(imgId) from Image where comId = #comId# and imgType = 9 and state > 0
+    </select>
+</sqlMap>

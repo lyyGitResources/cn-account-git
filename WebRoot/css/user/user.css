@@ -1,0 +1,325 @@
+@charset "utf-8";
+
+/* 密码忘记取回 */
+.forgetTips {
+	margin: 0 auto;
+	margin-top: 15px;
+	margin-bottom: 10px;
+	color: #07519A;
+	font: 14px Arial;
+	font-weight: bold;
+	border-bottom: 1px dashed #cccccc;
+	text-align: center;
+	padding-bottom: 10px;
+}
+
+.forgetTable {
+	width: 944px;
+	margin: 0 auto;
+	margin-bottom: 10px;
+}
+
+.forgetTable th {
+	text-align: right;
+	font-weight: normal;
+}
+
+.forgetTable td {
+	text-align: left;
+}
+
+/* 注册发布 */
+.submitForm {
+	margin: 0 auto;
+}
+
+.submitFormtop {
+	font-size: 12px;
+	color: #000000;
+	margin: 0 auto;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	text-align: right;
+}
+
+.submitFormtop img {
+	margin-bottom: -2px;
+}
+
+.submitForm table,.submitSucceed table {
+	width: 100%;
+	margin: 0 auto;
+}
+
+.submitSucceed table span {
+	font-size: 26px;
+	font-weight: bold;
+	color: #ff0000;
+	font-family: "黑体";
+}
+
+.submitForm h1 {
+	font-size: 16px;
+	color: #000000;
+	font-weight: bold;
+	background: url(/img/ico/join_tu01.gif) no-repeat;
+	border-bottom: 1px dashed #cccccc;
+	padding-left: 30px;
+	height: 21px;
+	padding-top: 2px;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+	text-align: left;
+}
+
+.submitForm table h2 {
+	font-size: 16px;
+	color: #000000;
+	font-weight: bold;
+	background: url(/img/ico/join_tu02.gif) no-repeat;
+	border-bottom: 1px dashed #cccccc;
+	padding-left: 30px;
+	height: 21px;
+	padding-top: 2px;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+	text-align: left;
+}
+
+.submitForm table h3 {
+	font-size: 16px;
+	color: #000000;
+	font-weight: bold;
+	background: url(/img/ico/join_tu03.gif) no-repeat;
+	border-bottom: 1px dashed #cccccc;
+	padding-left: 30px;
+	height: 21px;
+	padding-top: 2px;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+	text-align: left;
+}
+
+.submitForm table td {
+	vertical-align: top;
+	text-align: left;
+	padding-right: 0px;
+	padding-bottom: 5px;
+}
+
+.submitForm table th {
+	vertical-align: top;
+	text-align: right;
+	font-weight: normal;
+	padding-right: 0px;
+	padding-bottom: 5px;
+	color: #000000;
+}
+
+.submitForm table .bottomHelp {
+	line-height: 25px;
+}
+
+.submitForm table .bottomHelp img {
+	margin-bottom: -3px;
+}
+
+/* 询盘篮 */
+.inquiryBasket {
+	margin: 27px;
+}
+
+.inquiryBasket .tips {
+	border: 1px solid #D0D0D0;
+	background: #F3F8FC;
+	padding: 4px;
+	margin-bottom: 20px;
+}
+
+.inquiryBasket .tips ul {
+	padding: 0px;
+	margin: 0px;
+	background: #ffffff;
+	padding: 19px 26px 19px 26px;
+	list-style-type: none;
+	color: #000000;
+	font-size: 12px;
+	line-height: 20px;
+}
+
+.inquiryBasket .tips ul li {
+	background: url(/img/ico/cart1.jpg) no-repeat 9px 8px;
+	padding-left: 17px;
+	color: #828282;
+}
+
+.red {
+	color: #CC0000;
+	font-weight: bold;
+}
+
+.maroon {
+	color: #CC0041;
+	font-weight: bold;
+}
+
+.xing {
+	color: #ff0000;
+	font-size: 12px;
+}
+
+.inquiryBasket table {
+	margin: 0 auto;
+	width: 98%;
+}
+
+.inquiryBasket table th {
+	border-bottom: 1px solid #BEDCE7;
+	border-left: 1px solid #fff;
+	border-right: 1px solid #93D0E7;
+	line-height: 23px;
+	text-align: center;
+	color: #396285;
+	background: #C6E8F5;
+}
+
+.inquiryBasket table td {
+	text-align: center;
+	color: #505050;
+	line-height: 30px;
+	border-bottom: 1px solid #DEECF5;
+}
+
+.inquiryBasket table td img {
+	margin-bottom: -5px;
+}
+
+.photoList {
+	text-align: left;
+	list-style-type: none;
+	padding: 0 17px 10px 50px;
+	line-height: normal;
+}
+
+.photoList li {
+	float: left;
+	width: 120px;
+	padding: 0px;
+	margin: 0px;
+	margin-bottom: 5px;
+}
+
+.photoList li .box1 {
+	margin-right: 5px;
+	float: left;
+}
+
+.photoList li .box2 {
+	float: left;
+}
+
+.photoList li .box2 span{
+	display:block;
+	width:75px;
+	height:20px;
+	line-height:20px;
+	overflow: hidden;
+
+}
+.photoList li .img75X75 {
+	width: 75px;
+	height: 75px;
+	border: 1px solid #ccc;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	padding: 1px;
+	margin-bottom: 2px;
+}
+
+.photoList li .img75X75 img {
+	vertical-align: middle;
+	max-height: 75px;
+	max-width: 75px;
+	margin-top: expression((   75 -   this .   height)/ 2 );
+	margin:0px;
+}
+
+.model {
+	color: #666;
+}
+
+.photoList .line {
+	width: 100%;
+	overflow: hidden;
+	font-size: 0px;
+	margin: 0;
+	padding: 0;
+}
+
+.inquiryBasket .bottom {
+	margin-top: 10px;
+	padding-left: 20px;
+}
+
+/* 询盘发送 */
+.inquiry {
+	margin: 0 auto;
+	background: url(/img/inquirybg.jpg) no-repeat;
+	padding-top: 97px;
+}
+
+.inquiry .topInformation {
+	margin-left: 20px;
+	margin-bottom: 10px;
+	position:relative;
+}
+
+.inquiry table td img {
+	margin-bottom: -5px;
+}
+
+.fieldset {
+	margin: 0 auto;
+	overflow: hidden;
+	border: 1px solid #DEEDF4;
+	padding: 0px;
+	margin-bottom: 10px;
+}
+
+fieldset {
+	margin: 0 auto;
+	overflow: hidden;
+	border: 1px solid #ffffff;
+	padding: 0px;
+	margin-bottom: 10px;
+}
+
+legend {
+	margin-left: 30px;
+}
+
+/* 商情定阅 */
+.tradeAlertTop {
+	border: 1px solid #9FC1E7;
+	background: url(/img/subscribe_tu01.jpg) no-repeat 15px 7px #E7F3FF;
+	margin: 0 auto;
+	margin-bottom: 30px;
+	margin-top: 10px;
+	padding: 25px 0 25px 100px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #07519A;
+}
+
+.tradeAlertTop2 {
+	border: 1px solid #F8C540;
+	background: url(/img/ico/tip.jpg) no-repeat 15px 7px;
+	margin: 0 auto;
+	margin-bottom: 30px;
+	margin-top: 10px;
+	padding: 25px 0 25px 100px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #000000;
+}

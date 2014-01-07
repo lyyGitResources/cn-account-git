@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>linkage</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link href="../../css/css.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="http://images.jiaming.com/js/lib/jquery.js"></script>
+    <script type="text/javascript" src="../drag/core.js"></script>
+    <script type="text/javascript" src="../drag/events.js"></script>
+    <script type="text/javascript" src="../drag/css.js"></script>
+    <script type="text/javascript" src="../drag/coordinates.js"></script>
+    <script type="text/javascript" src="../drag/drag.js"></script>
+    <script type="text/javascript" src="../drag/dragsort.js"></script>
+    <script type="text/javascript" src="../drag/cookies.js"></script>
+    <script type="text/javascript" src="../drag/drag.extend.js"></script>
+	<script type="text/javascript">
+		var param =	{
+			isList: false,	// 是否列表排序
+			listId: "order",	// 排序列表父标签ID
+			buttonName:"buttons",	// 完成排序和OK按钮名称
+			form:"#testForm",		// 表单
+			newOrderDiv:"#newOrderDiv",
+			numberName:".number", // 序号位置
+			pageNo:0,				// 0表示不分页
+			pageSize:20,			
+			url:null,				// 产品排序使用
+			proId:null,	// 产品排序使用
+			background:"#FFFFFF"	// 原先的背景颜色
+		}
+	</script>
+ </head>
+  
+  <body>
+  	<form action="111" id="testForm">
+  		<a href="#" >aaa</a>
+  		<div style="position: absolute; z-index:999;left:80px;top: 100px;" id="newOrderDiv">
+			<input size="2"><input type="button" name="buttons" value="ok" />
+		</div>
+
+  		<div class="productOrderList">
+			<ul id="order">
+				<li itemid="1">
+					<div class="img75">
+						<img src="http://img.hisupplier.com/var/userImages/old/guiyou/guiyou$102012182.jpg" width="75" height="75" />
+					</div>
+					<div class="number">序号：1</div>
+					<span> PVC dog leash <br /> L-182(2.0X110cm) </span>
+				</li>
+				<li itemid="2">
+					<div class="img75">
+						<img src="http://img.hisupplier.com/var/userImages/old/guiyou/guiyou$102012182.jpg" width="75" height="75" />
+					</div>
+					<div class="number">序号：2</div>
+					<span> PVC dog leash <br /> L-182(2.0X110cm) </span>
+				</li>
+				<li itemid="3">
+					<div class="img75">
+						<img src="http://img.hisupplier.com/var/userImages/old/guiyou/guiyou$102012182.jpg" width="75" height="75" />
+					</div>
+					<div class="number">序号：3</div>
+					<span> PVC dog leash <br /> L-182(2.0X110cm) </span>
+				</li>
+				<li itemid="4">
+					<div class="img75">
+						<img src="http://img.hisupplier.com/var/userImages/old/guiyou/guiyou$102012182.jpg" width="75" height="75" />
+					</div>
+					<div class="number">序号：4</div>
+					<span> PVC dog leash PVC  <br /> L-182(2.0X110cm) </span>
+				</li>
+				<li itemid="5">
+					<div class="img75">
+						<img src="http://img.hisupplier.com/var/userImages/old/guiyou/guiyou$102012182.jpg" width="75" height="75" />
+					</div>
+					<div class="number">序号：5</div>
+					<span> PVC dog leash <br /> L-182(2.0X110cm) </span>
+				</li>
+				<li itemid="6">
+					<div class="img75">
+						<img src="http://img.hisupplier.com/var/userImages/old/guiyou/guiyou$102012182.jpg" width="75" height="75" />
+					</div>
+					<div class="number">序号：6</div>
+					<span> PVC dog leash <br /> L-182(2.0X110cm) </span>
+				</li>
+				<li itemid="7">
+					<div class="img75">
+						<img src="http://img.hisupplier.com/var/userImages/old/guiyou/guiyou$102012182.jpg" width="75" height="75" />
+					</div>
+					<div class="number">序号：7</div>
+					<span> PVC dog leash <br /> L-182(2.0X110cm) </span>
+				</li>
+				<li itemid="8">
+					<div class="img75">
+						<img src="http://img.hisupplier.com/var/userImages/old/guiyou/guiyou$102012182.jpg" width="75" height="75" />
+					</div>
+					<div class="number">序号：8</div>
+					<span> PVC dog leash <br /> L-182(2.0X110cm) </span>
+				</li>
+			</ul>
+		</div>
+		<div class="button">
+			<input name="buttons" type="button" value="完成排序" disabled style="float:left;" onclick="alert(1)"/>
+		</div>
+
+		<input type="button" name="buttonOther" value="button3"/>
+  	</form>
+  </body>
+</html>

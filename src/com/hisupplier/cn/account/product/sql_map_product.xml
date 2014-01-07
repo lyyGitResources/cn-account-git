@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="product">
+	<typeAlias alias="product" type="com.hisupplier.cn.account.entity.Product"/>
+	<typeAlias alias="productParams" type="com.hisupplier.cn.account.product.QueryParams"/>
+	
+	<sql id="findProductListWhere">
+		from Product
+		where comId = #loginUser.comId#
+ 	 	<isEqual prepend="and" property="loginUser.admin" compareValue="false">
+ 	 		userId = #loginUser.userId# 
+ 	 	</isEqual>		
+		<isNotNull prepend="and" property="proId">
+			proId in 
+			<iterate property="proId" open="(" close=")" conjunction=",">
+	        	#proId[]#
+	      	</iterate> 
+		</isNotNull>
+		<isNull prepend="and" property="groupIds">
+			<isGreaterThan property="groupId" compareValue="-1">
+	   			groupId = #groupId#
+	   		</isGreaterThan>
+   		</isNull>
+   		<isNotEmpty prepend="and" property="groupIds">
+			groupId in 
+			<iterate property="groupIds" open="(" close=")" conjunction=",">
+	        	#groupIds[]#
+	      	</iterate> 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="queryText">
+			(proName like '%$queryText$%' or model like '%$queryText$%' or keywords like '%$queryText$%')
+		</isNotEmpty>
+		<isGreaterThan prepend="and" property="userId" compareValue="0">
+   			userId = #userId#
+   		</isGreaterThan>
+   		<isGreaterThan prepend="and" property="optimize" compareValue="-1"> 
+          	<isEqual property="optimize" compareValue="1">
+				length(keywords) > 0
+			</isEqual>
+			<isEqual property="optimize" compareValue="2">
+				length(keywords) = 0
+			</isEqual>
+		</isGreaterThan>
+		<isGreaterThan prepend="and" property="feature" compareValue="-1"> 
+          	<isEqual property="feature" compareValue="0">
+				featureOrder = 0
+			</isEqual>
+			<isGreaterThan property="feature" compareValue="0">
+				featureOrder > 0
+			</isGreaterThan>
+		</isGreaterThan> 
+		
+		<isGreaterEqual prepend="and" property="state" compareValue="0">
+			state = #state#
+		</isGreaterEqual>
+		<isEqual prepend="and" property="state" compareValue="-1">
+			state in (10,14,15,20)
+		</isEqual>
+		<isEqual prepend="and" property="state" compareValue="-2">
+			state in (14,15,20)
+		</isEqual>
+		<isEqual prepend="and"  property="groupId" compareValue="0">
+			<isNotEmpty property="videoId">
+				videoId = #videoId# 
+			</isNotEmpty>
+		</isEqual>
+	</sql>
+		
+	<select id="findProductListCount" parameterClass="productParams" resultClass="int">
+		select count(proId) <include refid="findProductListWhere"/> 
+	</select>
+
+	<select id="findProductList" parameterClass="productParams" resultClass="product">
+		select 
+			proId,
+			comId,
+			userId,
+			proName,
+			model,
+			keywords,
+			imgId,
+			imgPath,
+			viewCount,
+			state,
+			modifyTime,
+			createTime,
+			featureOrder,
+			groupId,
+			featureGroupId,
+			isShowNewIco as showNewIco,
+			likeRecordCount
+		<include refid="findProductListWhere"/> 
+		order by $sortBy$ $sortOrder$
+ 		limit #startRow#,#pageSize#
+	</select>
+	
+	<select id="findProductIdList" parameterClass="map" resultClass="int">
+		select proId
+		from Product
+		where comId = #comId#
+		<isNotNull prepend="and" property="groupId">
+			groupId in ($groupId$)
+		</isNotNull>
+		<isGreaterThan prepend="and" property="state" compareValue="-1">
+			state = #state#
+		</isGreaterThan>
+		<isEqual prepend="and" property="state" compareValue="-1">
+			state in (10,14,15,20)
+		</isEqual>
+		order by $sortBy$
+	</select>
+	
+	<select id="findProductKeywordList" parameterClass="map" resultClass="string">
+		select keywords
+		from Product
+		where comId = #comId# and state in (10, 14, 15, 20) and length(keywords) > 0 and proId != #proId#
+	</select>
+	
+	<select id="findProduct" parameterClass="map" resultClass="product">
+		select 
+			Product.proId,
+			Product.comId,
+			Product.userId,
+			Product.catId,
+			Product.proName,
+			Product.brief,
+			Product.groupId,
+			Product.groupIdBak,
+			Product.groupOrder,
+			Product.listOrder,
+			Product.imgId,
+			Product.imgPath,
+			Product.videoId,
+			Product.model,
+			Product.province,
+			Product.city,
+			Product.town,
+			Product.place,
+			Product.keywords,
+			Product.featureOrder,
+			Product.featureGroupId,
+			Product.viewCount,
+			Product.commentCount,
+			Product.price1,
+			Product.price2,
+			Product.paymentType,
+			Product.minOrderNum,
+			Product.minOrderUnit,
+			Product.productivity,
+			Product.packing,
+			Product.transportation,
+			Product.deliveryDate,
+			Product.filePath,
+			Product.imgPaths,
+			Product.state,
+			Product.createTime,
+			Product.modifyTime,
+			Product.updateTime,
+			ProductExtra.description,
+			ProductExtra.tags
+		from Product left join ProductExtra on Product.proId = ProductExtra.proId
+		where Product.state in (5,10,14,15,20) and Product.comId = #comId# and Product.proId = #proId#
+	</select>
+	
+	
+	<select id="findMinGroupOrder" parameterClass="map" resultClass="int">
+		select groupOrder
+		from Product
+		where comId = #comId# and groupId in ($groupIds$)
+		order by groupOrder asc
+		limit 1
+	</select>
+	
+	<select id="findMinListOrder" parameterClass="int" resultClass="int">
+		select listOrder
+		from Product
+		where comId = #comId#
+		order by listOrder asc
+		limit 1
+	</select>
+	
+	<select id="findMaxFeatureOrder" parameterClass="int" resultClass="int">
+		select featureOrder
+		from Product
+		where comId = #comId# and featureOrder > 0
+		order by featureOrder desc
+		limit 1
+	</select>
+	
+	<select id="findCatIdList" parameterClass="map" resultClass="int">
+		select catId from Product 
+		where comId = #comId# and catId > 0
+		group by catId 
+		order by createTime desc
+		limit #count#
+	</select>
+
+	<select id="findTagList" parameterClass="int" resultClass="com.hisupplier.commons.entity.cn.Tag" >
+		select 
+			Tag.tagId,
+			Tag.tagName,
+			TagValue.valueId as tagValueId,
+			TagValue.valueName as tagValueName,
+			TagValue.unit as unit
+		from TagValue left join Tag on TagValue.tagId = Tag.tagId
+		where TagValue.catId = #catId#
+	</select>
+	
+	<insert id="addProduct" parameterClass="product">
+		insert into Product(
+			comId,
+			userId,
+			catId,
+			proName,
+			brief,
+			groupId,
+			groupIdBak,
+			groupOrder,
+			listOrder,
+			imgId,
+			imgPath,
+			videoId,
+			model,
+			province,
+			city,
+			town,
+			place,
+			keywords,
+			featureOrder,
+			featureGroupId,
+			viewCount,
+			commentCount,
+			price1,
+			price2,
+			paymentType,
+			minOrderNum,
+			minOrderUnit,
+			productivity,
+			packing,
+			transportation,
+			deliveryDate,
+			filePath,
+			imgPaths,
+			state,
+			createTime,
+			modifyTime,
+			updateTime
+		)values(
+			#comId#,
+			#userId#,
+			#catId#,
+			#proName#,
+			#brief#,
+			#groupId#,
+			#groupIdBak#,
+			#groupOrder#,
+			#listOrder#,
+			#imgId#,
+			#imgPath#,
+			#videoId#,
+			#model#,
+			#province#,
+			#city#,
+			#town#,
+			#place#,
+			#keywords#,
+			#featureOrder#,
+			#featureGroupId#,
+			#viewCount#,
+			#commentCount#,
+			#price1#,
+			#price2#,
+			#paymentType#,
+			#minOrderNum#,
+			#minOrderUnit#,
+			#productivity#,
+			#packing#,
+			#transportation#,
+			#deliveryDate#,
+			#filePath#,
+			#imgPaths#,
+			#state#,
+			#createTime#,
+			#modifyTime#,
+			#updateTime#
+		)
+		<selectKey resultClass="int" keyProperty="proId">
+			select last_insert_id() as ID
+		</selectKey>
+	</insert>
+	
+	<insert id="addProductExtra" parameterClass="product">
+		insert into ProductExtra (proId,comId,description,tags)
+		values (#proId#,#comId#,#description#,#tags#)
+		<selectKey resultClass="int" keyProperty="proId">
+			select last_insert_id() as ID
+		</selectKey>
+	</insert>
+	
+	<update id="updateProduct" parameterClass="product">
+		update Product set 
+			catId = #catId#,
+			proName = #proName#,
+			brief = #brief#,
+			groupId = #groupId#,
+			groupOrder = #groupOrder#,
+			imgId = #imgId#,
+			imgPath = #imgPath#,
+			videoId = #videoId#,
+			model = #model#,
+			province = #province#,
+			city = #city#,
+			town = #town#,
+			place = #place#,
+			keywords = #keywords#,
+			price1 = #price1#,
+			price2 = #price2#,
+			paymentType = #paymentType#,
+			minOrderNum = #minOrderNum#,
+			minOrderUnit = #minOrderUnit#,
+			productivity = #productivity#,
+			packing = #packing#,
+			transportation = #transportation#,
+			deliveryDate = #deliveryDate#,
+			filePath = #filePath#,
+			imgPaths = #imgPaths#,
+			state = #state#,
+			modifyTime = #modifyTime#,
+			updateTime = #updateTime#
+		where proId = #proId# and comId = #comId#
+	</update>
+</sqlMap>

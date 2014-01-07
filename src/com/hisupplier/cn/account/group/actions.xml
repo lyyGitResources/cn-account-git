@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="group" namespace="/group" extends="default">
+		<action name="group_list" class="groupAction" method="group_list">
+			<result>/page/group/group_list.jsp</result>
+			<result name="ajaxSuccess">/page/group/group_list_inc.jsp</result>
+		</action>
+		
+		<action name="group_add" class="groupAction" method="group_add">
+			<result>/page/group/group_form.jsp</result>
+		</action>
+		
+		<action name="group_edit" class="groupAction" method="group_edit">
+			<result>/page/group/group_form.jsp</result>
+		</action>
+		
+		<action name="group_add_submit" class="groupFormAction" method="group_add_submit">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="includeProperties">msg,tip</param>
+			</result>
+		</action>
+		
+		<action name="group_edit_submit" class="groupFormAction" method="group_edit_submit">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="includeProperties">msg,tip</param>
+			</result>
+		</action>
+		
+		<action name="group_delete" class="groupAction" method="group_delete">
+			<result type="redirect">group_list.htm</result>
+		</action>
+		
+		<action name="group_order" class="groupAction" method="group_order">
+			<result>/page/group/group_order.jsp</result>
+		</action>
+		
+		<action name="group_order_submit" class="groupAction" method="group_order_submit">
+			<result type="redirect">group_order.htm?parentId=${parentId}</result>
+		</action>
+		
+		<action name="product_delete" class="groupAction" method="product_delete">
+			<result type="redirect" name="group_product_list">group_product_list.htm?groupId=${groupId}&amp;queryText=${queryText}&amp;userId=${userIdTmp}&amp;state=${state}</result>
+			<result type="redirect" name="no_group_product_list">no_group_product_list.htm?groupId=0&amp;queryText=${queryText}&amp;userId=${userIdTmp}&amp;state=${state}</result>
+		</action>
+		
+		<action name="group_product_list" class="groupAction" method="group_product_list">
+			<result>/page/group/group_product_list.jsp</result>
+			<result name="ajaxSuccess">/page/product/product_list_inc.jsp</result>
+		</action>
+		
+		<action name="no_group_product_list" class="groupAction" method="no_group_product_list">
+			<result>/page/group/group_product_list.jsp</result>
+			<result name="ajaxSuccess">/page/product/product_list_inc.jsp</result>
+		</action>
+		
+		<action name="change_product_group" class="groupAction" method="change_product_group">
+			<result type="redirect">group_product_list.htm?groupId=${groupId}&amp;pageNo=${pageNo}</result>
+		</action>
+		
+		<action name="remove_from_product_group" class="groupAction" method="remove_from_product_group">
+			<result type="redirect">group_product_list.htm?groupId=${groupId}&amp;pageNo=${pageNo}</result>
+		</action>
+		<action name="select_product_group" class="groupAction" method="select_product_group">
+			<result type="redirect">no_group_product_list.htm?groupId=0&amp;pageNo=${pageNo}</result>
+		</action>
+
+		<action name="select_group_list" class="groupAction" method="select_group_list">
+			<result>/page/group/group_list_inc.jsp</result>
+		</action>
+		
+		<action name="trade_delete" class="groupAction" method="trade_delete">
+			<result type="redirect" name="group_trade_list">group_trade_list.htm?groupId=${groupId}&amp;queryText=${queryText}&amp;userId=${userIdTmp}&amp;state=${state}</result>
+			<result type="redirect" name="no_group_trade_list">no_group_trade_list.htm?groupId=0&amp;queryText=${queryText}&amp;userId=${userIdTmp}&amp;state=${state}</result>
+		</action>
+		
+		<action name="group_trade_list" class="groupAction" method="group_trade_list">
+			<result>/page/group/group_trade_list.jsp</result>
+			<result name="ajaxSuccess">/page/product/trade_list_inc.jsp</result>
+		</action>
+		
+		<action name="no_group_trade_list" class="groupAction" method="no_group_trade_list">
+			<result>/page/group/group_trade_list.jsp</result>
+			<result name="ajaxSuccess">/page/product/trade_list_inc.jsp</result>
+		</action>
+		
+		<action name="change_trade_group" class="groupAction" method="change_trade_group">
+			<result type="redirect">group_trade_list.htm?groupId=${groupId}&amp;pageNo=${pageNo}</result>
+		</action>
+		
+		<action name="remove_from_trade_group" class="groupAction" method="remove_from_trade_group">
+			<result type="redirect">group_trade_list.htm?groupId=${groupId}&amp;pageNo=${pageNo}</result>
+		</action>
+
+		<action name="select_trade_group" class="groupAction" method="select_trade_group">
+			<result type="redirect">no_group_trade_list.htm?groupId=0&amp;pageNo=${pageNo}</result>
+		</action>
+		
+		<action name="update_group_ico" class="groupAction" method="update_group_ico">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="includeProperties">msg,tip</param>
+			</result>
+		</action>
+	</package>
+
+	<package name="specialGroup" namespace="/specialGroup" extends="default">
+		<action name="group_list" class="specialGroupAction" method="group_list">
+			<result>/page/group/special_group_list.jsp</result>
+			<result name="ajaxSuccess">/page/group/special_group_list_inc.jsp</result>
+		</action>
+		
+		<action name="select_group_list" class="specialGroupAction" method="select_group_list">
+			<result>/page/group/special_group_list_inc2.jsp</result>
+			<result name="product_success">/page/product/inc/special_group_list.jsp</result>
+		</action>
+	
+		<action name="group_add" class="specialGroupAction" method="group_add">
+			<result>/page/group/special_group_form.jsp</result>
+		</action>
+		
+		<action name="group_edit" class="specialGroupAction" method="group_edit">
+			<result>/page/group/special_group_form.jsp</result>
+		</action>
+		
+		<action name="group_delete" class="specialGroupAction" method="group_delete">
+			<result type="redirect">group_list.htm</result>
+		</action>
+		
+		<action name="group_add_submit" class="specialGroupFormAction" method="group_add_submit">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="includeProperties">msg,tip</param>
+			</result>
+		</action>
+		
+		<action name="group_edit_submit" class="specialGroupFormAction" method="group_edit_submit">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="includeProperties">msg,tip</param>
+			</result>
+		</action>
+		
+		<action name="no_group_product_list" class="specialGroupAction" method="no_group_product_list">
+			<result>/page/group/special_group_product_list.jsp</result>
+			<result name="ajaxSuccess">/page/product/product_list_inc.jsp</result>
+		</action>
+		
+		<action name="select_product_group" class="specialGroupAction" method="select_product_group">
+			<result type="redirect">no_group_product_list.htm?groupId=0&amp;pageNo=${pageNo}</result>
+		</action>
+
+		<action name="group_product_list" class="specialGroupAction" method="group_product_list">
+			<result>/page/group/special_group_product_list.jsp</result>
+			<result name="ajaxSuccess">/page/product/product_list_inc.jsp</result>
+		</action>
+		
+		<action name="remove_from_product_group" class="specialGroupAction" method="remove_from_product_group">
+			<result type="redirect">group_product_list.htm?groupId=${groupId}&amp;pageNo=${pageNo}</result>
+		</action>
+		
+		<action name="select_other_product_group" class="specialGroupAction" method="select_other_product_group">
+			<result type="redirect">group_product_list.htm?groupId=${groupId}&amp;pageNo=${pageNo}</result>
+		</action>
+		
+		<action name="group_order_submit" class="specialGroupAction" method="group_order_submit">
+			<result type="redirect">/specialGroup/group_list.htm</result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="ad" namespace="/ad" extends="default">
+	
+		<!--会员升级-->
+		<action name="upgrade" class="adAction" method="upgrade">
+			<result>/page/ad/upgrade.jsp</result>
+		</action>
+		
+		<action name="upgrade_submit" class="upgradeAction" method="upgrade_submit">
+			<interceptor-ref name="resubmitValidateStack" />
+			<result>/page/ad/upgrade_success.jsp</result>
+		</action>
+		
+		<!--广告服务-->
+		<action name="ad_order_list" class="adAction" method="ad_order_list">
+			<result>/page/ad/ad_order_list.jsp</result>
+		</action>
+		
+		<action name="ad_order" class="adAction" method="ad_order">
+			<result>/page/ad/ad_order.jsp</result>
+		</action>
+		
+		<action name="ad_order_submit" class="adOrderAction" method="ad_order_submit">
+			<interceptor-ref name="resubmitValidateStack" />
+			<result type="redirectAction">ad_order_list</result>
+		</action>
+		
+		<!--Topsite服务-->
+		<action name="top_list" class="adAction" method="top_list">
+			<result>/page/ad/top_list.jsp</result>
+		</action>
+		
+		<action name="top_edit" class="adAction" method="top_edit">
+			<result>/page/ad/top_edit.jsp</result>
+		</action>
+		
+		<action name="top_edit_submit" class="topAction" method="top_edit_submit">
+			<interceptor-ref name="resubmitValidateStack" />
+			<result type="redirectAction">top_list</result>
+		</action>
+		
+		<!--Topsite订购-->
+		<action name="top_order_list" class="adAction" method="top_order_list">
+			<result>/page/ad/top_order_list.jsp</result>
+		</action>
+		
+		<action name="top_order" class="adAction" method="top_order">
+			<result>/page/ad/top_order.jsp</result>
+		</action>
+		
+		<action name="top_order_submit" class="topOrderAction" method="top_order_submit">
+			<interceptor-ref name="resubmitValidateStack" />
+			<result type="redirectAction">top_order_list</result>
+		</action>
+				
+	</package>
+</struts>

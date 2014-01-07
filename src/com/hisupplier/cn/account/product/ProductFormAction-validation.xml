@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+	"http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="proName">
+		<field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+			<message key="product.proName.required"></message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">120</param>
+			<param name="trim">true</param>
+			<message key="product.proName.required"></message>
+		</field-validator>
+	</field>
+	<field name="keyword1">
+		<field-validator type="stringlength">
+			<param name="maxLength">60</param>
+			<param name="trim">true</param>
+			<message key="product.keywords.required"></message>
+		</field-validator>
+	</field>
+	<field name="keyword2">
+		<field-validator type="stringlength">
+			<param name="maxLength">60</param>
+			<param name="trim">true</param>
+			<message key="product.keywords.required"></message>
+		</field-validator>
+	</field>
+	<field name="keyword3">
+		<field-validator type="stringlength">
+			<param name="maxLength">60</param>
+			<param name="trim">true</param>
+			<message key="product.keywords.required"></message>
+		</field-validator>
+	</field>
+	<field name="model">
+		<field-validator type="stringlength">
+			<param name="maxLength">50</param>
+			<param name="trim">true</param>
+			<message key="product.model.maxlength"></message>
+		</field-validator>
+	</field>
+	<field name="catId">
+		<field-validator type="int">
+			<param name="min">1</param>
+			<message key="product.catName.required"></message>
+		</field-validator>
+	</field>
+						
+	<field name="brief">
+		<field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+			<message key="product.brief.required"></message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">300</param>
+			<param name="trim">true</param>
+			<message key="product.brief.required"></message>
+		</field-validator>
+	</field>
+	<field name="description">
+		<field-validator type="stringlength">
+			<param name="maxLength">20000</param>
+			<param name="trim">true</param>
+			<message key="product.description.maxlength"></message>
+		</field-validator>
+	</field>
+	
+	<field name="price1">
+		<field-validator type="regex">
+			<param name="expression"><![CDATA[(\d{1,8}(\.\d{1,2})?)]]></param>
+			<message key="product.price.number"></message>
+		</field-validator>
+	</field>
+	<field name="price2">					
+		<field-validator type="regex">
+			<param name="expression"><![CDATA[(\d{1,8}(\.\d{1,2})?)]]></param>
+			<message key="product.price.number"></message>
+		</field-validator>
+	</field>
+	<field name="minOrderNum">					
+		<field-validator type="int">
+			<param name="max">999999999</param>
+			<message key="product.minOrderNum.int"></message>
+		</field-validator>
+	</field>
+	<field name="paymentType">
+		<field-validator type="stringlength">
+			<param name="maxLength">50</param>
+			<param name="trim">true</param>
+			<message key="product.paymentType.maxlength"></message>
+		</field-validator>
+	</field>
+	<field name="transportation">
+		<field-validator type="stringlength">
+			<param name="maxLength">100</param>
+			<param name="trim">true</param>
+			<message key="product.transportation.maxlength"></message>
+		</field-validator>
+	</field>
+	<field name="productivity">
+		<field-validator type="stringlength">
+			<param name="maxLength">50</param>
+			<param name="trim">true</param>
+			<message key="product.productivity.maxlength"></message>
+		</field-validator>
+	</field>
+	<field name="packing">
+		<field-validator type="stringlength">
+			<param name="maxLength">80</param>
+			<param name="trim">true</param>
+			<message key="product.packing.maxlength"></message>
+		</field-validator>
+	</field>
+	<field name="deliveryDate">
+		<field-validator type="stringlength">
+			<param name="maxLength">50</param>
+			<param name="trim">true</param>
+			<message key="product.deliveryDate.maxlength"></message>
+		</field-validator>
+	</field>
+</validators>

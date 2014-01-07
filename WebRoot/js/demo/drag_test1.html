@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>linkage</title>
+	<style type="text/css">
+	ul.sortable li {
+	position:relative;
+	}
+	ul.boxy {
+	font-family:Arial,sans-serif;
+	font-size:13px;
+	list-style-type:none;
+	margin:0;
+	padding:0;
+	width:10em;
+	}
+	ul.boxy li {
+	background-color:#EEEEEE;
+	border:1px solid #CCCCCC;
+	cursor:move;
+	height:22px;
+	}
+	.clickable a {
+	cursor:pointer;
+	display:block;
+	text-decoration:none;
+	}
+	.clickable li:hover {
+	background-color:#F6F6F6;
+	}
+	</style>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="http://images.jiaming.com/js/lib/jquery.js"></script>
+    <script type="text/javascript" src="../drag/core.js"></script>
+    <script type="text/javascript" src="../drag/events.js"></script>
+    <script type="text/javascript" src="../drag/css.js"></script>
+    <script type="text/javascript" src="../drag/coordinates.js"></script>
+    <script type="text/javascript" src="../drag/drag.js"></script>
+    <script type="text/javascript" src="../drag/dragsort.js"></script>
+    <script type="text/javascript" src="../drag/cookies.js"></script>
+    <script type="text/javascript" src="../drag/drag.extend.js"></script>
+	<script type="text/javascript">
+		var param =	{
+			isList:true,
+			listId: "phoneticlong",	// 排序列表父标签ID
+			buttonName:"buttons",	// 完成排序和OK按钮名称
+			form:"#testForm",		// 表单
+			newOrderDiv:"#newOrderDiv",
+			numberName:"[name='number']", // 序号位置
+			pageNo:0,				// 0表示不分页
+			pageSize:20,			
+			url:null,				// 产品排序使用
+			proId:"[name='proId']",	// 产品排序使用
+			background:"#EEEEEE"	
+		}
+	</script>
+  </head>
+  
+  <body>
+  	<form action="111" id="testForm">
+  		<a href="#" >aaa</a>
+  		<div style="position: absolute; z-index:999;left:10px;top: 26px;" id="newOrderDiv">
+			<input size="2"/><input type="button" name="buttons" value="ok" />
+		</div>
+
+  		<ul id="phoneticlong" class="boxy">
+  			<!-- itemid：drag插件用到，从1开始 -->
+			<li itemid="1">
+			<!-- 排序序号，需要一直更新，从1，21或其他开始 -->
+			<input name="proId" value="1" size="2" style="display:none;">
+			<div name="number" style="float:left;padding-left:10px;"></div><div style="float:left;padding-left:70px;">alpha</div>
+			</li>
+			<li itemid="2">
+			<input name="proId" value="2" size="2" style="display:none;">
+			<div name="number" style="float:left;padding-left:10px;"></div><div style="float:left;padding-left:70px;">charlie</div>
+			</li>
+			<li itemid="3">
+			<input name="proId" value="3" size="2" style="display:none;">
+			<div name="number" style="float:left;padding-left:10px;"></div><div style="float:left;padding-left:70px;">delta</div>
+			</li>
+			<li itemid="4">
+			<input name="proId" value="4" size="2" style="display:none;">
+			<div name="number" style="float:left;padding-left:10px;"></div><div style="float:left;padding-left:70px;">echo</div>
+			</li>
+			<li itemid="5">
+			<input name="proId" value="5" size="2" style="display:none;">
+			<div name="number" style="float:left;padding-left:10px;"></div><div style="float:left;padding-left:70px;">foxtrot</div>
+			</li>
+			<li itemid="6">
+			<input name="proId" value="6" size="2" style="display:none;">
+			<div name="number" style="float:left;padding-left:10px;"></div><div style="float:left;padding-left:70px;">golf</div>
+			</li>
+			<li itemid="7">
+			<input name="proId" value="7" size="2" style="display:none;">
+			<div name="number" style="float:left;padding-left:10px;"></div><div style="float:left;padding-left:70px;">hotel</div>
+			</li>
+			<li itemid="8">
+			<input name="proId" value="8" size="2" style="display:none;">
+			<div name="number" style="float:left;padding-left:10px;"></div><div style="float:left;padding-left:70px;">india</div>
+			</li>
+		</ul>
+		<p><input type="button" name="buttons" value="完成排序" disabled/><input type="button" name="buttons" value="完成排序" disabled/></p>
+		<input type="button" name="buttonOther" value="button3"/>
+  	</form>
+  </body>
+</html>

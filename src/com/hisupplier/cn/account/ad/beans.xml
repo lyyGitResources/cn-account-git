@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+		http://www.springframework.org/schema/jee 
+		http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
+
+	<tx:advice id="adTxAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="check*" read-only="true" />
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="update*" read-only="false" />
+			<tx:method name="delete*" read-only="false" />
+			<tx:method name="add*" read-only="false" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="adServiceMethod" expression="execution(* com.hisupplier.cn.account.ad.AdService.*(..))" />
+		<aop:advisor advice-ref="adTxAdvice" pointcut-ref="adServiceMethod" />
+	</aop:config>
+	
+	<bean id="adService" class="com.hisupplier.cn.account.ad.AdService">
+		<property name="userDAO" ref="userDAO" />
+		<property name="companyDAO" ref="companyDAO" />
+		<property name="adDAO" ref="adDAO" />
+	</bean>
+
+	
+	<bean id="adAction" class="com.hisupplier.cn.account.ad.AdAction" scope="prototype">
+		<property name="adService" ref="adService" />
+	</bean>
+	
+	<bean id="upgradeAction" class="com.hisupplier.cn.account.ad.UpgradeAction" scope="prototype">
+		<property name="adService" ref="adService" />
+	</bean>
+
+	<bean id="adOrderAction" class="com.hisupplier.cn.account.ad.AdOrderAction" scope="prototype">
+		<property name="adService" ref="adService" />
+	</bean>
+	
+	<bean id="topAction" class="com.hisupplier.cn.account.ad.TopAction" scope="prototype">
+		<property name="adService" ref="adService" />
+	</bean>
+	
+	<bean id="topOrderAction" class="com.hisupplier.cn.account.ad.TopOrderAction" scope="prototype">
+		<property name="adService" ref="adService" />
+	</bean>
+		
+</beans>

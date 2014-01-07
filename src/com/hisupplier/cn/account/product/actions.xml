@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="product" namespace="/product" extends="default">
+		<action name="product_list" class="productAction" method="product_list">
+			<result>/page/product/product_list.jsp</result>
+			<result name="ajaxSuccess">/page/product/product_list_inc.jsp</result>
+		</action>
+		<action name="product_repost" class="productAction" method="product_repost">
+			<result type="redirect">product_list.htm?state=${state}&amp;optimize=${optimize}&amp;queryText=${queryText}&amp;userId=${userIdTmp}&amp;pageNo=${pageNo}&amp;pageSize=${pageSize}</result>
+		</action>
+		<action name="product_repost_all" class="productAction" method="product_repost_all">
+			<result type="redirect">product_list.htm?state=${state}&amp;optimize=${optimize}&amp;queryText=${queryText}&amp;userId=${userIdTmp}&amp;pageNo=${pageNo}&amp;pageSize=${pageSize}</result>
+		</action>
+		<action name="product_change_user" class="productAction" method="product_change_user">
+			<result type="redirect">product_list.htm?state=${state}&amp;optimize=${optimize}&amp;queryText=${queryText}&amp;userId=${userIdTmp}&amp;pageNo=${pageNo}&amp;pageSize=${pageSize}</result>
+		</action>
+		<action name="product_delete" class="productAction" method="product_delete">
+			<!-- 跳转到第一页，杜绝删除最后一页只有一个时，返回页面没数据的情况  -->
+			<result type="redirect">product_list.htm?state=${state}&amp;optimize=${optimize}&amp;queryText=${queryText}&amp;userId=${userIdTmp}</result>
+		</action>
+		<action name="product_add" class="productAction" method="product_add">
+			<result>/page/product/product_form.jsp</result>
+		</action>
+		<action name="product_batch_add" class="productAction" method="product_batch_add">
+			<result>/page/product/product_batch_upload.jsp</result>
+		</action>
+		<action name="product_success" class="productAction" method="product_success">
+			<result>/page/product/product_success.jsp</result>
+		</action>
+
+		<action name="product_edit" class="productAction" method="product_edit">
+			<result>/page/product/product_form.jsp</result>
+		</action>
+		<action name="product_detail" class="productAction" method="product_detail">
+			<result name="select">/page/product/product_detail.jsp</result>
+		</action>
+		<action name="similar_category" class="productAction" method="similar_category">
+			<result>/page/product/inc/similar_category.jsp</result>
+		</action>
+		<action name="product_tags" class="productAction" method="product_tags">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="excludeProperties">msg,tip,model</param>
+			</result>
+		</action>
+		<action name="check_product_keyword" class="productAction" method="check_product_keyword">
+			<result type="json">
+				<param name="root">action</param>
+			</result>
+		</action>
+		<action name="product_add_submit" class="productFormAction" method="product_add_submit">
+			<result name="input">/page/product/product_form.jsp</result>
+			<result name="success" type="redirect">product_success.htm?proId=${proId}&amp;resultType=0</result>
+		</action>
+		<action name="product_edit_submit" class="productFormAction" method="product_edit_submit">
+			<result name="input">/page/product/product_form.jsp</result>
+			<result name="oldSuccess" type="redirect">product_list.htm</result>
+			<result name="productSuccess" type="redirect">product_success.htm?proId=${proId}&amp;resultType=1</result>
+		</action>
+		<action name="downloadExcel" class="exportExcelAction" method="downloadExcel">
+			<result name="input">/page/product/product_batch_upload.jsp</result>
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="inputName">targetFile</param>
+				<param name="contentDisposition">filename="${fileName}"</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+		<action name="batch_add_submit" class="exportExcelAction" method="product_batch_add_submit">
+			<result>/page/product/product_batch_upload_result.jsp</result>
+		</action>
+		
+		<action name="select_group_list" class="groupAction" method="select_group_list">
+			<result>/page/group/group_list_inc.jsp</result>
+		</action>
+		<action name="select_special_group_list" class="specialGroupAction" method="select_group_list">
+			<result>/page/group/special_group_list_inc2.jsp</result>
+			<result name="product_success">/page/product/inc/special_group_list.jsp</result>
+		</action>
+		
+		<action name="product_recycle_list" class="productAction" method="product_recycle_list">
+			<result>/page/product/product_recycle_list.jsp</result>
+			<result name="ajaxSuccess">/page/product/product_list_inc.jsp</result>
+		</action>
+		<action name="product_recycle_delete" class="productAction" method="product_recycle_delete">
+			<result type="redirect">product_recycle_list.htm?queryText=${queryText}</result>
+		</action>
+		<action name="product_recycle_empty" class="productAction" method="product_recycle_empty">
+			<result type="redirect">product_recycle_list.htm</result>
+		</action>
+
+		<action name="feature_product_list" class="productAction" method="feature_product_list">
+			<result>/page/product/feature_product_list.jsp</result>
+		</action>
+		<action name="no_feature_product_list" class="productAction" method="no_feature_product_list">
+			<result>/page/product/no_feature_product_list.jsp</result>
+			<result name="ajaxSuccess">/page/product/no_feature_product_list_inc.jsp</result>
+		</action>
+		<action name="feature_product_add" class="productAction" method="feature_product_add">
+			<result type="redirect">feature_product_list.htm</result>
+		</action>
+		<action name="feature_product_remove" class="productAction" method="feature_product_remove">
+			<result type="redirect">feature_product_list.htm</result>
+		</action>
+		<action name="feature_product_set" class="productAction" method="feature_product_set">
+			<result type="redirect">feature_product_list.htm</result>
+		</action>
+		<action name="feature_product_order" class="productAction" method="feature_product_order">
+			<result type="redirectAction">feature_product_list</result>
+		</action>
+		
+		<action name="product_order" class="productAction" method="product_order">
+			<result>/page/product/product_order.jsp</result>
+			<result name="ajaxSuccess">/page/product/product_order_inc.jsp</result>
+		</action>
+		<action name="product_single_order_submit" class="productAction" method="product_single_order_submit">
+			<result type="redirect">product_order.htm?groupId=${groupId}&amp;pageNo=${pageNo}&amp;pageSize=${pageSize}</result>
+		</action>
+		<action name="product_order_submit" class="productAction" method="product_order_submit">
+			<result type="redirect">product_order.htm?groupId=${groupId}&amp;pageNo=${pageNo}&amp;pageSize=${pageSize}</result>
+		</action>	
+		
+		<action name="update_product_ico" class="productAction" method="update_product_ico">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="includeProperties">msg,tip</param>
+			</result>
+		</action>
+	</package>
+	
+	
+	<package name="newproduct" namespace="/newproduct" extends="default">
+		<action name="new_product_list" class="newProductAction" method="new_product_list">
+			<result>/page/product/new_product_list.jsp</result>
+			<result name="ajaxSuccess">/page/product/new_product_list_inc.jsp</result>
+		</action>
+		<action name="new_product_add" class="newProductAction" method="new_product_add">
+			<result>/page/product/new_product_form.jsp</result>
+		</action>
+		<action name="new_product_add_submit" class="newProductFormAction" method="new_product_add_submit">
+			<result type="redirectAction">new_product_list</result>
+			<result name="input">/page/product/new_product_form.jsp</result>
+		</action>
+		<action name="new_product_edit" class="newProductAction" method="new_product_edit">
+			<result>/page/product/new_product_form.jsp</result>
+		</action>
+		<action name="new_product_edit_submit" class="newProductFormAction" method="new_product_edit_submit">
+			<result type="redirectAction">new_product_list</result>
+			<result name="input">/page/product/new_product_form.jsp</result>
+		</action>
+		<action name="new_product_detail" class="newProductAction" method="new_product_detail">
+			<result name="select">/page/product/new_product_detail.jsp</result>
+		</action>
+		<action name="new_product_delete" class="newProductAction" method="new_product_delete">
+			<result type="redirect">new_product_list.htm?state=${state}&amp;queryText=${queryText}</result>
+		</action>
+		<action name="new_product_set" class="newProductAction" method="new_product_set">
+			<result>/page/product/new_product_set_form.jsp</result>
+		</action>
+		<action name="new_product_set_submit" class="newProductAction" method="new_product_set_submit">
+			<result type="redirectAction">new_product_set</result>
+		</action>
+	</package>
+	
+	
+	<package name="trade" namespace="/trade" extends="default">
+		<action name="trade_list" class="tradeAction" method="trade_list">
+			<result>/page/product/trade_list.jsp</result>
+			<result name="ajaxSuccess">/page/product/trade_list_inc.jsp</result>
+		</action>
+		
+		<action name="trade_repost" class="tradeAction" method="trade_repost">
+			<result type="redirect">trade_list.htm?state=${state}&amp;proType=${proType}&amp;queryText=${queryText}&amp;userId=${userIdTmp}&amp;pageNo=${pageNo}&amp;pageSize=${pageSize}</result>
+		</action>
+		
+		<action name="trade_repostAll" class="tradeAction" method="trade_repostAll">
+			<result type="redirect">trade_list.htm?state=${state}&amp;proType=${proType}&amp;queryText=${queryText}&amp;userId=${userIdTmp}&amp;pageNo=${pageNo}&amp;pageSize=${pageSize}</result>
+		</action>
+		
+		<action name="trade_change_user" class="tradeAction" method="trade_change_user">
+			<result type="redirect">trade_list.htm?state=${state}&amp;proType=${proType}&amp;queryText=${queryText}&amp;userId=${userIdTmp}&amp;pageNo=${pageNo}&amp;pageSize=${pageSize}</result>
+		</action>
+		
+		<action name="trade_delete" class="tradeAction" method="trade_delete">
+			<result type="redirect">trade_list.htm?state=${state}&amp;proType=${proType}&amp;queryText=${queryText}&amp;userId=${userIdTmp}</result>
+		</action>
+		
+		<action name="trade_success" class="tradeAction" method="trade_success">
+			<result>/page/product/trade_success.jsp</result>
+		</action>
+		
+		<action name="trade_add" class="tradeAction" method="trade_add">
+			<result>/page/product/trade_form.jsp</result>
+		</action>
+		
+		<action name="trade_edit" class="tradeAction" method="trade_edit">
+			<result>/page/product/trade_form.jsp</result>
+		</action>
+		<action name="trade_detail" class="tradeAction" method="trade_detail">
+			<result name="select">/page/product/trade_detail.jsp</result>
+		</action>
+		
+		<action name="trade_add_submit" class="tradeFormAction" method="trade_add_submit">
+<!-- 			<interceptor-ref name="resubmitValidateStack" /> -->
+			<result name="input">/page/product/trade_form.jsp</result>
+			<result name="success" type="redirect">trade_success.htm?proId=${proId}&amp;resultType=0</result>
+		</action>
+		
+		<action name="trade_edit_submit" class="tradeFormAction" method="trade_edit_submit">
+<!-- 			<interceptor-ref name="resubmitValidateStack" /> -->
+			<result name="input">/page/product/trade_form.jsp</result>
+			<result name="oldSuccess" type="redirect">trade_list.htm</result>
+			<result name="tradeSuccess" type="redirect">trade_success.htm?proId=${proId}&amp;resultType=1</result>
+		</action>
+		
+		<action name="trade_recycle_list" class="tradeAction" method="trade_recycle_list">
+			<result>/page/product/trade_recycle_list.jsp</result>
+			<result name="ajaxSuccess">/page/product/trade_list_inc.jsp</result>
+		</action>
+		
+		<action name="trade_recycle_delete" class="tradeAction" method="trade_recycle_delete">
+			<result type="redirect">/trade/trade_recycle_list.htm</result>
+		</action>
+		
+		<action name="trade_recycle_empty" class="tradeAction" method="trade_recycle_empty">
+			<result type="redirect">/trade/trade_recycle_list.htm</result>
+		</action>
+		
+	</package>
+	
+	<!-- 赞功能 -->
+	<package name="likeRecord" namespace="/likeRecord" extends="default">
+		<default-class-ref class="likeRecordAction" />
+		<action name="login" method="login">
+			<result name="redirect" type="redirect">${msg}</result>
+		</action>
+		<action name="likeRecord_*" method="likeRecord_{1}">
+			<result name="json" type="json" >
+				<param name="root">action</param>
+				<param name="noCache">true</param>
+			    <param name="callbackParameter">callback</param>
+			</result>
+			<result name="redirect" type="redirect">${msg}</result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,5 @@
+.success {background-image: url(/img/cgico.png); background-repeat: no-repeat; padding-top: 12px; padding-left: 60px; margin: 80px auto; width: 420px;}
+.success h2 {font-size: 22px;}
+.success p {font-size: 14px; margin: 16px 0;}
+.success ul {list-style: none; line-height: 40px; height: 40px; margin-top: 40px;}
+.success li {float: left; margin-right: 24px;}

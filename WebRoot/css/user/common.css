@@ -1,0 +1,601 @@
+@charset "utf-8";
+
+/* 主站全局样式 */
+body,div,dl,dt,dd,ul,ol,li,p,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,button,input,img,blockquote,th,td
+	{
+	margin: 0;
+	padding: 0;
+	word-wrap: break-word;
+	word-break: break-all;
+	word-break /* */: normal;
+}
+textarea{
+	margin: 0;
+	padding: 0;
+}
+
+img {
+	border: 0px;
+}
+
+body {
+	font-size: 12px;
+	margin: 0;
+	background: url(/img/topNavBg.gif) repeat-x;
+}
+
+a:link {
+	color: #0559A2;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #0559A2;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #ff6600;
+	text-decoration: underline;
+}
+
+a:active {
+	color: #0559A2;
+	text-decoration: none;
+}
+
+select {
+	font-size: 13px;
+	color: #666666;
+}
+
+/* Firefox */
+.submit2 {
+	font-weight: bold;
+	border: none;
+	background: url(/img/go.gif);
+	color: #073779;
+	font-size: 14px;
+	width: 69px;
+	height: 22px;
+}
+
+/* IE7 fix */
+*+html .submit2 {
+	padding-top: 3px;
+}
+
+/* IE6 fix */
+* html .submit2 {
+	padding-top: 3px;
+}
+
+input {
+	font-size: 12px;
+	color: #666666;
+}
+
+.button {
+	font-weight: bold;
+	border: 1px solid #999999;
+	background: url(/img/button.gif);
+	color: #333333;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	text-decoration: none;
+	text-align: center;
+	vertical-align: baseline;
+}
+
+label.error {
+	padding: 3px;
+	float: left;
+	text-align: left;
+	line-height: 18px;
+	background: url(/img/ico/join_error.gif) no-repeat 2px 3px;
+	margin: 0px;
+	padding-left: 30px;
+	color: #fe0000;
+}
+
+label.success {
+	padding: 3px;
+	width: 100px;
+	float: left;
+	text-align: left;
+	line-height: 18px;
+	background: url(/img/ico/join_ok.gif) no-repeat 2px 3px;
+	margin: 0px;
+	padding-left: 30px;
+	color: #5A8F00;
+}
+
+/* 主站页头 */
+.header {
+	width: 970px;
+	margin: 0 auto;
+	overflow: hidden;
+	margin-bottom: 10px;
+	font-family: "宋体";
+	font-size: 12px;
+}
+
+.topTips {
+	width: 970px;
+	margin: 0 auto;
+	height: 26px;
+	line-height: 26px;
+	font-family: "宋体";
+	font-size: 12px;
+}
+
+.topTips a:link,.topTips a:visited {
+	color: #666666;
+	text-decoration: none;
+	padding: 0 5px 0 5px;
+}
+
+.topTips a:hover {
+	color: #666666;
+	text-decoration: underline;
+	padding: 0 5px 0 5px;
+}
+
+.topTips .left {
+	float: left;
+	width: 30%;
+	color: #666666;
+	margin-left: 0px;
+}
+
+.topTips .right {
+	float: right;
+	text-align: right;
+	width: 60%;
+	color: #666;
+	margin-right: 0px;
+}
+
+.topTips .right img {
+	margin: 0 0px 2px 0px;
+}
+
+.topToolBar {
+	width: 970px;
+	margin: 0 auto;
+}
+
+.topLogo {
+	float: left;
+	width: 215px;
+	height: 77px;
+}
+
+.topKeyword {
+	float: right;
+	line-height: 15px;
+	text-align: right;
+	color: #000000;
+	padding-top: 10px;
+	width: 750px;
+}
+
+.topKeywordHiLogo {
+	float: left;
+	width: 87px;
+	height: 13px;
+	font-family: "宋体";
+	font-size: 12px;
+}
+
+.topKeyword .h1 {
+	float: right;
+	font-size: 12px;
+	color: #000000;
+	font-weight: normal;
+	width: 500px;
+	margin: 0px;
+}
+
+/* Firefox */
+.topNav {
+	float: right;
+	font-size: 14px;
+	width: 806px;
+	margin-right: 37px;
+	margin-bottom: 9px;
+}
+
+/* IE7 fix */
+*+html .topNav {
+	margin-right: 37px;
+}
+
+/* IE6 fix */
+* html .topNav {
+	margin-right: 0px;
+	margin-bottom: 0;
+}
+
+.topNav ul {
+	font-size: 14px;
+	margin: 0;
+	list-style-type: none;
+	list-style-image: none;
+	height: 20px;
+	float: right;
+}
+
+.topNav li {
+	font-size: 14px;
+	float: left;
+	background: url() left top no-repeat;
+	width: 106px;
+	height: 20px;
+	font: bold;
+}
+
+.topNav li a {
+	font-size: 14px;
+	padding: 9px 0 0 0;
+	text-align: center;
+	width: auto;
+	height: 20px;
+	display: block;
+	font: bold 14px;
+	text-decoration: none;
+	background: url(/img/menubgb.jpg) right top no-repeat;
+	font: bold
+}
+
+.topNav li a:link {
+	font-size: 14px;
+	color: #0658A1;
+	font: bold
+}
+
+.topNav li a:visited {
+	font-size: 14px;
+	color: #0658A1;
+	font: bold
+}
+
+.topNav li a:hover {
+	font-size: 14px;
+	font-weight: bold;
+	text-decoration: none;
+	padding: 9px 0 0 0;
+	height: 20px;
+	color: #FFFFFF;
+	background: url(/img/menubga.jpg) right top no-repeat;
+	overflow: hidden;
+	font: bold
+}
+
+.topNav li a:active {
+	font-size: 14px;
+	color: #ffffff;
+	font: bold
+}
+
+.topNav .current a:link {
+	font-size: 14px;
+	height: 20px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #FFFFFF;
+	background: url(/img/menubga.jpg) right top no-repeat;
+	font: bold
+}
+
+.topNav .current a:visited {
+	font-size: 14px;
+	height: 20px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #FFFFFF;
+	background: url(/img/menubga.jpg) right top no-repeat;
+	font: bold
+}
+
+.topNav .current a:hover {
+	font-size: 14px;
+	height: 20px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #FFFFFF;
+	background: url(/img/menubga.jpg) right top no-repeat;
+	font: bold
+}
+
+.topNav .current a:active {
+	font-size: 14px;
+	height: 20px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #0658A1;
+	font: bold
+}
+
+.topNav li.right2 a {
+	font-size: 14px;
+	height: 20px;
+	background: url(/img/menubg1.jpg) left top no-repeat;
+	font: bold;
+	width: 143px
+}
+
+.topNav li.right2 a:hover {
+	font-size: 14px;
+	height: 20px;
+	background: url(/img/menubg2.jpg) left top no-repeat;
+	font: bold 14px;
+}
+
+.topNav li.current2 a {
+	font-size: 14px;
+	width: 144px;
+	height: 20px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #FFFFFF !important;
+	background: url(/img/menubg2.jpg) right top no-repeat;
+	font: bold
+}
+
+.topSearchBar {
+	height: 88px;
+	float: none;
+	clear: both;
+	background: url(/img/searchbg.jpg) repeat-x;
+}
+
+.topSearchBarLeft {
+	float: left;
+	background: url(/img/searchleft.jpg) no-repeat;
+	width: 15px;
+	height: 88px;
+}
+
+.topSearchBarRight {
+	float: left;
+	background: url(/img/searchright.jpg) no-repeat;
+	width: 6px;
+	height: 88px;
+}
+
+.topSearchBarCenter {
+	width: 949px;
+	float: left;
+	height: 25px;
+}
+
+.topSearchBar .h1 {
+	clear: both;
+	color: #FFFFFF;
+	font-size: 12px;
+	margin-left: 0px;
+	margin-top: 5px;
+	margin-bottom: 3px;
+	font-weight: normal;
+	height: 21px;
+	padding-left: 30px;
+}
+
+.topSearchBar .h1 img {
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+.topSearchBar .h1 a:link,.topSearchBar .h1 a:visited {
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+
+.topSearchBar .h1 a:hover {
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+
+/* 主站头部搜索 */
+.searchTable {
+	width: 900px;
+	margin: 0 auto;
+	overflow: hidden;
+	margin-bottom: 3px;
+}
+
+.searchTable table {
+	width: 100%;
+}
+
+.searchTable table td {
+	vertical-align: middle;
+	height: 27px;
+	text-align: left;
+}
+
+.searchTable table th {
+	text-align: right;
+	font-size: 12px;
+	color: #FF6800;
+	margin-top: 3px;
+	margin-right: 10px;
+	font-weight: normal;
+}
+
+.searchTable table th a:link,.searchTable table th a:visited {
+	color: #676767;
+	text-decoration: none;
+	padding-right: 8px;
+}
+
+.searchTable table th a:hover {
+	color: #FF6600;
+	text-decoration: underline;
+	padding-right: 8px;
+}
+
+/* 主站页面主体 */
+.page {
+	width: 970px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.page .navbar {
+	height: 17px;
+	font-size: 12px;
+	color: #323232;
+	margin: 0;
+	font-family: Arial;
+	font-weight: normal;
+	padding-left: 18px;
+	padding-bottom: 10px;
+	border-bottom: 3px solid #EAF1F9;
+}
+
+.page .navbar a:link,.page .navbar a:visited {
+	color: #0559A2;
+}
+
+.page .navbar a:hover {
+	color: #ff6600;
+	text-decoration: underline;
+}
+
+.page .navbar h1 {
+	font-size: 12px;
+	font-weight:normal;
+	display: inline;
+}
+
+.page .pageMain {
+	width: 934px;
+	border: 1px solid #9EC1E7;
+	overflow: hidden;
+	padding: 20px 17px 0 17px;
+}
+
+/* 操作提示说明 */
+.operateTips {
+	background: #FEFFED;
+	border: 1px solid #FEE595;
+	margin: 10px 0px 10px 0px;
+	text-align: left;
+	font: bold 14px/ 20px Arial;
+	padding: 10px;
+	color: #333;
+	width: 652px;
+	clear: both;
+}
+
+.operateTips ul {
+	paddiing: 0px;
+	margin: 0px;
+	list-style-type: none;
+	font: 12px Verdana;
+	line-height: 25px;
+}
+
+.operateTips li {
+	background: url(/img/ico/pageTips.jpg) no-repeat 0px 11px;
+	padding-left: 15px;
+}
+
+.operateSuccess {
+	background: #FEFFED url(/img/ico/suc.gif) no-repeat 9px 9px;
+	padding: 20px 10px 15px 70px;
+}
+
+.operateFail {
+	background: #FEFFED url(/img/ico/error.gif) no-repeat 9px 9px;
+	padding: 20px 10px 15px 70px;
+}
+
+/* 主站页尾 */
+.footer {
+	width: 100%;
+	border-top: 1px #4ea9fc solid;
+	font-size: 12px;
+	color: #666;
+	overflow: visible;
+	visibility: visible;
+	clear: both;
+	margin: 0 auto;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-top: 10px;
+}
+
+.footer a:link {
+	color: #666666;
+	text-decoration: none;
+}
+
+.footer a:visited {
+	color: #666666;
+	text-decoration: none;
+}
+
+.footer a:hover {
+	color: #666666;
+	text-decoration: underline;
+}
+
+.footer a:active {
+	color: #666666;
+	text-decoration: none;
+}
+
+/*搜索建议下拉div*/
+.searchSuggest {
+	position: absolute;
+	display: none;
+	overflow: hidden;
+	border: 1px solid #7B9CBC;
+	background: #FFF;
+	margin-top: -2px;
+	z-index: 3000;
+}
+
+.searchSuggest ul {
+	list-style: none;
+	margin: 0;
+}
+
+.searchSuggest li {
+	cursor: pointer;
+	height: 20px;
+	line-height: 20px;
+	background: #fff;
+	overflow: hidden;
+	padding: 0 3px;
+	border: 0;
+	margin: 0;
+	clear: both;
+}
+
+.searchSuggest li span.word {
+	float: left;
+	color: #000000;
+}
+
+.searchSuggest li span.num {
+	float: right;
+	color: #29A600;
+}
+
+.searchSuggest li.select {
+	background-color: #0000CC;
+}
+
+.searchSuggest li.select span.word {
+	color: #FFFFFF;
+}
+
+.searchSuggest li.close {
+	text-align: right;
+	color: #0000CC;
+}

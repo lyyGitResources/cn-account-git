@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="alert" namespace="/alert" extends="default">
+ 		<action name="trade_alert_list" class="tradeAlertAction" method="trade_alert_list">
+ 			<result>/page/alert/trade_alert_list.jsp</result>
+ 		</action>
+ 		
+ 		<action name="trade_alert_edit" class="tradeAlertAction" method="trade_alert_edit">
+ 			<result>/page/alert/trade_alert_form.jsp</result>
+ 		</action>
+ 		
+ 		<action name="trade_alert_delete" class="tradeAlertAction" method="trade_alert_delete">
+ 			<result type="redirectAction">trade_alert_list</result>
+ 		</action>
+ 		
+ 		<action name="trade_alert_add" class="tradeAlertAction" method="trade_alert_add">
+ 			<result>/page/alert/trade_alert_form.jsp</result>
+ 		</action>
+ 		
+ 		<action name="trade_alert_add_submit" method="trade_alert_add_submit" class="tradeAlertFormAction">
+ 			<interceptor-ref name="resubmitValidateStack" />
+ 			<result name="input">/page/alert/trade_alert_form.jsp</result>
+ 			<result type="redirectAction">trade_alert_list</result>
+ 		</action>
+ 		
+ 		<action name="trade_alert_edit_submit" method="trade_alert_edit_submit" class="tradeAlertFormAction">
+ 			<interceptor-ref name="resubmitValidateStack" />
+ 			<result name="input">/page/alert/trade_alert_form.jsp</result>
+ 			<result type="redirectAction">trade_alert_list</result>
+ 		</action>
+ 		
+ 		<action name="trade_alert_enable" method="trade_alert_enable" class="tradeAlertAction">
+ 			<result type="redirectAction">trade_alert_list</result>
+ 		</action> 		 		
+	</package>
+</struts>

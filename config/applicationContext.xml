@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+		http://www.springframework.org/schema/jee 
+		http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
+
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:app.properties" />
+	</bean>
+	
+	<import resource="applicationContext_db.xml"/>
+
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocations">
+			<list>
+			<value>classpath:sql_map_config.xml</value>
+			<value>classpath:sql_map_config_extend.xml</value>
+			</list>
+		</property>
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="DAO" abstract="true" class="com.hisupplier.cn.account.dao.DAO">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+	<bean id="userLogDAO" parent="DAO" class="com.hisupplier.cn.account.basic.UserLogDAO" />
+	<bean id="companyDAO" parent="DAO" class="com.hisupplier.cn.account.member.CompanyDAO" />
+	<bean id="voteDAO" parent="DAO" class="com.hisupplier.cn.account.misc.VoteDAO" />
+	<bean id="userDAO" parent="DAO" class="com.hisupplier.cn.account.member.UserDAO" />
+	<bean id="serviceDAO" parent="DAO" class="com.hisupplier.cn.account.basic.ServiceDAO" />
+	<bean id="inquiryDAO" parent="DAO" class="com.hisupplier.cn.account.inquiry.InquiryDAO" />
+	<bean id="userSuggestDAO" parent="DAO" class="com.hisupplier.cn.account.basic.UserSuggestDAO" />
+	<bean id="imageDAO" parent="DAO" class="com.hisupplier.cn.account.misc.ImageDAO" />
+	<bean id="commentDAO" parent="DAO" class="com.hisupplier.cn.account.misc.CommentDAO" />
+	<bean id="adminLogDAO" parent="DAO" class="com.hisupplier.cn.account.basic.AdminLogDAO" />
+	<bean id="websiteDAO" parent="DAO" class="com.hisupplier.cn.account.website.WebsiteDAO" />
+	<bean id="videoDAO" parent="DAO" class="com.hisupplier.cn.account.misc.VideoDAO" />
+	<bean id="tradeAlertDAO" parent="DAO" class="com.hisupplier.cn.account.alert.TradeAlertDAO" />
+	<bean id="groupDAO" parent="DAO" class="com.hisupplier.cn.account.group.GroupDAO" />
+	<bean id="specialGroupDAO" parent="DAO" class="com.hisupplier.cn.account.group.SpecialGroupDAO" />
+	<bean id="menuDAO" parent="DAO" class="com.hisupplier.cn.account.menu.MenuDAO" />
+	<bean id="productDAO" parent="DAO" class="com.hisupplier.cn.account.product.ProductDAO" />
+	<bean id="newProductDAO" parent="DAO" class="com.hisupplier.cn.account.product.NewProductDAO" />
+	<bean id="tradeDAO" parent="DAO" class="com.hisupplier.cn.account.product.TradeDAO" />
+	<bean id="adDAO" parent="DAO" class="com.hisupplier.cn.account.ad.AdDAO" />
+	<bean id="b2BDAO" parent="DAO" class="com.hisupplier.cn.account.user.B2BDAO" />
+	<bean id="websiteModuleDAO" parent="DAO" class="com.hisupplier.cn.account.website.WebsiteModuleDAO" />
+	<bean id="webSiteModuleTitleDAO" parent="DAO" class="com.hisupplier.cn.account.website.WebSiteModuleTitleDAO"/>
+	<bean id="messageDAO" parent="DAO" class="com.hisupplier.cn.account.message.MessageDAO" />
+	<bean id="bulletinDAO" parent="DAO" class="com.hisupplier.cn.account.basic.BulletinDAO"/>
+	<bean id="likeRecordDAO" parent="DAO" class="com.hisupplier.cn.account.product.LikeRecordDAO" />
+	<bean id="talkDAO" parent="DAO" class="com.hisupplier.cn.account.member.TalkDAO" />
+	<bean id="patentDeblockedDAO" parent="DAO" class="com.hisupplier.cn.account.patent.PatentDeblockedDAO" />
+	
+	<bean id="serviceLocator" class="com.hisupplier.commons.spring2.ServiceLocator" scope="singleton" />
+	
+	<import resource="com/hisupplier/cn/account/website/beans.xml" />
+	<import resource="com/hisupplier/cn/account/member/beans.xml" />
+	<import resource="com/hisupplier/cn/account/basic/client-beans.xml" />
+	<import resource="com/hisupplier/cn/account/basic/beans.xml" />
+	<import resource="com/hisupplier/cn/account/misc/beans.xml" />
+	<import resource="com/hisupplier/cn/account/alert/beans.xml" />
+	<import resource="com/hisupplier/cn/account/group/beans.xml" />
+	<import resource="com/hisupplier/cn/account/inquiry/beans.xml" />
+	<import resource="com/hisupplier/cn/account/product/beans.xml" />
+	<import resource="com/hisupplier/cn/account/menu/beans.xml" />
+	<import resource="com/hisupplier/cn/account/ad/beans.xml" />
+	<import resource="com/hisupplier/cn/account/user/beans.xml" />
+	<import resource="com/hisupplier/cn/account/plugin/beans.xml" />
+	<import resource="com/hisupplier/cn/account/webservice/beans.xml" />
+	<import resource="com/hisupplier/cn/account/message/beans.xml" />
+	<import resource="com/hisupplier/cn/account/patent/beans.xml" />
+</beans>

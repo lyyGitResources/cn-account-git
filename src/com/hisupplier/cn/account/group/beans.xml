@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+		http://www.springframework.org/schema/jee 
+		http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
+
+	<tx:advice id="groupTxAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="check*" read-only="true" />
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="update*" read-only="false" />
+			<tx:method name="delete*" read-only="false" />
+			<tx:method name="add*" read-only="false" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="groupServiceMethod" expression="execution(* com.hisupplier.cn.account.group.*Service.*(..))" />
+		<aop:advisor advice-ref="groupTxAdvice" pointcut-ref="groupServiceMethod" />
+	</aop:config>
+
+	<bean id="groupService" class="com.hisupplier.cn.account.group.GroupService">
+		<property name="groupDAO" ref="groupDAO" />
+		<property name="companyDAO" ref="companyDAO" />
+		<property name="productDAO" ref="productDAO" />
+		<property name="tradeDAO" ref="tradeDAO" />
+		<property name="userDAO" ref="userDAO" />
+	</bean>
+	
+	<bean id="specialGroupService" class="com.hisupplier.cn.account.group.SpecialGroupService">
+		<property name="specialGroupDAO" ref="specialGroupDAO" />
+		<property name="tradeDAO" ref="tradeDAO" />
+	</bean>
+
+	<bean id="groupAction" class="com.hisupplier.cn.account.group.GroupAction" scope="prototype">
+		<property name="groupService" ref="groupService" />
+		<property name="productService" ref="productService" />
+		<property name="tradeService" ref="tradeService" />
+	</bean>
+	
+	<bean id="groupFormAction" class="com.hisupplier.cn.account.group.GroupFormAction" scope="prototype">
+		<property name="groupService" ref="groupService" />
+	</bean>
+	
+	<bean id="specialGroupAction" class="com.hisupplier.cn.account.group.SpecialGroupAction" scope="prototype">
+		<property name="specialGroupService" ref="specialGroupService" />
+	</bean>
+	
+	<bean id="specialGroupFormAction" class="com.hisupplier.cn.account.group.SpecialGroupFormAction" scope="prototype">
+		<property name="specialGroupService" ref="specialGroupService" />
+	</bean>
+
+</beans>

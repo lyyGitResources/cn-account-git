@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="message" namespace="/message" extends="default">
+		<action name="addAccount" class="messageAction" method="addAccount">
+			<result>/page/message/message_form.jsp</result>
+		</action>
+		<action name="form" class="messageAction" method="form">
+			<result name="noAccount">/page/message/message_agreement.jsp</result>
+			<result>/page/message/message_form.jsp</result>
+		</action>
+		<action name="send" class="messageAction" method="send">
+			<result name="input">/page/message/message_form.jsp</result>
+			<result type="redirect">/message/form.htm</result>
+		</action>
+		<action name="ajaxPhoneBook" class="messageAction" method="ajaxPhoneBook">
+			<result>/page/message/ajaxPhoneBook.jsp</result>
+		</action>
+		<action name="ajaxTemplate" class="messageAction" method="ajaxTemplate">
+			<result>/page/message/ajaxTemplate.jsp</result>
+		</action>
+		<action name="messageLog" class="messageLogAction" method="list">
+			<result>/page/message/message_log.jsp</result>
+			<result name="ajaxSuccess">/page/message/message_log_inc.jsp</result>
+		</action>
+		<action name="message_delete" class="messageLogAction" method="delete">
+			<!-- 跳转到第一页，杜绝删除最后一页只有一个时，返回页面没数据的情况  -->
+			<result type="redirect">messageLog.htm?type=${type}&amp;keyword=${keyword}&amp;resultType=${resultType}&amp;pageNo=${pageNo}</result>
+		</action>
+		<action name="repeatMessageLog" class="messageLogAction" method="repeat">
+			<result name="input">/page/message/message_log.jsp</result>
+			<result type="redirect">messageLog.htm?type=${type}&amp;resultType=${resultType}&amp;keyword=${keyword}&amp;pageNo=${pageNo}</result>
+		</action>
+		<action name="phoneBook" class="phonebookAction" method="list">
+			<result>/page/message/phone_book.jsp</result>
+		</action>
+		<action name="deleteContact" class="phonebookAction" method="deleteContact">
+			<result type="redirect">phoneBook.htm?type=${type}&amp;groupId=${groupId}&amp;keyword=${keyword}&amp;pageNo=${pageNo}</result>
+		</action>
+		<action name="batchDeleteContact" class="phonebookAction" method="batchDeleteContact">
+			<result type="redirect">/message/phoneBook.htm?type=${type}&amp;groupId=${groupId}&amp;keyword=${keyword}&amp;pageNo=${pageNo}</result>
+		</action>
+		<action name="updateContact" class="phonebookAction" method="updateContact">
+			<result name="input">/page/message/phone_book.jsp</result>
+			<result type="redirect">phoneBook.htm?pageNo=${pageNo}</result>
+		</action>
+		<action name="addContact" class="phonebookAction" method="addContact">
+			<result name="input">/page/message/phone_book.jsp</result>
+			<result type="redirect">phoneBook.htm</result>
+		</action>
+		<action name="addContactGroup" class="phonebookAction" method="addContactGroup">
+			<result name="input">/page/message/phone_book.jsp</result>
+			<result type="redirect">phoneBook.htm</result>
+		</action>
+		<action name="deleteContactGroup" class="phonebookAction" method="deleteContactGroup">
+			<result name="input">/page/message/phone_book.jsp</result>
+			<result type="redirect">phoneBook.htm</result>
+		</action>
+		<action name="updateContactGroup" class="phonebookAction" method="updateContactGroup">
+			<result name="input">/page/message/phone_book.jsp</result>
+			<result type="redirect">phoneBook.htm</result>
+		</action>
+		<action name="import_submit" class="importAction" method="import_submit">
+			<result name="success" type="stream">
+				<param name="contentType">application/x-download</param>
+	            <param name="inputName">targetFile</param>
+	            <param name="contentDisposition">attachment;filename="${fileName}"</param>
+	            <param name="bufferSize">4096</param>
+        	</result>			
+		</action>
+		<action name="read_file" class="exportAction" method="read_file">
+			<result name="success">/page/message/export1.jsp</result>
+			<result name="txtSuccess">export.do?tip=${tip}</result>
+			<result name="input">/page/message/export.jsp</result>
+		</action>
+		<action name="export" class="exportAction" method="export">
+			<result>/page/message/export.jsp</result>
+		</action>
+		<action name="export_submit" class="exportAction" method="export_submit">
+			<result>export.do?tip=${tip}</result>
+			<result name="input">/page/message/export1.jsp</result>
+		</action>
+		<action name="template" class="templateAction" method="list">
+			<result name="input">/page/message/message_template.jsp</result>
+			<result>/page/message/message_template.jsp</result>
+		</action>
+		<action name="addTemplate" class="templateAction" method="add">
+			<result name="input">/page/message/message_template.jsp</result>
+			<result type="redirect">template.htm?type=10</result>
+		</action>
+		
+		<action name="deleteTemplate" class="templateAction" method="delete">
+			<result name="input">/page/message/message_template.jsp</result>
+			<result type="redirect">template.htm?type=${type}&amp;pageNo=${pageNo}</result>
+		</action>
+		
+		<action name="updateTemplate" class="templateAction" method="update">
+			<result name="input">/page/message/message_template.jsp</result>
+			<result type="redirect">template.htm?type=${type}&amp;pageNo=${pageNo}</result>
+		</action>
+		<action name="chargeLog" class="chargeAction" method="chargeLog">
+			<result>/page/message/charge_log.jsp</result>
+		</action>
+		<action name="charge" class="chargeAction" method="charge">
+			<result>/page/message/charge.jsp</result>
+		</action>	
+	</package>
+</struts>

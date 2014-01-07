@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="menu">
+ 	<typeAlias alias="menu" type="com.hisupplier.cn.account.entity.Menu"/>
+ 	<typeAlias alias="menuGroup" type="com.hisupplier.cn.account.entity.Group"/>
+	<typeAlias alias="menuParams" type="com.hisupplier.cn.account.menu.QueryParams"/>
+	
+	<resultMap class="menuGroup" id="group">
+		<result property="groupId" column="groupId"/>
+		<result property="groupName" column="groupName"/>
+		<result property="comId" column="comId"/>
+		<result property="fix" column="isFix"/>
+		<result property="show" column="isShow"/>
+		<result property="fold" column="isFold"/>
+		<result property="showDate" column="isShowDate"/>		
+		<result property="menuCount" column="menuCount"/>
+		<result property="listStyle" column="listStyle"/>
+		<result property="listOrder" column="listOrder"/>
+		<result property="menuRejectCount" column="menuRejectCount"/>		
+		<result property="state" column="state"/>
+		<result property="createTime" column="createTime"/>
+		<result property="modifyTime" column="modifyTime"/>
+	</resultMap>
+	
+	
+	
+	<select id="findMenuGroupList" parameterClass="menuParams" resultMap="group">
+		select
+			groupId,
+			groupName,
+			comId,
+			isFix,
+			isShow,
+			isFold,
+			isShowDate,
+			listStyle,
+			listOrder,
+			menuCount,
+			menuRejectCount,
+			state,
+			createTime,
+			modifyTime
+		from MenuGroup 
+		where comId = #loginUser.comId#
+ 		and state in (10,14,15,20)
+		order by $sortBy$ $sortOrder$ , modifyTime desc
+	</select>
+	
+	<select id="findGroup" parameterClass="map" resultMap="group">
+		select 
+			groupId,
+			groupName,
+			comId,
+			isFix,
+			isShow,
+			isFold,
+			isShowDate,
+			listStyle,
+			listOrder,
+			menuCount,
+			menuRejectCount,
+			state,
+			createTime,
+			modifyTime
+		from MenuGroup where comId = #comId# and groupId = #groupId#
+	</select>
+	
+	<select id="findMenuGroupCountByGroupName" parameterClass="map" resultClass="int">
+		<![CDATA[select count(*) from MenuGroup where comId=#comId# and groupId<>#groupId# and groupName=#groupName# and state in(14,15,20)]]>
+	</select>
+	
+	<insert id="addMenuGroup" parameterClass="menu">
+		insert into MenuGroup(groupName,comId,isFix,isFold,isShowDate,listStyle,listOrder,state,createTime,modifyTime)
+		select #groupName#,#comId#,#fix#,#fold#,#showDate#,#listStyle#,#listOrder#,#state#,#createTime#,#modifyTime#
+		from MenuGroup where not exists(select groupId from MenuGroup where groupName = #groupName# and comId = #comId# and state in (14,15,20)) limit 1
+		<selectKey resultClass="int">
+			SELECT ROW_COUNT();
+		</selectKey>
+	</insert>
+	
+	<sql id="findMenuListWhere">
+		from Menu where comId = #loginUser.comId#
+		<isNotEqual prepend="and" property="groupId" compareValue="0">
+			groupId = #groupId#
+		</isNotEqual>
+		<isGreaterEqual prepend="and" property="state" compareValue="0">
+			state = #state#
+		</isGreaterEqual>
+		<isNotEqual prepend="and" property="videoId" compareValue="0">
+			videoId=#videoId#
+		</isNotEqual>
+		<isEqual prepend="and" property="state" compareValue="-1">
+			state in (10,14,15,20)
+		</isEqual>
+		
+	</sql>
+	
+	<select id="findMenuListCount" parameterClass="menuParams" resultClass="int">
+		select count(menuId) <include refid="findMenuListWhere"/>
+	</select>
+ 
+	<select id="findMenuList" parameterClass="menuParams" resultClass="menu">
+		select 
+			menuId,
+			comId,
+			groupId,
+			title,
+			imgId,
+			imgPath,
+			viewCount,
+			state,
+			modifyTime
+		<include refid="findMenuListWhere"/>
+		 order by $sortBy$ $sortOrder$,modifyTime desc
+		 limit #startRow#,#pageSize#
+	</select>
+	
+	<select id="findMenu" parameterClass="map" resultClass="menu">
+		select
+			menu.menuId,
+			menu.comId,
+			menu.groupId,
+			menu.title,
+			menu.imgId,
+			menu.imgPath,
+			menu.videoId,
+			menu.viewCount,
+			menu.listOrder,
+			menu.filePath,
+			menu.state,
+			menu.modifyTime,
+			me.content	
+		from Menu menu
+		left join 	MenuExtra	me on menu.menuId = me.menuId 
+		where menu.comId= #comId# and menu.menuId = #menuId#
+	</select>
+	
+	<insert id="addMenu" parameterClass="menu">
+		insert into Menu
+		(comId,groupId,title,imgId,imgPath,videoId,listOrder,filePath,state,createTime,modifyTime)
+		values
+		(#comId#,#groupId#,#title#,#imgId#,#imgPath#,#videoId#,#listOrder#,#filePath#,#state#,#createTime#,#modifyTime#)
+		<selectKey resultClass="int"  keyProperty="menuId">  
+        	select LAST_INSERT_ID() as id
+   		</selectKey>
+	</insert>
+	
+	<insert id="addMenuExtra" parameterClass="menu">
+		insert into MenuExtra
+		(menuId,comId,content)
+		values
+		(#menuId#,#comId#,#content#)
+	</insert>
+	
+	<select id="findMaxListOrder" parameterClass="map" resultClass="int">
+		select listOrder
+		from $tableName$
+		where comId = #comId#
+		<isGreaterThan compareValue="0" property="groupId" prepend="and">
+			groupId = #groupId#
+		</isGreaterThan>
+		order by listOrder desc
+		limit 1
+	</select>
+	
+</sqlMap>

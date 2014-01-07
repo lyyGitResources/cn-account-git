@@ -1,0 +1,70 @@
+.regisTips { color:#F33; padding-bottom:12px; padding-right:3em; text-align:right; }
+.regisTips .s1 { background:url("http://cn.hisupplier.com/img/ico/ico_16.gif") no-repeat scroll 0 0 transparent; color:#999; margin:0 10px; padding-left:8px; } 
+.regisTips .s2 { background:url("http://cn.hisupplier.com/img/bg/productIco.gif") no-repeat scroll 0 -22px transparent; color:#999; padding-bottom:5px; padding-left:20px; padding-top:5px; position:relative; } 
+.regisTips .s2 a { color:#999; } 
+.boxRim { border:1px solid #E0E0E0; }
+.boxRim .h1 { background-image:url("/img/regisTitle.gif"); color:#195E7A; font-size:18px; font-weight:700; height:48px; line-height:48px; margin-bottom:1em; padding-left:2em; }
+.freeRegis { width:900px; }
+.freeRegis .h2 { background-image:none; margin:0 auto 6px; width:54em; }
+.freeRegis .h2 div { color:#000; }
+.blank8 { border-bottom:1px solid #E0E0E0; margin-bottom:18px; }
+.regisBtn { margin-bottom:12px; padding-top:24px; text-align:center; }
+.regisBtn p { padding:12px 0; }
+.footerTips { margin-bottom:2em; padding-left:2em; }
+#_buttonRemove {height: 24px; width: 50px;}
+.freeRegis table th {
+    padding: 6px 10px 0 0;
+}
+.freeRegis table td {
+    padding: 6px 0 0;
+}
+.tel{color:#999999;}
+
+.imgBox75 {
+    border: 1px solid #ccc;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    /* 针对 IE 的 Hack */
+    *display: block;
+    *font-family:Arial;
+    /* 约为高度的 0.873， 75*0.873 约为 65 */
+    *font-size: 65px;
+    height: 75px;
+    width: 75px;
+}
+
+.imgBox75 img {
+	vertical-align:middle;
+}
+
+.gongshang {
+	background-color: #FFFAF2;
+	width: 480px;
+	height: 93px;
+	padding: 20px 10px 0px 5px;
+	border: 1px solid #FEDBAB;
+	margin-left: 233px;
+	margin-top: 6px;
+}
+
+.gongshangTitle {
+	width: 425px;
+	margin: 0 auto;
+	height: 24px;
+	font-family: "宋体";
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.gongshang .gongshangTable {
+	width: 470px;
+}
+
+.gongshang .gongshangTable th{
+	width: 110px;
+}
+
+.gongshang .gongshangTable strong {
+	font-size: 12px;
+}

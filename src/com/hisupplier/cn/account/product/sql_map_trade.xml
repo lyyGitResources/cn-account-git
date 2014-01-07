@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="trade">
+
+	<sql id="findTradeListWhere">
+		from Trade
+		where comId = #loginUser.comId#
+ 	 	<isEqual prepend="and" property="loginUser.admin" compareValue="false">
+ 	 		userId = #loginUser.userId# 
+ 	 	</isEqual>			
+		<isNotNull prepend="and" property="proId">
+			proId in 
+			<iterate property="proId" open="(" close=")" conjunction=",">
+	        	#proId[]#
+	      	</iterate> 
+		</isNotNull>
+		<isGreaterThan prepend="and" property="groupId" compareValue="-1">
+   			groupId = #groupId#
+   		</isGreaterThan>
+		<isNotEmpty prepend="and" property="queryText">
+			(proName like '%$queryText$%' or keywords like '%$queryText$%')
+		</isNotEmpty>
+		<isGreaterThan prepend="and" property="userId" compareValue="0">
+   			userId = #userId#
+   		</isGreaterThan>
+   		<isEqual prepend="and" property="proType" compareValue="-2">
+   			DATEDIFF(now(), modifytime) > Trade.validDay and Trade.validDay > 0
+   		</isEqual>
+		<isGreaterThan prepend="and" property="proType" compareValue="-1"> 
+			proType = #proType#
+		</isGreaterThan>
+		<isGreaterEqual prepend="and" property="state" compareValue="0">
+			state = #state#
+		</isGreaterEqual>
+		<isEqual prepend="and" property="state" compareValue="-1">
+			state in (10,14,15,20)
+		</isEqual>
+		<isEqual prepend="and" property="state" compareValue="-2">
+			state in (14,15,20)
+		</isEqual>
+	</sql>
+		
+	<select id="findTradeListCount" parameterClass="productParams" resultClass="int">
+		SELECT COUNT(proId) <include refid="findTradeListWhere"/> 
+	</select>
+
+	<select id="findTradeList" parameterClass="productParams" resultClass="product">
+		select 
+			proId,
+			comId,
+			userId,
+			proType,
+			proName,
+			keywords,
+			imgId,
+			imgPath,
+			viewCount,
+			state,
+			groupId,
+			modifyTime,
+			createTime,
+			validDay
+		<include refid="findTradeListWhere"/> 
+		order by $sortBy$ $sortOrder$
+ 		limit #startRow#,#pageSize#
+	</select>
+
+	<select id="findTradeSellCount" parameterClass="int" resultClass="int">
+		select count(proId) 
+		from Trade 
+		where comId = #comId# 
+		and state in (10,14,15,20) 
+		and proType = 1
+	</select>
+	
+	<select id="findTrade" parameterClass="map" resultClass="product">
+		select 
+			Trade.proId,
+			Trade.comId,
+			Trade.userId,
+			Trade.catId,
+			Trade.groupId,
+			Trade.groupIdBak,
+			Trade.proName,
+			Trade.proType,
+			Trade.copyProId,
+			Trade.brief,
+			Trade.imgId,
+			Trade.imgPath,
+			Trade.keywords,
+			Trade.validDay,
+			Trade.viewCount,
+			Trade.state,
+			Trade.createTime,
+			Trade.modifyTime,
+			Trade.updateTime,
+			TradeExtra.description
+		from Trade 
+		left join TradeExtra on TradeExtra.comId = Trade.comId and TradeExtra.proId = Trade.proId
+		where Trade.comId = #comId# and Trade.proId = #proId#
+	</select>
+	
+	<select id="findTradeCopyProId" parameterClass="int" resultClass="product">
+		select 
+			copyProId,
+			proId
+		from Trade 
+		where comId = #comId# and copyProId > 0 and state in (10,14,15,20) 
+		group by copyProId
+	</select>
+	
+	<insert id="addTrade" parameterClass="product">
+		insert into Trade(
+			comId,
+			userId,
+			catId,
+			groupId,
+			groupIdBak,
+			proName,
+			proType,
+			copyProId,
+			brief,
+			imgId,
+			imgPath,
+			keywords,
+			validDay,
+			viewCount,
+			state,
+			createTime,
+			modifyTime,
+			updateTime)
+		values(
+			#comId#,
+			#userId#,
+			#catId#,
+			#groupId#,
+			#groupIdBak#,
+			#proName#,
+			#proType#,
+			#copyProId#,
+			#brief#,
+			#imgId#,
+			#imgPath#,
+			#keywords#,
+			#validDay#,
+			#viewCount#,
+			#state#,
+			#createTime#,
+			#modifyTime#,
+			#updateTime#)
+		<selectKey resultClass="int" keyProperty="proId">
+			select last_insert_id() as ID
+		</selectKey>
+	</insert>
+	
+	<insert id="addTradeExtra" parameterClass="product">
+		insert into TradeExtra (proId,comId,description)
+		values (#proId#,#comId#,#description#)
+        <selectKey resultClass="int" keyProperty="proId">
+    		select last_insert_id() as ID
+  	 	</selectKey>
+	</insert>
+
+	<update id="updateTrade" parameterClass="product">
+		update Trade set 
+			catId = #catId#,
+			proName = #proName#,
+			proType = #proType#,
+			groupId = #groupId#,
+			copyProId = #copyProId#,
+			imgId = #imgId#,
+			imgPath = #imgPath#,
+			brief = #brief#,
+			keywords = #keywords#,
+			validDay = #validDay#,
+			state = #state#,
+			modifyTime = #modifyTime#,
+			updateTime = #updateTime#
+		where proId = #proId# and comId = #comId#
+	</update>
+	
+	<select id="findCatIdList" parameterClass="map" resultClass="int">
+		select catId from Trade 
+		where comId = #comId# and catId > 0
+		group by catId 
+		order by createTime desc 
+		limit #count#
+	</select>
+	
+	<select id="findTradeDatedCount" parameterClass="int" resultClass="int">
+		SELECT COUNT(*)
+		FROM Trade
+		WHERE DATEDIFF(NOW(), modifyTime) > validDay AND validDay > 0 AND state IN (14, 15, 20) AND comId = #comId#
+	</select>
+</sqlMap>

@@ -1,0 +1,32 @@
+alert.listTitle = 订阅管理  <span class="gray">{0}您已订阅{1}条商情（最多10条）</span>
+alert.addTitle = 订阅商情
+alert.editTitle = 修改订阅商情
+alert.tip = 为必填项
+
+alert.company = 公司信息
+alert.sell = 供应信息
+alert.buy = 求购信息
+
+alert.mode = 订阅内容
+alert.MemberId = 订阅帐号
+alert.mode.required = 请选择一种订阅方式
+alert.content = 订阅类型
+alert.content.required = 请选择订阅内容
+alert.keyword = 关键词
+alert.keyword.required = 请输入关键词，长度60个字符内！
+alert.keyword.used = 关键词已存在，请重新输入
+alert.category = 目录 
+alert.category.required = 请选择一个目录
+
+alert.createTime = 订阅时间
+alert.enable = 状态
+alert.enable.false = 已取消
+alert.enable.true = 订阅中
+
+alert.addSuccess = 订阅成功
+alert.editSuccess = 修改成功
+alert.cancel = 已取消
+alert.reuse = 已恢复
+alert.limit = 您最多只能同时订阅10次
+
+

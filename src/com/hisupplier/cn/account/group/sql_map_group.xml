@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="group">
+	<typeAlias alias="group" type="com.hisupplier.cn.account.entity.Group" />
+
+	<select id="findGroup" parameterClass="java.util.Map" resultClass="group">
+		select 
+			groupId, 
+			groupName, 
+			comId, 
+			rootId, 
+			parentId, 
+			depth,
+			child, 
+			listOrder, 
+			productCount,
+			tradeCount, 
+			state, 
+			createTime,
+			modifyTime,
+			brief 
+		from Groups 
+		where comId = #comId# 
+		and groupId = #groupId#
+		and state in(15,20)
+	</select>
+	
+	<select id="findGroupList" parameterClass="map" resultClass="group">
+		select 
+			groupId, 
+			groupName, 
+			comId, 
+			rootId, 
+			parentId, 
+			depth,
+			child, 
+			listOrder, 
+			productCount,
+			tradeCount,
+			isShowNewIco as showNewIco, 
+			state, 
+			createTime,
+			modifyTime
+		from Groups 
+		where comId = #comId# 
+		and state in(15,20)
+		<isEqual property="feature" compareValue="1000" open="and"> productCount > 0</isEqual>
+		order by listOrder asc, modifyTime desc
+	</select>
+	
+	<select id="findGroupCount" parameterClass="group" resultClass="int">
+		select count(*) from Groups where comId=#comId# and groupName=#groupName#  and state in(15,20)
+	</select>
+	
+	<select id="findGroupNameRepeat" parameterClass="group" resultClass="int">
+		select count(*) from Groups where comId=#comId# and parentId in(select groupId from Groups where parentId=#parentId# and comId=#comId#)and groupName = #groupName#
+		
+	</select>
+	
+	<insert id="addGroup" parameterClass="com.hisupplier.cn.account.entity.Group">
+		insert into Groups
+		(groupName,comId,rootId,parentId,depth,child,listOrder,productCount,tradeCount,state,createTime,modifyTime,brief)
+		values(#groupName#,#comId#,#rootId#,#parentId#,#depth#,#child#,#listOrder#,#productCount#,#tradeCount#,#state#,#createTime#,#modifyTime#,#brief#)
+		<selectKey resultClass="int" type="post" keyProperty="groupId">
+			select LAST_INSERT_ID() as groupId
+		</selectKey>
+		
+	</insert>
+
+</sqlMap>

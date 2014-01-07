@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="message">
+
+	<typeAlias alias="Contact" type="com.hisupplier.cn.account.entity.Contact"/>
+	<typeAlias alias="MessageAccount" type="com.hisupplier.commons.entity.MessageAccount"/>
+	<typeAlias alias="MessageChargeLog" type="com.hisupplier.commons.entity.MessageChargeLog"/>
+	<typeAlias alias="ContactGroup" type="com.hisupplier.cn.account.entity.ContactGroup"/>
+	<typeAlias alias="MessageTemplate" type="com.hisupplier.cn.account.entity.MessageTemplate"/>
+	
+	<cacheModel id="message-cache" type ="LRU"> 
+     	<flushInterval minutes="10"/> 
+     	<property name="size" value="100" />
+     </cacheModel>
+     
+     <insert id="addContact" parameterClass="Contact">
+     	insert into Contact
+     		(comId,groupId,contactName,mobile,createTime,modifyTime)
+     	values
+			(#comId#,#groupId#,#contactName#,#mobile#,#createTime#,#modifyTime#)
+		<selectKey resultClass="int" type="post" keyProperty="id" >  
+        	select LAST_INSERT_ID() as id
+   	    </selectKey>
+     </insert>
+     
+     <insert id="addMessageAccount" parameterClass="MessageAccount">
+     	insert into MessageAccount
+     		(comId,number,createTime)
+     	values
+			(#comId#,#number#,#createTime#)
+     </insert>
+     
+     <insert id="addContactGroup" parameterClass="ContactGroup">
+     	insert into ContactGroup
+     		(comId,groupName,createTime,modifyTime)
+     	values
+			(#comId#,#groupName#,#createTime#,#modifyTime#)
+		<selectKey resultClass="int" type="post" keyProperty="groupId" >  
+        	select LAST_INSERT_ID() as groupId
+   	    </selectKey>
+     </insert>
+     
+     <insert id="addMessageTemplate" parameterClass="MessageTemplate">
+     	insert into MessageTemplate
+     		(comId,types,content,createTime)
+     	values
+			(#comId#,#types#,#content#,#createTime#)
+		<selectKey resultClass="int" type="post" keyProperty="id" >  
+        	select LAST_INSERT_ID() as id
+   	    </selectKey>
+     </insert>
+     
+     <select id="findMessageAccount" parameterClass="int" resultClass="MessageAccount">
+     	select * from MessageAccount where comId = #comId#
+     </select>
+     
+     <select id="findContactGroupList" parameterClass="int" resultClass="ContactGroup">
+     	select * from ContactGroup where comId = #comId#
+     </select>
+     
+     <sql id="findMessageTemplateWhere">
+     	where 
+     	<isEqual property="type" compareValue="-1">
+     		comId = #comId# or  comId = 0
+     	</isEqual>
+     	<isNotEqual property="type" compareValue="-1">
+     		comId = #comId# and types = #type#
+     	</isNotEqual>
+     </sql>
+     
+     <select id="findMessageTemplateListCount" parameterClass="Map" resultClass="int">
+     	select count(*) 
+     	from MessageTemplate
+     	<include refid="findMessageTemplateWhere"/>
+     </select>
+     
+     <select id="findMessageTemplateList" parameterClass="Map" resultClass="MessageTemplate">
+     	select *
+     	from MessageTemplate
+     	<include refid="findMessageTemplateWhere"/>
+     	order by id desc
+     	limit #startRow#,#pageSize#
+     </select>
+     
+     <sql id="findContactWhere">
+     	where Contact.comId = #comId# 
+     	<isNotEqual prepend="and" property="groupId" compareValue="-1">
+     		Contact.groupId = #groupId#
+     	</isNotEqual>
+     	<isPropertyAvailable property="keyword">
+     		<isEqual prepend="and" property="type" compareValue="1">
+     			Contact.contactName like CONCAT('%', #keyword#, '%')
+     		</isEqual>
+     		<isEqual prepend="and" property="type" compareValue="2">
+     			Contact.mobile like CONCAT('%', #keyword#, '%')
+     		</isEqual>
+     	</isPropertyAvailable>
+     </sql>
+     
+     <select id="findContactListCount" parameterClass="Map" resultClass="int">
+		select count(*) from Contact
+		<include refid="findContactWhere"/>
+     </select>
+     
+     <select id="findContactList" parameterClass="Map" resultClass="Contact">
+		select Contact.*,ContactGroup.groupName
+		from Contact
+		left join ContactGroup on Contact.groupId = ContactGroup.groupId
+		<include refid="findContactWhere"/>
+		order by Contact.id desc
+		limit #startRow#,#pageSize#
+     </select>
+     
+     <select id="findAllContactList" parameterClass="Map" resultClass="Contact">
+		select Contact.*,ContactGroup.groupName
+		from Contact
+		left join ContactGroup on Contact.groupId = ContactGroup.groupId
+		<include refid="findContactWhere"/>
+		order by Contact.id desc
+     </select>
+     
+     <select id="findMessageChargeLogCount" parameterClass="Map" resultClass="int">
+		select count(*) 
+		from MessageChargeLog 
+		where comId = #comId#
+     </select>
+     
+     <select id="findMessageChargeLogList" parameterClass="Map" resultClass="MessageChargeLog">
+		select * 
+		from MessageChargeLog 
+		where comId = #comId#
+		order by id desc
+		limit #startRow#,#pageSize#
+     </select>
+     
+     <delete id="deleteContact" parameterClass="Map">
+     	delete from Contact where comId=#comId# and id=#contactId#
+     </delete>
+     
+     <delete id="deleteContacts" parameterClass="Map">
+     	delete from Contact where comId = #comId# and id in
+     	<iterate property="contactIds" open="(" close=")" conjunction=",">
+     	#contactIds[]#
+     	</iterate>
+     </delete>
+     
+     <delete id="deleteContactGroup" parameterClass="Map">
+     	delete from ContactGroup where comId=#comId# and groupId=#groupId#
+     </delete>
+     
+     <delete id="deleteMessageTemplate" parameterClass="Map">
+     	delete from MessageTemplate where comId=#comId# and id in
+     		<iterate property="templateIds" open="(" close=")" conjunction=",">
+	        	#templateIds[]#
+	      	</iterate>
+     </delete>
+     
+     <update id="updateGroupId" parameterClass="Map">
+     	update Contact set groupId=#newGroupId# where comId=#comId# and groupId=#groupId#
+     </update>
+     
+     <update id="updateContact" parameterClass="Contact">
+     	update 
+     		Contact 
+     	set 
+     		groupId=#groupId#,
+     		contactName=#contactName#,
+     		mobile=#mobile#,
+     		modifyTime=#modifyTime# 
+     	where 
+     		id=#id#
+     		and comId=#comId# 
+     </update>
+     
+     <update id="updateContactGroup" parameterClass="ContactGroup">
+     	update 
+     		ContactGroup 
+     	set 
+     		groupName=#groupName#,
+     		modifyTime=#modifyTime# 
+     	where 
+     		groupId=#groupId#
+     		and comId=#comId# 
+     </update>
+     
+     <update id="updateMessageTemplate" parameterClass="MessageTemplate">
+     	update 
+     		MessageTemplate 
+     	set 
+     		content=#content#
+     	where 
+     		id=#id#
+     		and comId=#comId# 
+     </update>
+     
+     <update id="updateMessageNum" parameterClass="Map">
+     	update MessageAccount
+     	set number=number+#num#
+     	where comId=#comId#
+     </update>
+     
+     <insert id="addMessageChargeLog" parameterClass="MessageChargeLog">
+     	insert into MessageChargeLog
+     		(comId,chargeType,moneys,number,giftNumber,remark,createTime)
+     	values
+			(#comId#,#chargeType#,#moneys#,#number#,#giftNumber#,#remark#,#createTime#)
+		<selectKey resultClass="int" type="post" keyProperty="id" >  
+        	select LAST_INSERT_ID() as id
+   	    </selectKey>
+     </insert>
+     
+     <select id="findContactListNoPage" parameterClass="map" resultClass="contact">
+     	select * 
+     	from Contact 
+     	where comId = #comId#
+     	<isGreaterThan property="groupId" compareValue="-1">
+     		and groupId = #groupId#
+     	</isGreaterThan>
+     </select>
+     
+     <select id="findContactByMobile" parameterClass="contact" resultClass="int">
+     	select count(*) from Contact where comId = #comId# and mobile = #mobile#
+     </select>
+</sqlMap>

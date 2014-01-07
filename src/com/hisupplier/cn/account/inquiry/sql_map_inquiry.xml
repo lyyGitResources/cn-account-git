@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="inquiry">
+	<typeAlias alias="params" type="com.hisupplier.cn.account.dao.QueryParams"/>
+	<typeAlias alias="inquiry" type="com.hisupplier.cn.account.entity.Inquiry"/>
+	<typeAlias alias="inquiryReply" type="com.hisupplier.cn.account.entity.InquiryReply"/>
+	
+	<resultMap id="InquiryResult" class="inquiry">
+		<result property="inqId" column="inqId"/>
+		<result property="comId" column="comId"/>
+		<result property="read" column="isRead"/>
+		<result property="subject" column="subject"/>
+		<result property="createTime" column="createTime"/>
+		<result property="fromName" column="fromName"/>
+		<result property="fromProvince" column="fromProvince"/>
+		<result property="replyCount" column="replyCount"/>
+		<result property="email" column="email" nullValue="0" />
+		<result property="adminUser" column="isAdmin"  nullValue="0" />
+	</resultMap>
+	
+	<resultMap id="InquiryReplyResult" class="inquiryReply">
+		<result property="id" column="id"/> 
+		<result property="inqId" column="inqId"/> 
+		<result property="comId" column="comId"/> 
+		<result property="userId" column="userId"/> 
+		<result property="toName" column="toName"/> 
+		<result property="toEmail" column="toEmail"/> 
+		<result property="subject" column="subject"/> 
+		<result property="content" column="content"/> 
+		<result property="filePath" column="filePath" nullValue="0" /> 
+		<result property="createTime" column="createTime"/> 
+	</resultMap>
+
+	<sql id="findInquiryListWhere">
+		from Inquiry 
+			left join Users on Users.userId = Inquiry.userId
+		
+		<dynamic prepend="where">
+			<isGreaterThan prepend="and" property="state" compareValue="-1">
+				Inquiry.state = #state#
+			</isGreaterThan>
+			<isGreaterThan prepend="and" property="loginUser.comId" compareValue="-1">
+				Inquiry.comId = #loginUser.comId#
+			</isGreaterThan>
+			<isGreaterThan prepend="and" property="userId" compareValue="-1">
+				Users.userId = #userId#
+			</isGreaterThan>
+			<isNotNull property="queryText">
+				<isEqual prepend="and" property="queryBy" compareValue="subject">
+					Inquiry.subject like '%$queryText$%'
+				</isEqual>
+				<isEqual prepend="and" property="queryBy" compareValue="fromName">
+					Inquiry.fromName like '%$queryText$%'
+				</isEqual>
+			</isNotNull>
+			<isGreaterThan prepend="and" property="countryCode" compareValue="-1">
+				Inquiry.fromProvince = #countryCode#
+			</isGreaterThan>
+			<isGreaterThan prepend="and" property="read" compareValue="-1">
+				Inquiry.isRead = #read#
+			</isGreaterThan>
+			<isGreaterThan prepend="and" property="recommend" compareValue="-1">
+				Inquiry.isRecommend = #recommend#
+			</isGreaterThan>
+		</dynamic>
+	</sql>
+	
+	<select id="findInquiryListCount" parameterClass="params" resultClass="int">
+		select count(distinct Inquiry.inqId) 
+		<include refid="findInquiryListWhere"/> 
+	</select>
+	
+	<select id="findInquiryList" parameterClass="params" resultMap="InquiryResult">
+		select distinct
+			Inquiry.inqId,
+			Inquiry.comId,
+			Inquiry.isRead,
+			Inquiry.subject,
+			Inquiry.createTime,
+			Inquiry.fromName,
+			Inquiry.fromProvince,
+			Inquiry.replyCount,
+			Users.email,
+			Users.isAdmin
+		<include refid="findInquiryListWhere"/>
+		order by $sortBy$ $sortOrder$
+		limit #startRow#,#pageSize#
+	</select>
+	
+	<select id="findInquiryReplyList" parameterClass="java.util.HashMap" resultMap="InquiryReplyResult">
+		select 
+			id,
+			comId,
+			inqId,
+			userId,
+			toName,
+			toEmail,
+			subject,
+			content,
+			filePath,
+			createTime  
+		from InquiryReply
+		<dynamic prepend="where">
+			<isGreaterThan prepend="and" property="loginUser.comId" compareValue="-1">
+				comId = #loginUser.comId#
+			</isGreaterThan>
+			<isGreaterThan prepend="and" property="inqId" compareValue="-1">
+				inqId = #inqId#
+			</isGreaterThan>
+		</dynamic>
+		order by id desc
+	</select>
+	
+ 	<select id="findInquiryCount" parameterClass="java.util.HashMap" resultClass="int">
+		select count(*) from Inquiry
+		<dynamic prepend="where">
+			<isGreaterThan prepend="and" property="comId" compareValue="-1">
+				comId = #comId#
+			</isGreaterThan>
+			<isGreaterThan prepend="and" property="userId" compareValue="-1">
+				userId = #userId#
+			</isGreaterThan>
+			<isGreaterThan prepend="and" property="read" compareValue="-1">
+				isRead = #read#
+			</isGreaterThan>
+			<isGreaterThan prepend="and" property="recommend" compareValue="-1">
+				isRecommend = #recommend#
+			</isGreaterThan>
+			<isGreaterThan prepend="and" property="state" compareValue="-1">
+				state = #state#
+			</isGreaterThan>
+ 		</dynamic>
+	</select>
+	
+	<select id="findInquiry" parameterClass="java.util.HashMap" resultClass="inquiry">
+		select 
+			Inquiry.*,InquiryExtra.content
+		from Inquiry left join InquiryExtra on InquiryExtra.inqId = Inquiry.inqId
+		where Inquiry.inqId = #inqId# and Inquiry.comId = #comId#
+	</select>
+	
+	<select id="findInquiryPreId" parameterClass="java.util.HashMap" resultClass="int">
+		select inqId from Inquiry 
+        where 
+	       comId = #comId# 
+	       and state=20 
+	       and inqId > #inqId#
+	       <isEqual prepend="and" property="admin" compareValue="0">
+	       		userId = #userId#
+	       </isEqual>
+        order by inqId
+        limit 1
+	</select>
+	
+	<select id="findInquiryNextId" parameterClass="java.util.HashMap" resultClass="int">
+	    select inqId
+        from Inquiry
+       <![CDATA[ where comId = #comId# and state=20 and inqId < #inqId# ]]>
+       <isEqual prepend="and" property="admin" compareValue="0">
+       		userId = #userId#
+       </isEqual>
+        order by inqId desc
+        limit 1
+	</select>
+	
+	<select id="findInquiryChart" parameterClass="params" resultClass="inquiry">
+		select 
+		  	DATE_FORMAT(createTime, '%Y-%m') as yearMonth,
+		 <isGreaterThan property="userId" compareValue="-1">
+			count(case when userId=#userId# then 1 else null end) as number,
+		</isGreaterThan>
+		<isEqual property="userId" compareValue="-1">
+			count(inqId) as number,
+		</isEqual>
+			
+			period_diff(
+			extract(year_month from now()),
+			extract(year_month from createTime)
+			) as period
+		from Inquiry
+		where comId = #loginUser.comId# 
+	
+		<isGreaterThan prepend="and" property="state" compareValue="-1">
+			state = $state$
+		</isGreaterThan>
+		<isNotEqual prepend="and" property="queryText" compareValue="">
+			fromName like '%$queryText$%'
+		</isNotEqual>
+		<isGreaterThan prepend="and" property="countryCode" compareValue="-1">
+			fromProvince = #countryCode#
+		</isGreaterThan>
+		and isRecommend = 0
+		<![CDATA[ group by period having period < 6 ]]>
+		order by period desc
+	</select>
+	
+	<select id="findInquiryDownload" parameterClass="map" resultClass="inquiry">
+        select 
+        	Inquiry.inqId,
+        	Inquiry.comId,
+        	Inquiry.userId,
+        	Inquiry.subject,
+        	InquiryExtra.content,
+        	Inquiry.fromComId,
+        	Inquiry.fromUserId,
+        	Inquiry.fromName,
+        	Inquiry.fromEmail,
+        	Inquiry.fromCompany,
+        	Inquiry.fromSite,
+        	Inquiry.fromIP,
+        	Inquiry.filePath,
+        	Inquiry.replyCount,
+        	Inquiry.replyDay,
+        	Inquiry.createTime,
+        	Inquiry.state
+        from Inquiry left join InquiryExtra on InquiryExtra.inqId = Inquiry.inqId
+        where Inquiry.comId = #comId# and Inquiry.isRecommend = 0
+        <isGreaterThan prepend="and" property="userId" compareValue="0"> 
+          	Inquiry.userId = #userId#
+		</isGreaterThan>
+		<iterate prepend="and" property="monthList" open="(" close=")" conjunction="or">
+			Inquiry.createTime like '$monthList[]$%'
+		</iterate>
+    </select>
+
+	<insert id="addInquiryReply" parameterClass="inquiryReply">
+		insert into InquiryReply 
+		(inqId,comId,userId,toName,toEmail,subject,content,filePath,createTime)
+		values (#inqId#,#comId#,#userId#,#toName#,#toEmail#,#subject#,#content#,#filePath#,#createTime#)
+		<selectKey resultClass="int" keyProperty="id">
+			select last_insert_id() as ID
+		</selectKey>
+	</insert>
+ 
+ 	<insert id="addInquiry" parameterClass="inquiry">
+		insert into Inquiry(comId,userId,subject,fromComId,fromUserId,fromName,fromEmail,fromCompany,
+							fromSite,fromIP,fromTel,fromFax,fromProvince,fromCity,fromTown,fromStreet,
+							fromWebsite,filePath,replyCount,replyDay,isRead,isRecommend,createTime,state)
+        values(#comId#, #userId#, #subject#, #fromComId#, #fromUserId#, #fromName#, #fromEmail#, #fromCompany#,
+        	  #fromSite#, #fromIP#,#fromTel#,#fromFax#,#fromProvince#,#fromCity#,#fromTown#,#fromStreet#,
+        	  #fromWebsite#,#filePath#, #replyCount#, #replyDay#, #read#, #recommend#, #createTime#, #state#)
+        <selectKey resultClass="int" keyProperty="inqId">
+    		select last_insert_id() as ID
+  	 	</selectKey>
+	</insert>
+	
+	<insert id="addInquiryExtra" parameterClass="inquiry">
+		insert into InquiryExtra(comId,inqId,content)
+        values(#comId#, #inqId#, #content#)
+	</insert>
+	
+	<select id="findInquiryReply" parameterClass="java.util.HashMap" resultClass="inquiryReply">
+		select 
+			*
+		from InquiryReply
+		where id = #id# and comId = #comId#
+	</select>
+ 
+</sqlMap>

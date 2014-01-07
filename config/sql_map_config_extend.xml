@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<sqlMap resource="com/hisupplier/cn/account/misc/sql_map_comment.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/misc/sql_map_vote.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/misc/sql_map_video.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/member/sql_map_company.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/member/sql_map_user.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/member/sql_map_talk.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/inquiry/sql_map_inquiry.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/misc/sql_map_image.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/basic/sql_map_service.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/basic/sql_map_userSuggest.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/basic/sql_map_userLog.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/basic/sql_map_adminLog.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/basic/sql_map_bulletin.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/alert/sql_map_tradeAlert.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/group/sql_map_group.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/group/sql_map_special_group.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/menu/sql_map_menu.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/product/sql_map_product.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/product/sql_map_newproduct.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/product/sql_map_trade.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/product/sql_map_likerecord.xml"/>
+	<sqlMap resource="com/hisupplier/cn/account/website/sql_map_website.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/website/sql_map_template.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/website/sql_map_module.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/website/sql_map_module_title.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/ad/sql_map_ad.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/user/sql_map_b2b.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/message/sql_map_message.xml" />
+	<sqlMap resource="com/hisupplier/cn/account/patent/sql_map_patent_deblocked.xml" />
+</sqlMapConfig>

@@ -1,0 +1,133 @@
+@charset "utf-8";
+
+/* Firefox */
+.imgTips {
+	float: left;
+	margin: -75px 0 0 81px;
+	color: #959595;
+	line-height: 20px;
+}
+
+/* IE6 fix */
+* html .imgTips {
+	margin: -75px 0 0 41px;
+}
+
+/* 有边框 */
+.imgBox100 {
+	width: 100px;
+	height: 100px;
+	border: 1px solid #cccccc;
+	text-align: center;
+	overflow: hidden;
+}
+
+.imgBox100 img {
+	margin-top: expression((           100 -           this .         height)/
+		2 );
+}
+
+.imgBox75 {
+	width: 75px;
+	height: 75px;
+	border: 1px solid #cccccc;
+	text-align: center;
+	overflow: hidden;
+	display:table-cell; vertical-align:middle;
+	
+}
+
+.imgBox75 img {
+	margin-top: expression((           75 -           this .         height)/
+		2 );
+}
+.inputleft{float: left;padding: 2em 0 0;}
+.listImgBox100{
+	width: 100px;
+	height: 100px;
+	border: 1px solid #cccccc;
+	text-align: center;
+	overflow: hidden;
+	display:table-cell; vertical-align:middle;
+}
+
+.listImgBox100 img {
+	margin-top: expression((           100 -           this .         height)/
+		2 );
+}
+
+.listImgBox240{position:relative;width:240px;height:240px;padding:5px;border:1px solid #ccc;}
+.listImgBox240 span{display:table-cell;vertical-align:middle;text-align:center;width:240px;height:240px;outline:none;*display:block;*font-family:Arial;*font-size:217px;*line-height:0;}
+.listImgBox240 span img{vertical-align:middle;}
+/* 无边框 */
+.img75 {
+	width: 75px;
+	height: 75px;
+	text-align: center;
+	overflow: hidden;
+	border: 0px;
+}
+
+.img75 img {
+	margin-top: expression((         75 -           this .         height)/
+		2 );
+}
+
+/* 图库管理顶部按钮 */
+.imgButton {
+	width: 99%;
+	float: left;
+	margin: 7px 0px 0 0;
+	overflow: hidden;
+}
+
+/* Firefox */
+.imgButton input {
+	font-size: 12px;
+	background: url(../img/button_bg2.jpg) right repeat-x;
+	height: 25px;
+	line-height: 25px;
+	border-style: none;
+	cursor: pointer;
+	padding: 0 5px;
+	color: #FFFFFF;
+	width: 109px;
+}
+
+/* IE7 fix */
+*+html .imgButton input {
+	width: 114px;
+}
+
+/* IE6 fix */
+* html .imgButton input {
+	width: 114px;
+}
+
+.imgScaleBox {
+	float: left;
+	width: 120px;
+}
+
+.imgBoxList75 {
+	float: left;
+	width: 566px;
+}
+
+.imgBoxList75 ul {
+	margin: 0 auto;
+	list-style-image: none;
+	list-style-type: none;
+}
+
+.imgBoxList75 li {
+	float: left;
+	width: 77px;
+	margin-right: 17px;
+}
+
+.imgBoxList75 .text {
+	width: 77px;
+	text-align: center;
+	line-height: 18px;
+}

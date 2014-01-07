@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+	"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+	<!--	 校验Action的属性 -->
+	<field name="contact">
+		<field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+			<message key="user.contact.required"></message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">20</param>
+			<param name="trim">true</param>
+			<message key="user.contact.required"></message>
+		</field-validator>
+	</field>
+	<field name="street">
+		<field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+			<message key="user.street.required"></message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">200</param>
+			<param name="trim">true</param>
+			<message key="user.street.required"></message>
+		</field-validator>
+	</field>
+	<field name="zip">
+		<field-validator type="regex">
+			<param name="trim">true</param>
+			<param name="expression"><![CDATA[(\d{6})]]></param>
+			<message key="user.zip.maxlength"></message>
+		</field-validator>
+	</field>
+	<field name="department">
+		<field-validator type="stringlength">
+			<param name="maxLength">50</param>
+			<param name="trim">true</param>
+			<message key="user.department.maxlength"></message>
+		</field-validator>
+	</field>
+	<field name="job">
+		<field-validator type="stringlength">
+			<param name="maxLength">50</param>
+			<param name="trim">true</param>
+			<message key="user.job.maxlength"></message>
+		</field-validator>
+	</field>
+	<field name="email">
+		<field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+			<message key="email.required"></message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">80</param>
+			<param name="trim">true</param>
+			<message key="email.required"></message>
+		</field-validator>
+		<field-validator type="email">
+			<message key="email.required"></message>
+		</field-validator>
+	</field>
+	<field name="mobile">
+		<field-validator type="regex">
+			<param name="expression"><![CDATA[(\d{11})]]></param>
+			<param name="trim">true</param>
+			<message key="user.mobile.maxlength"></message>
+		</field-validator>
+	</field>
+	<field name="qq">
+		<field-validator type="regex">
+			<param name="expression"><![CDATA[(\d{1,20})]]></param>
+			<param name="trim">true</param>
+			<message key="user.qq.maxlength"></message>
+		</field-validator>
+	</field>
+	<field name="msn">
+		<field-validator type="stringlength">
+			<param name="maxLength">80</param>
+			<param name="trim">true</param>
+			<message key="user.msn.maxlength"></message>
+		</field-validator>
+	</field>
+	<field name="qqcode">
+		<field-validator type="stringlength">
+			<param name="maxLength">1000</param>
+			<param name="trim">true</param>
+			<message key="user.qqcode.maxlength"></message>
+		</field-validator>
+	</field>
+	<field name="msncode">
+		<field-validator type="stringlength">
+			<param name="maxLength">1000</param>
+			<param name="trim">true</param>
+			<message key="user.msncode.maxlength"></message>
+		</field-validator>
+	</field>
+</validators>

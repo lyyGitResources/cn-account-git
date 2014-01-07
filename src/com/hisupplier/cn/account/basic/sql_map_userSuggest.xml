@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="userSuggest">
+	<typeAlias alias="params" type="com.hisupplier.cn.account.dao.QueryParams"/>
+	<typeAlias alias="userSuggest" type="com.hisupplier.commons.entity.cn.UserSuggest"/>
+	
+	<sql id="findUserSuggestListWhere">
+		from UserSuggest where comId = #loginUser.comId# 
+	</sql>
+	
+	<select id="findUserSuggestList" parameterClass="params" resultClass="userSuggest">
+		select * <include refid="findUserSuggestListWhere"/> 
+		order by id desc
+		limit #startRow#,#pageSize#
+	</select>
+	
+	<select id="findUserSuggestListCount" parameterClass="params" resultClass="int">
+		select count(id) <include refid="findUserSuggestListWhere"/> 
+	</select>
+
+	<insert id="addUserSugggest" parameterClass="userSuggest">
+		insert into UserSuggest (comId,title,content,createTime) values (#comId#,#title#,#content#,#createTime#)
+		<selectKey resultClass="int" keyProperty="id">
+			select last_insert_id() as ID
+		</selectKey>
+	</insert>
+ 
+</sqlMap>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="newproduct">
+
+	<sql id="findNewProductListWhere">
+		from NewProduct
+		where comId = #loginUser.comId#
+		<isNotNull prepend="and" property="proId">
+			proId in 
+			<iterate property="proId" open="(" close=")" conjunction=",">
+	        	#proId[]#
+	      	</iterate> 
+		</isNotNull>
+		<isNotEmpty prepend="and" property="queryText">
+			(proName like '%$queryText$%' or model like '%$queryText$%')
+		</isNotEmpty>
+		<isGreaterEqual prepend="and" property="state" compareValue="0">
+			state = #state#
+		</isGreaterEqual>
+		<isEqual prepend="and" property="state" compareValue="-1">
+			state in (10,14,15,20)
+		</isEqual>
+	</sql>
+		
+	<select id="findNewProductListCount" parameterClass="productParams" resultClass="int">
+		select count(proId) <include refid="findNewProductListWhere"/> 
+	</select>
+	
+	<select id="findNewProductList" parameterClass="productParams" resultClass="product">
+		select 
+			proId,
+			comId,
+			proName,
+			model,
+			imgId,
+			imgPath,
+			viewCount,
+			state,
+			modifyTime
+		<include refid="findNewProductListWhere"/> 
+		order by $sortBy$ $sortOrder$
+ 		limit #startRow#,#pageSize#
+	</select>
+
+	<select id="findNewProduct" parameterClass="map" resultClass="product">
+		select 
+			proId,
+			comId,
+			proName,
+			brief,
+			description,
+			model,
+			province,
+			city,
+			town,
+			place,
+			imgId,
+			imgPath,
+			listOrder,
+			viewCount,
+			state,
+			createTime,
+			modifyTime
+		from NewProduct
+		where state in (10,14,15,20) and comId = #comId# and proId = #proId#
+	</select>
+	
+	<select id="findMaxListOrder" parameterClass="int" resultClass="int">
+		select listOrder
+		from NewProduct
+		where comId = #comId#
+		order by listOrder desc
+		limit 1
+	</select>
+	
+	<insert id="addNewProduct" parameterClass="product">
+		insert into NewProduct
+			(comId,proName,brief,description,model,province,city,town,place,imgId,imgPath,
+			listOrder,viewCount,state,createTime,modifyTime)
+		values
+			(#comId#,#proName#,#brief#,#description#,#model#,#province#,#city#,#town#,#place#,#imgId#,#imgPath#,
+			#listOrder#,#viewCount#,#state#,#createTime#,#modifyTime#)
+		<selectKey resultClass="int" keyProperty="proId">
+			select last_insert_id() as ID
+		</selectKey>
+	</insert>
+</sqlMap>

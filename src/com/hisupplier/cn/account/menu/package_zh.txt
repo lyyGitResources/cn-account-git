@@ -1,0 +1,47 @@
+group.listTitle = 菜单管理
+group.listTitleNotice = 已创建{0}个自定义菜单（最多{1}个）
+
+group.tip1 = 提示：
+group.tip2 = 自定义菜单栏目展示方式：1、展开：显示菜单栏目及其信息列表；2、折叠：显示菜单栏目不显示信息列表。
+group.tip3 = 自定义菜单信息展示方式：1、列表展示：文字形式展示；2、橱窗展示：图片形式展示。
+group.tip4 = 公司新闻和荣誉证书为默认菜单，不可修改和删除。
+
+group.groupName = 菜单名称
+group.menuCount = 信息数量
+group.addMenu = 添加信息
+group.listStyle = 菜单信息展示
+group.gallery = 横排
+group.list = 竖排
+group.isFold = 菜单栏目展示
+group.isShowDate = 显示更新时间
+group.groupName.required = 请输入菜单名，长度60个字符内！
+group.insert.error=添加失败，菜单名称重复
+group.fixNotDel = 不能删除固定栏目
+group.menuCountNotDel = 不能删除有信息的栏目
+group.full = 您的栏目数量已达到数量限制，不能再添加
+
+group.orderTitle = 菜单栏目排序
+menu.orderTitle = 菜单信息排序
+
+order.tip = 提示
+order.notice = 您可以通过以下两种方法进行{0}排序
+order.notice1 = 手动拖拽：按住鼠标左键直接拖动{0}进行排序
+order.notice2 = 设置序号：点击"序号"，输入数值，点击"确定"，即可调整{0}顺序。序号越小，排列越靠前
+
+menu.listTitle = 信息管理{0}
+menu.list = 信息管理
+menu.addTitle = 添加信息
+menu.addTitleNotice=已创建{0}条信息（最多{1}条）
+menu.editTitle = 修改信息
+menu.title = 标题
+menu.title.required = 请输入标题，长度120个字符内！
+menu.content = 内容
+menu.content.error = 您的主题中存在违规词:
+menu.viewCount = 点击数
+menu.video = 视频
+menu.all = 所有信息
+menu.imgPath = 图片
+menu.image.uploadFail = 图片上传失败，请重试
+menu.contentTip = 请不要添加个人联系信息和网址，否则审核人员会退回您的信息！
+menu.attachmentTip = 如需上传图片或表格等附件，请打勾。
+menu.count.limit = 您的信息数量已达到数量限制，不能再添加 

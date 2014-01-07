@@ -1,0 +1,306 @@
+@charset "utf-8";
+
+/* CSS Document */
+.formTable {
+	border: 1px solid #CBDDF1;
+	width: 736px;
+	margin-top: 7px;
+	margin-bottom: 15px;
+	color: #434343;
+	font-size: 12px;
+	clear: both;
+}
+
+.formTable th {
+	width: 150px;
+	font-size: 12px;
+	text-align: right;
+	font-weight: bold;
+	color: #000000;
+	padding: 8px 0px;
+	vertical-align: top;
+}
+
+.formTable td {
+	width: 566px;
+	text-align: left;
+	padding: 5px 20px 5px 0px;
+	vertical-align: middle;
+}
+
+.formTable .subtitle {
+	padding: 5px;
+}
+
+.formTable .h1 {
+	background: #D7E6F3;
+	color: #2E5FA7;
+	height: 25px;
+	line-height: 25px;
+	padding-left: 20px;
+	width: 700px;
+	font-weight: bold;
+	display: block;
+	
+}
+
+/* Firefox */
+.formTable .scroll {
+	position: absolute;
+	height: 19px;
+	width: 244px;
+	margin: -20px 0 0 0px;
+}
+
+.formTable .scroll ul {
+	margin: 0 auto;
+	text-align: right;
+	list-style-image: none;
+	list-style-type: none;
+}
+
+.formTable .scroll li {
+	float: right;
+	width: 13px;
+	height: 19px;
+	line-height: 19px;
+	background: url(../img/ico/slide_off.gif);
+	margin-right: 5px;
+	text-align: center;
+	color: #3C3C6E;
+}
+
+.formTable .scroll li a:link {
+	color: #3C3C6E;
+	text-decoration: none;
+}
+
+.formTable .scroll li a:visited {
+	color: #3C3C6E;
+	text-decoration: none;
+}
+
+.formTable .scroll li a:hover {
+	color: #C9000E;
+	text-decoration: none;
+	display: block;
+	background: url(../img/ico/slide_on.gif);
+}
+
+.formTable .scroll li.current a {
+	color: #C9000E;
+	text-decoration: none;
+	display: block;
+	background: url(../img/ico/slide_on.gif);
+}
+
+.formTable .scroll li a:active {
+	color: #3C3C6E;
+	text-decoration: none;
+}
+
+.formTable .scroll li.current a:link {
+	color: #C9000E;
+	text-decoration: none;
+}
+
+.formTable .scroll li.current a:visited {
+	color: #C9000E;
+	text-decoration: none;
+}
+
+.formTable .scroll li.current a:hover {
+	color: #C9000E;
+	text-decoration: none;
+	display: block;
+	background: url(../img/ico/slide_on.gif);
+}
+
+.formTable .scroll li.current a:active {
+	color: #C9000E;
+	text-decoration: none;
+}
+
+/* 会员信息 */
+.formTable .company {
+	text-indent: 22px;
+	line-height: 20px;
+}
+
+.formTable .companyPhoto {
+	width: 244px;
+	height: 184px;
+	text-align: center;
+	border: 1px solid #cccccc;
+	overflow: hidden;
+}
+
+.formTable .companyPhoto img {
+	width: 240px;
+	height: 180px;
+	margin-top: expression((                       184 -                         this .
+		  
+		                
+		    height)/ 2 );
+}
+
+.formTable .options {
+	float: left;
+	width: 566px;
+}
+
+.formTable .options ul {
+	margin: 0 auto;
+	list-style-image: none;
+	list-style-type: none;
+}
+
+.formTable .options li {
+	float: left;
+	width: 188px;
+	height: 20px;
+	margin-bottom: 5px;
+}
+
+/* IE6 fix */
+* html .formTable .options li {
+	float: left;
+	width: 188px;
+	height: 20px;
+}
+
+/* IE7 fix */
+*+html .formTable .scroll {
+	margin: 162px 0 0 -244px;
+}
+
+/* IE6 fix */
+* html .formTable .scroll {
+	margin: 162px 0 0 -240px;
+}
+
+.formTable .keyword1{
+	margin-top:-42px;
+}
+
+*+html .formTable .keyword1 {
+	margin-top:-48px;
+}
+
+* html .formTable .keyword1 {
+	margin-top:-48px;
+}
+
+.formTable .keyword2{
+	margin-top:-20px;
+}
+
+*+html .formTable .keyword2 {
+	margin-top:-22px;
+}
+
+* html .formTable .keyword2 {
+	margin-top:-22px;
+}
+
+.formTable .keyword3{
+	margin-top:-2px;
+}
+
+/* 表单字段提示说明 */
+.fieldTips {
+	color: #888888;
+	margin-top: 5px;
+	line-height: 20px;
+	overflow: hidden;
+	float: left;
+	width: 100%;
+}
+
+.searchForm {
+	width: 727px;
+	border: 1px solid #CEE5FA;
+	background: #EDF4FA;
+	margin-top: 10px;
+	padding: 0px 3px 3px 3px;
+	font-size: 12px;
+}
+
+.searchForm td {
+	text-align: center;
+	padding: 0px 2px 0px 2px;
+}
+
+.searchButton {
+	background: url(/img/button_bg3.jpg) repeat-x;
+	padding: 0px 8px 0px 8px; *
+	padding: 2px 2px 0px 2px !important; *
+	padding: 2px 2px 0px 2px;
+	height: 23px;
+	border: 1px solid #AFC6E7;
+	color: #36322F;
+}
+
+label.error {
+	background: url("/img/formTip/reg3.gif") no-repeat 0px 0px;
+	padding-left: 16px;
+	margin-left: 5px;
+	font-style: normal;
+	color: #ff0000;
+}
+
+label.success {
+	background: url("/img/formTip/reg4.gif") no-repeat 0px 0px;
+	padding-left: 16px;
+	margin-left: 5px;
+	color: #003CC8;
+	font-style: normal;
+}
+
+.qq_group { list-style: none; line-height: 30px; }
+
+.violationsSearch {
+	width: 336px;
+	border: 1px solid #CEE5FA;
+	background: #EDF4FA;
+	padding: 3px 3px 3px 3px;
+	font-size: 12px;
+	float: left;
+	margin-right: 10px;
+	margin-bottom:15px;
+}
+
+.violationsSearch td {
+	text-align: center;
+	padding: 0px 2px 0px 2px;
+}
+
+.violationsSearch tr {
+	padding: 0px;;
+	margin: 0px;
+}
+
+.buttonViolations {
+	width: 120px;
+	float: left;
+	margin-top: 3px;
+}
+
+.buttonViolations input {
+	font-size: 12px;
+	font-weight: bold;
+	background: url(/img/button_bg2.jpg) right repeat-x;
+	width: 91px;
+	height: 25px;
+	line-height: 25px;
+	border-style: none;
+	cursor: pointer;
+	color: #000000;
+}
+.clearFloat {
+	clear: both;
+	margin: 0px;
+	padding: 0px;
+	width: 0px;
+	height: 0px;
+}

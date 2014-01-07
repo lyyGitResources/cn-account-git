@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="website">
+	<typeAlias alias="website" type="com.hisupplier.commons.entity.cn.WebSite"/>
+
+ 	<select id="findTemplate" parameterClass="int" resultClass="com.hisupplier.cn.account.entity.WebSiteTemplate">
+		select
+	 		templateNo,
+	 		templateName,
+	 		templateType,
+	 		templateColor,
+	 		bannerType,
+	 		bannerWidth,
+	 		bannerHeight,
+	 		insideBannerWidth,
+	 		insideBannerHeight,
+	 		rejectLayoutNo,
+	 		bannerSet,
+	 		bannerNum,
+	 		newHome
+ 		from WebSiteTemplate
+		where templateNo = #templateNo#
+ 	</select>
+ 	
+ 	
+ 	<select id="findWebsite" parameterClass="int" resultClass="website">
+ 		select comId,domain,domainEN,isLang as lang,isFriend as friend,isGroupFold as groupFold,isChatTip as chatTip,isShowEmail as showEmail,chatMsg,chatUserId,
+			layoutNo,templateNo,bannerNo,bannerType,bannerPath,nbannerPath,statSite,statScript,googleSitemapVerify,ICPNo,
+			ICPScript,siteName,siteLink,serviceCatId,serviceSiteLink,createTime,modifyTime,isShowQR as showQR,qrPath,bannerState,cnFontType,cnFontSize,cnFontColor  
+		from WebSite 
+		where comId = #comId#
+ 	</select>
+	
+	<insert id="addWebSite" parameterClass="website">
+		insert into WebSite(
+			comId,domain,domainEN,isLang,isFriend,isGroupFold,isChatTip,isShowEmail,chatMsg,chatUserId,
+			layoutNo,templateNo,bannerNo,bannerType,bannerPath,nbannerPath,statSite,statScript,googleSitemapVerify,ICPNo,
+			ICPScript,siteName,siteLink,serviceCatId,serviceSiteLink,createTime,modifyTime,isShowQR,qrPath 
+		)
+		values(
+			#comId#,#domain#,#domainEN#,#lang#,#friend#,#groupFold#,#chatTip#,#showEmail#,#chatMsg#,#chatUserId#,
+			#layoutNo#,#templateNo#,#bannerNo#,#bannerType#,#bannerPath#,#nbannerPath#,#statSite#,#statScript#,#googleSitemapVerify#,#ICPNo#,
+			#ICPScript#,#siteName#,#siteLink#,#serviceCatId#,#serviceSiteLink#,#createTime#,#modifyTime#,#showQR#,#qrPath#
+		) 
+	</insert>
+
+</sqlMap>

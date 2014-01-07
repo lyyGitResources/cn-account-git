@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="basic" namespace="/basic" extends="default">
+		<action name="home" class="homeAction" method="home">
+			<result>/page/basic/home.jsp</result>
+			<result type="redirect" name="password">/member/passwd_edit.htm?rel=home</result>
+		</action>
+
+		<action name="admin_log" class="homeAction" method="admin_log">
+			<result>/page/inc/admin_log.jsp</result>
+		</action>
+		
+		<action name="service_list" class="homeAction" method="service_list">
+			<result>/page/basic/service_list.jsp</result>
+		</action>
+
+		<action name="service_mail" class="homeAction" method="service_mail">
+			<result>/page/basic/service_mail.jsp</result>
+		</action>
+		
+		<action name="service_mail_send" class="serviceFormAction" method="service_mail_send">
+			<interceptor-ref name="resubmitValidateStack" />
+			<result name="input">/page/basic/service_mail.jsp</result>
+			<result>/page/error/messages.jsp</result>
+		</action>
+
+		<action name="inquiry_unread_count" class="homeAction" method="inquiry_unread_count">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="user_log_list" class="homeAction" method="user_log_list">
+			<result name="success">/page/basic/user_log_list.jsp</result>
+			<result name="ajaxSuccess">/page/basic/user_log_list_inc.jsp</result>
+		</action>
+
+		<action name="download_tq" class="homeAction" method="download_tq">
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">targetFile</param>
+				<param name="contentDisposition">attachment;filename="HiSetup(Standard).exe"</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+
+		<action name="user_suggest" class="homeAction" method="user_suggest">
+			<result name="success">/page/basic/user_suggest_list.jsp</result>
+			<result name="ajaxSuccess">/page/basic/user_suggest_list_inc.jsp</result>
+		</action>
+
+		<action name="user_suggest_add" class="userSuggestFormAction" method="user_suggest_add">
+			<result type="json">
+				<param name="root">action</param>
+			</result>
+		</action>
+	</package>
+	
+	<package name="businesscentre" namespace="/businesscentre" extends="default">
+		<action name="*" class="homeAction">
+			<result>/page/businesscentre/{0}.jsp</result>
+		</action>
+	</package>
+	
+</struts>

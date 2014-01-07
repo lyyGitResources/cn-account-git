@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="comment">
+	<typeAlias alias="miscParams" type="com.hisupplier.cn.account.misc.QueryParams"/>
+	
+	<sql id="findCommentListWhere">
+		from Comment 
+		left join Users on Comment.authorUserId = Users.userId
+		left join Product on Comment.comId = Product.comId and Comment.proId = Product.proId 
+		where Comment.comId = #loginUser.comId#
+		and Comment.state > 0
+		<isEqual property="commentType" compareValue="company">
+			and Comment.proId = 0
+		</isEqual>
+		<isEqual property="commentType" compareValue="product">
+			and Comment.proId != 0
+		</isEqual>
+	</sql>
+	
+	<select id="findCommentListCount" parameterClass="miscParams" resultClass="int">
+		select count(*) <include refid="findCommentListWhere"/>
+	</select>
+	
+	<select id="findCommentList" parameterClass="miscParams" resultClass="com.hisupplier.cn.account.entity.Comment">
+		select 
+			Comment.commentId,
+			Comment.comId,
+			Comment.proId,
+			Comment.title,
+			Comment.content,
+			Comment.score,
+			Comment.authorComId,
+			Comment.authorUserId,
+			Comment.authorIP,
+			Comment.replyCount,
+			Comment.state,
+			Comment.createTime,
+			Comment.modifyTime,
+			Product.proName,
+			Product.model,
+			Users.contact
+		<include refid="findCommentListWhere"/>
+		order by Comment.commentId desc
+		limit #startRow#,#pageSize#
+	</select>
+	
+	<select id="findCommentCount" parameterClass="int" resultClass="int">
+		select count(*) from Comment where comId=#comId# and state > 0
+	</select>
+	
+	<select id="findCommentReplyList" parameterClass="miscParams" resultClass="com.hisupplier.commons.entity.cn.CommentReply">
+		select 
+			id,
+			comId,
+			commentId,
+			content,
+			authorComId,
+			authorUserId,
+			authorIP,
+			state,
+			createTime,
+			modifyTime
+		from CommentReply
+		where comId = #loginUser.comId# 
+		and commentId in
+		 <iterate property="commentId" open="(" close=")" conjunction=",">
+        	#commentId[]#
+      	</iterate>
+		order by id desc
+	</select>
+
+	<insert id="addReply" parameterClass="com.hisupplier.commons.entity.cn.CommentReply">
+		insert into 
+		CommentReply
+			(comId,commentId,content,authorComId,authorUserId,authorIP,state,createTime,modifyTime)
+		values
+			(#comId#,#commentId#,#content#,#authorComId#,#authorUserId#,#authorIP#,#state#,#createTime#,#modifyTime#)
+		<selectKey resultClass="int" type="post" keyProperty="id" >  
+			select LAST_INSERT_ID() as id
+		</selectKey>
+	</insert>
+ 	
+</sqlMap>

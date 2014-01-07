@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="module_title">
+
+	<typeAlias alias="moduleTitle" type="com.hisupplier.commons.entity.cn.WebSiteModuleTitle"/>
+	
+	<select id="findModuleTitleList" parameterClass="int" resultClass="moduleTitle">
+		select 
+			id,
+			comId,
+			titleKey,
+			titleContent,
+			createTime,
+			modifyTime
+		from WebSiteModuleTitle 
+		where comId in(0,#comId#) 
+		order by id asc
+	</select>
+	
+ 	<insert id="addModuleTitle" parameterClass="moduleTitle">
+ 		insert into WebSiteModuleTitle
+ 			(comId,titleKey,titleContent,createTime,modifyTime)
+ 		values
+ 			(#comId#,#titleKey#,#titleContent#,#createTime#,#modifyTime#)
+ 	</insert>
+
+	<delete id="deleteModuleTitle" parameterClass="int">
+		delete from WebSiteModuleTitle where comId = #comId#
+	</delete>
+	
+ 	
+	
+</sqlMap>

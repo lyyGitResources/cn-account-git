@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="template">
+	<typeAlias alias="template" type="com.hisupplier.cn.account.entity.WebSiteTemplate"/>
+ 	<typeAlias alias="templateParams" type="com.hisupplier.cn.account.website.QueryParams"/>
+ 	
+ 	<sql id="findTemplateListWhere">
+ 		from WebSiteTemplate 
+ 		<dynamic>
+ 			where 1 = 1 
+ 			<isGreaterThan prepend="and" compareValue="-1" property="templateType">
+ 				 templateType = #templateType#
+ 			</isGreaterThan>
+ 			 <isGreaterThan prepend="and" compareValue="-1" property="templateColor">
+ 				 templateColor = #templateColor#
+ 			</isGreaterThan>
+ 			and state = 1
+ 		</dynamic>
+ 	</sql>
+ 	
+ 	<select id="findTemplateList" parameterClass="templateParams" resultClass="template">
+ 		select
+	 		templateNo,
+	 		templateName,
+	 		templateType,
+	 		bannerType,
+	 		bannerWidth,
+	 		bannerHeight,
+	 		insideBannerWidth,
+	 		insideBannerHeight,
+	 		rejectLayoutNo,
+	 		createTime,
+	 		newHome,
+	 		bannerNum
+ 		<include refid="findTemplateListWhere"/>
+ 			order by createTime desc, templateNo
+ 		<isNotEqual property="pageNo" compareValue="-1">
+			limit #startRow#,#pageSize# 
+		</isNotEqual>
+ 	</select>
+ 				
+ 	<select id="findTemplateListCount" parameterClass="templateParams" resultClass="int">
+ 		select count(templateNo) <include refid="findTemplateListWhere"/>
+ 	</select>
+</sqlMap>

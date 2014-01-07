@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="userLog">
+	<typeAlias alias="params" type="com.hisupplier.cn.account.dao.QueryParams"/>
+	<typeAlias alias="userLog" type="com.hisupplier.cn.account.entity.UserLog"/>	
+ 	<typeAlias alias="user" type="com.hisupplier.cn.account.entity.User"/>	
+ 	
+ 	<resultMap class="userLog" id="userLogResultList">
+ 		<result property="user.contact" column="contact"/>
+ 		<result property="logType" column="logType"/>
+ 		<result property="operate" column="operate"/>
+ 		<result property="content" column="content"/>
+ 		<result property="userIP" column="userIP"/>
+ 		<result property="createTime" column="createTime"/>
+ 	</resultMap>
+ 	
+ 	<sql id="finduserLogListWhere">
+ 	 	from UserLog 
+ 	 	left join Users on UserLog.userId = Users.userId 
+ 	 	where UserLog.comId = #loginUser.comId#
+ 	 	<isEqual prepend="and" property="loginUser.admin" compareValue="false">
+ 	 		UserLog.userId = #loginUser.userId# 
+ 	 	</isEqual>
+ 		<isGreaterThan prepend="and" property="userId" compareValue="-1">
+   			UserLog.userId = #userId#
+   		</isGreaterThan>
+	 	<isNotEmpty prepend="and" property="logType">
+	 		UserLog.logType = #logType#
+	 	</isNotEmpty>
+ 		<isGreaterThan prepend="and" property="operate" compareValue="-1">
+ 			UserLog.operate = #operate#
+ 		</isGreaterThan> 
+		<isNotEmpty property="startTime" prepend="and">
+	 		<![CDATA[
+	 		UserLog.createTime >= #startTime# 
+	 		]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTime" prepend="and">
+	 		<![CDATA[
+	 		UserLog.createTime <= #endTime#
+	 		]]>
+		</isNotEmpty>	
+ 	</sql>	
+ 	
+ 	<select id="findUserLogList" parameterClass="params" resultMap="userLogResultList">
+ 		select 
+	 		Users.contact,
+	 		UserLog.logType,
+	 		UserLog.operate,
+	 		UserLog.content,
+	 		UserLog.userIP,
+	 		UserLog.createTime 
+		<include refid="finduserLogListWhere"/>
+			order by UserLog.id desc
+		<isEqual property="paging" compareValue="true">
+ 			limit #startRow#,#pageSize#
+ 		</isEqual>
+ 		<isEqual property="paging" compareValue="false">
+ 			limit 0,5
+ 		</isEqual> 
+ 	</select>
+ 	
+ 	<select id="findUserLogListCount" parameterClass="params" resultClass="int">
+ 		select count(UserLog.id)
+		<include refid="finduserLogListWhere"/>
+ 	</select>
+
+ 	<insert id="addUserLog" parameterClass="userLog">
+		insert into UserLog (comId,userId,userIP,logType,operate,content,createTime) values (#comId#,#userId#,#userIP#,#logType#,#operate#,#content#,#createTime#)
+		<selectKey resultClass="int" keyProperty="id">
+			select last_insert_id() as ID
+		</selectKey>
+	</insert>
+</sqlMap>

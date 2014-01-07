@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+		http://www.springframework.org/schema/jee 
+		http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
+
+
+	<bean id="basicService" class="com.hisupplier.cn.account.basic.BasicService">
+		<property name="userLogDAO" ref="userLogDAO" />
+		<property name="companyDAO" ref="companyDAO" />
+		<property name="userDAO" ref="userDAO" />
+		<property name="serviceDAO" ref="serviceDAO" />
+		<property name="userSuggestDAO" ref="userSuggestDAO" />
+		<property name="adminLogDAO" ref="adminLogDAO" />
+		<property name="inquiryDAO" ref="inquiryDAO" />
+		<property name="bulletinDAO" ref="bulletinDAO" />
+		<property name="voteDAO" ref="voteDAO" />
+		<property name="commentDAO" ref="commentDAO" />
+		<property name="tradeDAO" ref="tradeDAO" />
+		<property name="websiteDAO" ref="websiteDAO" />
+	</bean>
+
+	<bean id="homeAction" class="com.hisupplier.cn.account.basic.HomeAction" scope="prototype">
+		<property name="basicService" ref="basicService" />
+	</bean>
+
+	<bean id="serviceFormAction" class="com.hisupplier.cn.account.basic.ServiceFormAction" scope="prototype">
+		<property name="basicService" ref="basicService" />
+	</bean>
+
+	<bean id="userSuggestFormAction" class="com.hisupplier.cn.account.basic.UserSuggestFormAction" scope="prototype">
+		<property name="basicService" ref="basicService" />
+	</bean>
+
+	<bean id="queryAction" class="com.hisupplier.cn.account.basic.QueryAction" scope="prototype">
+		<property name="searchService" ref="searchService" />
+	</bean>
+	
+	<bean id="basicInterceptor" class="com.hisupplier.cn.account.basic.BasicInterceptor" scope="prototype">
+		<property name="basicService" ref="basicService"></property>
+	</bean>
+</beans>

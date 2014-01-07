@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="video">
+	<typeAlias alias="miscParams" type="com.hisupplier.cn.account.misc.QueryParams"/>
+	
+ 	<resultMap id="videoCount" class="java.util.HashMap" >
+		<result property="rejectVideoCount" column="rejectVideoCount" javaType="int" />
+		<result property="productVideoCount" column="productVideoCount" javaType="int" />
+		<result property="menuVideoCount" column="menuVideoCount" javaType="int" />
+	</resultMap>
+	
+	<resultMap id="videoUseCount" class="java.util.HashMap" >
+		<result property="videoId" column="videoId" />
+		<result property="count" column="count" />
+	</resultMap>
+	
+	<resultMap id="useInTableCount" class="java.util.HashMap">
+		<result property="useInCompanyCount" column="useInCompanyCount" />
+		<result property="useInProductCount" column="useInProductCount" />
+		<result property="useInMenuCount" column="useInMenuCount" />
+	</resultMap>
+	
+	<!--  
+	<sql id="findVideoGroupListWhere">
+		from VideoGroup 
+		where comId = #loginUser.comId# and state in(15,20)
+	</sql>
+	
+	<select id="findVideoGroupListCount" parameterClass="miscParams" resultClass="int">
+		select count(*) <include refid="findVideoGroupListWhere"/>
+	</select>
+	-->
+	<select id="findVideoGroupList" parameterClass="miscParams" resultClass="com.hisupplier.commons.entity.cn.Group">
+		select 
+			groupId, 
+			groupName, 
+			comId, 
+			listOrder, 
+			videoCount,
+			videoRejectCount, 
+			state, 
+			createTime, 
+			modifyTime 
+		from VideoGroup 
+		where comId = #loginUser.comId# and state in(15,20)
+		order by groupId desc
+	</select>
+	
+	<select id="findVideoGroup" parameterClass="miscParams" resultClass="com.hisupplier.commons.entity.cn.Group">
+		select 
+			groupId, 
+			groupName, 
+			comId, 
+			listOrder, 
+			videoCount,
+			videoRejectCount, 
+			state, 
+			createTime, 
+			modifyTime 
+		from VideoGroup
+		where state in(15,20) and comId = #loginUser.comId# 
+		and groupId = #groupId#
+	</select>
+	
+	<select id="findVideoCount" parameterClass="int" resultMap="videoCount">
+		select (select count(videoId) from Video where state = 10 and comId =#comId#) rejectVideoCount,
+       		(select count(DISTINCT videoId) from Product where comId =#comId# and videoId >0) productVideoCount,
+       		(select count(DISTINCT videoId) from Menu where comId =#comId# and videoId >0) menuVideoCount
+	</select>
+	
+	<select id="findVideoUseCount" parameterClass="java.util.HashMap" resultMap="useInTableCount">
+		select (select count(videoId) from Company where comId =#comId# and videoId = #videoId#) useInCompanyCount,
+       		(select count(videoId) from Product where comId =#comId# and videoId = #videoId#) useInProductCount,
+       		(select count(videoId) from Menu where comId =#comId# and videoId = #videoId#) useInMenuCount
+	</select>
+
+	<sql id="findVideoListWhere">
+		from Video 
+		<isEqual property="videoType" compareValue="Company">
+			left join Company on Company.videoId = Video.videoId 
+		</isEqual>
+		<isEqual property="videoType" compareValue="Product">
+			left join Product on Product.videoId = Video.videoId 
+		</isEqual>
+		<isEqual property="videoType" compareValue="Menu">
+			left join Menu on Menu.videoId = Video.videoId 
+		</isEqual>
+			where Video.comId = #comId# 
+		<isEqual property="videoType" compareValue="Company" prepend="and">
+			Company.videoId > 0
+		</isEqual>
+		<isEqual property="videoType" compareValue="Product" prepend="and">
+			Product.videoId > 0
+		</isEqual>
+		<isEqual property="videoType" compareValue="Menu" prepend="and">
+			Menu.videoId > 0
+		</isEqual>
+		<isNotEmpty property="queryText" prepend="and">
+			Video.$queryBy$ like '%$queryText$%' 
+		</isNotEmpty>
+		<isGreaterThan property="groupId" compareValue="-1" prepend="and">
+			Video.groupId = #groupId# 
+		</isGreaterThan>
+		<isEqual property="videoType" compareValue="stateReject" prepend="and">
+			Video.state = 10
+		</isEqual>
+		<isNotEqual property="videoType" compareValue="stateReject" prepend="and">
+			Video.state in(10,15,20)
+		</isNotEqual>
+	</sql>
+	 
+	<select id="findVideoListCount" parameterClass="java.util.HashMap" resultClass="int">
+		select count(distinct Video.videoId) <include refid="findVideoListWhere"/>
+	</select>
+	
+	<select id="findVideoList" parameterClass="java.util.HashMap" resultClass="com.hisupplier.cn.account.entity.Video">
+		select 
+			distinct Video.videoId,
+			Video.comId,
+			Video.groupId,
+			Video.title,
+			Video.keywords,
+			Video.fileName,
+			Video.fileSize,
+			Video.viewCount,
+			Video.imgPath,
+			Video.playPath,
+			Video.state,
+			Video.createTime,
+			Video.modifyTime,
+			Video.asdId
+		<include refid="findVideoListWhere"/>
+		order by Video.videoId desc
+		limit #startRow#,#pageSize#
+	</select>
+	
+	<select id="findUseCount" parameterClass="java.util.HashMap" resultMap="videoUseCount">
+		select 
+			videoId,
+			count(*) as count 
+		from $tableType$
+		where comId = #comId#
+		and videoId in 
+		<iterate property="videoId" open="(" close=")" conjunction=",">
+			#videoId[]#
+		</iterate>
+		group by videoId
+	</select>
+	
+	<select id="findVideo" parameterClass="java.util.HashMap" resultClass="com.hisupplier.cn.account.entity.Video">
+		SELECT 
+			Video.videoId,
+			Video.comId,
+			Video.groupId,
+			Video.title,
+			Video.keywords,
+			Video.fileName,
+			Video.fileSize,
+			Video.viewCount,
+			Video.imgPath,
+			Video.playPath,
+			Video.state,
+			Video.createTime,
+			Video.modifyTime,
+			VideoGroup.groupName
+		From Video 
+		LEFT JOIN VideoGroup ON Video.groupId = VideoGroup.groupId
+		WHERE Video.state IN (10, 15, 20) AND Video.comId = #comId#
+		AND Video.videoId = #videoId#
+	</select>
+	
+	<sql id="findVideoMenuListWhere">
+		from Menu 
+		where comId = #comId# 
+		and videoId = #videoId#
+	</sql>
+	
+	<select id="findVideoMenuListCount" parameterClass="java.util.HashMap" resultClass="int">
+		select count(*) <include refid="findVideoMenuListWhere"/>
+	</select>
+	
+	<select id="findVideoMenuList" parameterClass="java.util.HashMap" resultClass="com.hisupplier.cn.account.entity.Menu">
+		select 
+			menuId,
+			title,
+			imgId,
+			imgPath,
+			videoId,
+			viewCount,
+			state,
+			createTime,
+			modifyTime 
+		<include refid="findVideoMenuListWhere"/>
+		order by listOrder
+		limit #startRow#,#pageSize#
+	</select>
+	
+	<sql id="findVideoProductListWhere">
+		from Product 
+		where comId = #comId# 
+		and videoId = #videoId#
+	</sql>
+	
+	<select id="findVideoProductListCount" parameterClass="java.util.HashMap" resultClass="int">
+		select count(*) <include refid="findVideoProductListWhere"/>
+	</select>
+	
+	<select id="findVideoProductList" parameterClass="java.util.HashMap" resultClass="com.hisupplier.cn.account.entity.Product">
+		select 
+			proId,
+			comId,
+			proName,
+			brief,
+			imgId,
+			imgPath,
+			videoId,
+			model,
+			viewCount,
+			state,
+			createTime,
+			modifyTime
+		<include refid="findVideoProductListWhere"/>
+		order by modifyTime desc
+		limit #startRow#,#pageSize#
+	</select>
+	
+	<insert id="addVideoGroup" parameterClass="com.hisupplier.commons.entity.cn.Group">
+		insert into VideoGroup
+		(groupName,comId,listOrder,videoCount,videoRejectCount,state,createTime,modifyTime)
+		values(#groupName#,#comId#,#listOrder#,#videoCount#,#videoRejectCount#,#state#,#createTime#,#modifyTime#)
+		<selectKey resultClass="int" type="post" keyProperty="groupId">
+			select LAST_INSERT_ID() as groupId
+		</selectKey>
+	</insert>
+	
+	<insert id="addVideo" parameterClass="com.hisupplier.cn.account.entity.Video">
+		insert into Video
+		(asdId,comId,groupId,title,keywords,fileSize,viewCount,imgPath,playPath,state,createTime,modifyTime)
+		values
+		(#asdId#,#comId#,#groupId#,#title#,#keywords#,#fileSize#,#viewCount#,#imgPath#,#playPath#,#state#,#createTime#,#modifyTime#)
+		<selectKey resultClass="int" type="post" keyProperty="videoId">
+			select LAST_INSERT_ID() as videoId
+		</selectKey>
+	</insert>
+	
+	<select id="findVideoGroupByName" parameterClass="miscParams" resultClass="int">
+		select count(*) from VideoGroup where groupName=#groupName# and comId=#comId# and state in(15,20)
+	</select>
+	
+	<select id="findVideoIdByProduct" parameterClass="int" resultClass="int" >
+			<![CDATA[select videoId from Product where comId = #comId# and videoId <> 0  ]]>
+	</select>
+	<select id="findVideoIdByMenu" parameterClass="int" resultClass="int" >
+			<![CDATA[select videoId from Menu where comId = #comId# and videoId <> 0  ]]>
+	</select>
+	
+</sqlMap>

@@ -1,0 +1,72 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://cxf.apache.org/jaxws 
+		http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+	<bean id="memberService" class="com.hisupplier.cn.account.webservice.MemberServiceImpl">
+		<property name="userDAO" ref="userDAO" />
+		<property name="companyDAO" ref="companyDAO" />
+	</bean>
+
+	<jaxws:endpoint id="getMemberInfo" implementor="#memberService" address="/get_member_info">
+		<jaxws:inInterceptors>
+			<bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+				<constructor-arg>
+					<map>
+						<entry key="action" value="UsernameToken Timestamp" />
+						<entry key="passwordType" value="PasswordDigest" />
+						<entry key="passwordCallbackClass" value="com.hisupplier.cn.account.webservice.ServerPasswordCallback" />
+					</map>
+				</constructor-arg>
+			</bean>
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+
+	<jaxws:endpoint id="inquirySend" implementor="#inquirySendService" address="/inquiry_send">
+		<jaxws:inInterceptors>
+			<bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+				<constructor-arg>
+					<map>
+						<entry key="action" value="UsernameToken Timestamp" />
+						<entry key="passwordType" value="PasswordDigest" />
+						<entry key="passwordCallbackClass" value="com.hisupplier.cn.account.webservice.ServerPasswordCallback" />
+					</map>
+				</constructor-arg>
+			</bean>
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+
+	<jaxws:endpoint id="register" implementor="#companyService" address="/join">
+		<jaxws:inInterceptors>
+			<bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+				<constructor-arg>
+					<map>
+						<entry key="action" value="UsernameToken Timestamp" />
+						<entry key="passwordType" value="PasswordDigest" />
+						<entry key="passwordCallbackClass" value="com.hisupplier.cn.account.webservice.ServerPasswordCallback" />
+					</map>
+				</constructor-arg>
+			</bean>
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+
+	<jaxws:endpoint id="subscibe" implementor="#tradeAlertService" address="/subscibe">
+		<jaxws:inInterceptors>
+			<bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+				<constructor-arg>
+					<map>
+						<entry key="action" value="UsernameToken Timestamp" />
+						<entry key="passwordType" value="PasswordDigest" />
+						<entry key="passwordCallbackClass" value="com.hisupplier.cn.account.webservice.ServerPasswordCallback" />
+					</map>
+				</constructor-arg>
+			</bean>
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+</beans>

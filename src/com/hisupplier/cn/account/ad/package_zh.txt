@@ -1,0 +1,55 @@
+upgrade.formTitle = 会员升级
+adOrder.formTitle = 广告申请
+adOrder.listTitle = 广告申请列表
+top.listTitle = TopSite服务列表
+top.editTitle = 修改TopSite服务
+topOrder.formTitle = TopSite订购
+topOrder.listTitle = TopSite订购列表
+
+# 会员升级
+upgrade.upType = 升级类型
+upgrade.upType1 = <strong>黄金商铺: </strong>黄金会员 ￥ 3500/年
+upgrade.upType2 = <strong>白金商铺:</strong> 黄金会员 + 3个TopSite关键词 ￥ 4500/年
+upgrade.upType3 = <strong>钻石商铺:</strong> 黄金会员 + 3个TopSite关键词 + 3个月首页产品展台位1个 ￥ 18000/年
+upgrade.remark = 备注
+upgrade.remark.required = 备注长度在500个字符内
+upgrade.contact = 联系人
+upgrade.tel = 电话
+upgrade.fax = 传真
+upgrade.mobile = 手机
+upgrade.success = 提示：您已提交了升级申请，我们将在3个工作日内与您取得联系！
+
+
+# 广告申请
+adOrder.adType = 广告类型
+adOrder.adType.required =请输入广告类型
+adOrder.adType1 = 行业目录Banner
+adOrder.adType2 = 关键词搜索页Banner
+adOrder.money = ￥800
+adOrder.keyword.required = 请输入关键词，长度在60个字符内
+adOrder.catId.required = 请输入目录
+adOrder.createTime = 申请时间
+adOrder.id = 主键ID
+
+# Topsite订购
+top.proImg = 产品图片
+top.uploadFail = 图片上传失败
+top.proName = 产品名称
+top.proName.required = 请输入产品名称，长度在120个字符内
+top.brief = 产品摘要
+top.brief.required = 请输入产品摘要，长度在150个字符内
+top.link = 链接地址
+top.link.required = 请输入链接地址，格式如：http://xxxx.cn.hisupplier.com/product/detail-1535.html
+top.otherLink = 其他
+top.webSite = 网址
+
+# Topsite订购
+topOrder.topType = 排名类型
+topOrder.topType1 = 搜索结果出现在第1页，
+topOrder.topType2 = 搜索结果出现在第1页的第1位，
+topOrder.money1 = ￥500/年
+topOrder.money2 = ￥2000/年
+topOrder.keyword = 关键词
+topOrder.proImg = 产品图片
+topOrder.proName = 产品名称
+topOrder.topTypeName = 排名等级

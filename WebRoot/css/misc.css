@@ -1,0 +1,35 @@
+.inquiryReports {
+	float: left;
+	width: 736px;
+	overflow: hidden;
+	margin-top: 7px;
+}
+
+.inquiryReports img {
+	width: 736px;
+}
+
+.keywordsList {
+	width: 566px;
+	overflow: hidden;
+}
+
+/* 客服提示信息 */
+.serviceTips {
+	border: 1px solid #F0E898;
+	background: #FFFBD3 url(../img/ico/service.gif) no-repeat 10px 6px;
+	font-size: 12px;
+	color: #333333;
+	line-height: 24px;
+	padding-left: 60px;
+	padding-top:10px;
+	padding-bottom:10px;
+	width: 674px;
+	margin-bottom: 20px;
+}
+
+.serviceTips span {
+	color: #DA7405;
+	font-weight: bold;
+	overflow: hidden;
+}

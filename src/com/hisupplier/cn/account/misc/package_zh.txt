@@ -1,0 +1,102 @@
+vote.viewTitle = 投票
+vote.listTitle = 投票管理
+vote.view = 进入
+vote.createTime = 发起时间
+vote.endTime = 截止时间
+vote.count = 已投票数
+vote.say = 我来说几句
+vote.noExist = 投票主题不存在，请重新选择主题！
+vote.radio.tip = 每人只能投一次票，你已经投过票了！
+vote.checkBox.tip = 每人对每个选项只能投一次票，你已经投过票了！
+vote.timeout = 该主题投票时间已经截止，不能再投票！
+vote.addSuccess = 投票成功，感谢您的参与
+
+voteComment.content.maxlength = 请输入评论内容，长度在3000个字符内!
+voteComment.addSuccess = 发表评论成功
+
+comment.listTitle = 评论
+comment.company = 诚信评论
+comment.product = 产品评论
+comment.from = 来自
+comment.score = 评价
+comment.createTime = 发布时间
+
+commentReply.title = 评论回复
+commentReply.content.maxlength = 请输入回复内容，长度在2000个字符内!
+commentReply.addError = 一次只能回复一条评论
+commentReply.addSuccess = 评论回复成功
+
+videoGroup.groupName = 分组名称
+videoGroup.listTitle = 视频分组
+videoGroup.exist = 已创建{0}组（数量不限）
+videoGroup.unallowed.delete = 不能删除有视频的分组
+videoGroup.addSuccess = 视频分组创建成功
+videoGroup.editSuccess = 视频分组修改成功
+videoGroup.deleteSuccess = 视频分组删除成功
+videoGroup.addTitle = 添加视频分组
+videoGroup.editTitle = 修改视频分组
+videoGroup.groupName.maxlength = 请输入名称,长度在60个字符内!
+videoGroup.videoCount = 视频数量
+videoGroup.AllGroup = 所有分组 
+videoGroup.select = 请选择一个分组
+
+video.title = 标题
+video.title.required = 请输入标题
+video.title.maxlength = 请输入标题,长度在120个字符内!
+video.viewCount = 点击数
+video.fileSize = 容量
+video.state = 审核状态
+video.videoCount = 所有视频
+video.companyVideoCount = 公司视频
+video.productVideoCount = 产品视频
+video.menuVideoCount = 菜单视频
+video.rejectVideoCount = 审核未通过
+video.playTitle = 视频播放
+video.fileName = 视频
+video.listTitle = 视频管理
+video.exist = 已添加{0}视频（最多{1}个）
+video.editTitle = 修改视频
+video.editSuccess = 视频修改成功
+video.deleteSuccess = 视频删除成功
+video.groupId = 分组
+video.used = 该视频被使用了，不能删除
+video.full = 您的视频数量已达到{0}个，不能再添加
+video.upload = 上传视频
+video.uploadSuccess = 视频上传成功
+video.upload.notice1 = 如“选择视频”不能点击，请{0}下载flash</a>
+video.upload.notice2 = 源文件分辨率至少 400X300
+video.upload.notice3 = <b>我们支持的视频格式</b>
+video.upload.notice4 = 微软视频：.wmv、.asf
+video.upload.notice5 = Real Player	：.rm、.rmvb
+video.upload.notice6 = MPEG视频：.mpg、.mpeg、.mpe、.mp4
+video.upload.notice7 = 手机视频：.3gp
+video.upload.notice8 = Apple视频：.mov
+video.upload.notice9 = 其他常见视频：.avi、.dat、.flv
+video.upload.notice10 = 不推荐：.wmv（微软不开放编码标准）
+video.selectTitle = 视频选择
+
+image.listTitle = 图库管理
+image.allImage = 所有图片
+image.logo = 公司商标图
+image.face = 公司形象图
+image.product = 产品图片
+image.menu = 自定义菜单
+image.banner = Banner图片
+image.head = 联系人头像
+image.s75 = 方块图
+image.s100 = 缩略图
+image.s240 = 小型图
+image.ss = 原图
+image.queryText = 请输入图片名
+image.copySuccess = 复制成功！
+image.copyNotice1 = 当前浏览器不支持自动复制，请您手动复制图片链接！
+image.copyNotice2 = 内容如下：
+image.imgPath = 图片
+image.imgName = 图片名称
+image.imgSize = 图片大小
+image.format = 图片格式
+image.deleteFile = {0}正在使用，不能删除
+image.deleteSuccess = 图片删除成功
+
+
+

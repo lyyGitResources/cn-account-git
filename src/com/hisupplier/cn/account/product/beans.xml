@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+		http://www.springframework.org/schema/jee 
+		http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
+
+	<tx:advice id="productTxAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="check*" read-only="true" />
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="update*" read-only="false" />
+			<tx:method name="delete*" read-only="false" />
+			<tx:method name="add*" read-only="false" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="productServiceMethod" expression="execution(* com.hisupplier.cn.account.product.*Service.*(..))" />
+		<aop:advisor advice-ref="productTxAdvice" pointcut-ref="productServiceMethod" />
+	</aop:config>
+
+	<bean id="productService" class="com.hisupplier.cn.account.product.ProductService">
+		<property name="productDAO" ref="productDAO" />
+		<property name="newProductDAO" ref="newProductDAO" />
+		<property name="companyDAO" ref="companyDAO" />
+		<property name="userDAO" ref="userDAO" />
+		<property name="groupDAO" ref="groupDAO" />
+		<property name="specialGroupDAO" ref="specialGroupDAO" />
+		<property name="tradeDAO" ref="tradeDAO" />
+		<property name="videoDAO" ref="videoDAO" />
+	</bean>
+	<bean id="newProductService" class="com.hisupplier.cn.account.product.NewProductService">
+		<property name="newProductDAO" ref="newProductDAO" />
+		<property name="companyDAO" ref="companyDAO" />
+		<property name="userDAO" ref="userDAO" />
+	</bean>
+	<bean id="tradeService" class="com.hisupplier.cn.account.product.TradeService">
+		<property name="productDAO" ref="productDAO" />
+		<property name="companyDAO" ref="companyDAO" />
+		<property name="userDAO" ref="userDAO" />
+		<property name="groupDAO" ref="groupDAO" />
+		<property name="tradeDAO" ref="tradeDAO" />
+	</bean>
+	<bean id="likeRecordService" class="com.hisupplier.cn.account.product.LikeRecordService" autowire="byName" />
+	
+	<bean id="productAction" class="com.hisupplier.cn.account.product.ProductAction" scope="prototype">
+		<property name="productService" ref="productService" />
+	</bean>
+	<bean id="productFormAction" class="com.hisupplier.cn.account.product.ProductFormAction" scope="prototype">
+		<property name="productService" ref="productService" />
+	</bean>
+	<bean id="exportExcelAction" class="com.hisupplier.cn.account.product.ExportExcelAction" scope="prototype">
+		<property name="productService" ref="productService" />
+	</bean>
+	<bean id="newProductAction" class="com.hisupplier.cn.account.product.NewProductAction" scope="prototype">
+		<property name="newProductService" ref="newProductService" />
+	</bean>
+	<bean id="newProductFormAction" class="com.hisupplier.cn.account.product.NewProductFormAction" scope="prototype">
+		<property name="newProductService" ref="newProductService" />
+	</bean>
+	
+	<bean id="tradeAction" class="com.hisupplier.cn.account.product.TradeAction" scope="prototype">
+		<property name="tradeService" ref="tradeService" />
+	</bean>
+	<bean id="tradeFormAction" class="com.hisupplier.cn.account.product.TradeFormAction" scope="prototype">
+		<property name="tradeService" ref="tradeService" />
+	</bean>
+	
+	<bean id="likeRecordAction" class="com.hisupplier.cn.account.product.LikeRecordAction" scope="prototype" autowire="byName" />
+</beans>

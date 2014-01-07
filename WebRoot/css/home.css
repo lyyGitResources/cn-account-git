@@ -1,0 +1,367 @@
+@charset "utf-8";
+
+/* 中间主体 */
+.page .center {
+	float: left;
+	width: 520px;
+	overflow: hidden;
+}
+
+/* 中间即时提醒 */
+.center .reminded {
+	width: 518px;
+	border: 1px solid #F4C66E;
+	margin-bottom: 15px;
+	overflow: hidden;
+}
+
+.reminded h1 {
+	color: #FF9900;
+	font-size: 12px;
+	background: url(../img/reminded_h1_bg.jpg) repeat-x;
+	height: 26px;
+	line-height: 26px;
+	padding-left: 19px;
+	border-bottom: 1px solid #F4C66E;
+}
+
+.reminded .content {
+	width: 516px;
+	background-color: #FFFDF3;
+	font-size: 12px;
+	line-height: 25px;
+	overflow: hidden;
+	padding: 5px 0;
+}
+
+.reminded .content ul { list-style: none; overflow: hidden;}
+.reminded .content li { overflow: hidden; }
+.reminded .span1 { float: left; width: 128px; text-align: right; padding-right: 21px; }
+.reminded .span2 { text-align: left; color: #3366BD; }
+.reminded .digital { color: #FF0000; font-size: 14px; font-family: Arial; }
+
+/* 中间会员信息 */
+.center .member {
+	width: 518px;
+	border: 1px solid #B4CADA;
+	margin-bottom: 15px;
+	overflow: hidden;
+}
+
+.member h1 {
+	color: #1B4A90;
+	font-size: 12px;
+	background: url(../img/member_h1_bg.jpg) repeat-x;
+	height: 26px;
+	line-height: 26px;
+	padding-left: 19px;
+	border-bottom: 1px solid #B4CADA;
+}
+
+.member table {
+	width: 514px;
+	margin: 0 auto;
+	margin-top: 11px;
+	margin-bottom: 11px;
+	font-size: 3px;
+	font-size: 12px;
+	color: #333333;
+}
+
+.member td {
+	background: #F6F6F6;
+	line-height: 25px;
+}
+
+.member tr {
+	padding-bottom: 9px;
+}
+
+.member .td1 {
+	text-align: center;
+	font-family: Arial;
+}
+
+.member . {
+	padding-left: 20px;
+}
+
+.member .td3 {
+	background: #FFFFFF;
+	height: 9px;
+	overflow: hidden;
+}
+
+/*用户操作手册*/
+.center .manual {
+	width: 518px;
+	border: 1px solid #B4CADA;
+	overflow: hidden;
+	padding-bottom:10px;
+}
+
+.manual ul{
+	list-style-type: none;
+	margin:0;
+	font-size: 12px;
+}
+
+.manual li{
+	float:left;
+	width: 140px;
+	margin-left: 25px;
+	margin-top:10px;
+	text-align: center;
+}
+
+/* IE6 fix */
+* html .manual li {
+	margin-left: 20px;
+}
+
+/* 中间操作日志 */
+.center .diary {
+	width: 518px;
+	border: 1px solid #B4CADA;
+	margin-bottom:15px;
+}
+
+.diary h1 {
+	color: #1B4A90;
+	font-size: 12px;
+	background: url(../img/member_h1_bg.jpg) repeat-x;
+	height: 26px;
+	line-height: 26px;
+	padding-left: 19px;
+	border-bottom: 1px solid #B4CADA;
+	width:499px;
+}
+
+.diary table {
+	width: 100%;
+}
+
+.diary ul {
+	width: 518px;
+	margin: 0 auto;
+	list-style: none;
+	overflow: hidden;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	color: #333333;
+}
+
+.diary li {
+	float: left;
+	width: 518px;
+	font-size: 12px;
+	font-family: Arial;
+	line-height: 23px;
+	cursor: pointer;
+}
+
+.diary li .span1 {
+	float: left;
+	text-align: center;
+	display: block;
+	width: 85px;
+}
+
+.diary li .span2 {
+	float: left;
+	text-align: left;
+	display: block;
+	width: 85px;
+	padding-left: 15px;
+}
+
+.diary li .span3 {
+	float: left;
+	text-align: left;
+	display: block;
+	width: 60px;
+}
+
+.diary li .span4 {
+	float: left;
+	text-align: left;
+	display: block;
+	width: 170px;
+}
+
+.diary li .span5 {
+	float: left;
+	text-align: center;
+	display: block;
+	width: 100px;
+}
+
+.diary .more {
+	color: #1B4A90;
+	font-size: 12px;
+	font-weight: normal;
+	margin-left: 400px;
+}
+
+.diary .more a:link {
+	color: #1B4A90;
+	text-decoration: none;
+}
+
+.diary .more a:visited {
+	color: #1B4A90;
+	text-decoration: none;
+}
+
+.diary .more a:hover {
+	color: #1B4A90;
+	text-decoration: underline;
+}
+
+.diary .more a:active {
+	color: #1B4A90;
+	text-decoration: none;
+}
+
+/* 最右边 */
+.page .right2 {
+	float: right;
+	width: 200px;
+	overflow: hidden;
+}
+
+/* 最右边海商新闻 */
+.right2 .news {
+	float: left;
+	widows: 198px;
+	border: 1px solid #E2E2E2;
+	margin-bottom: 15px;
+	padding-bottom: 2px;
+}
+
+.news h2 {
+	float: left;
+	color: #1B4A90;
+	background: url(../img/news_bg.jpg) no-repeat;
+	height: 24px;
+	line-height: 24px;
+	padding-left: 10px;
+	font-size: 12px;
+	width: 188px;
+	border-bottom: 1px solid #E2E2E2;
+}
+
+.news .more {
+	margin-left: 83px;
+	color: #666666;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+.news .more a:link {
+	color: #666666;
+	text-decoration: none;
+}
+
+.news .more a:visited {
+	color: #666666;
+	text-decoration: none;
+}
+
+.news .more a:hover {
+	color: #666666;
+	text-decoration: underline;
+}
+
+.news .more a:active {
+	color: #666666;
+	text-decoration: none;
+}
+
+/* 最右边海商新闻列表 */
+.news .content {
+	float: left;
+	width: 194px;
+	background: #FAFAFA;
+	margin: 2px 2px 0 2px;
+	overflow: hidden;
+	font-size: 12px;
+	line-height: 28px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+
+/* IE6 fix */
+* html .news .content {
+	margin: 1px 1px 0 1px;
+}
+
+.news .content ul {
+	float: left;
+	width: 194px;
+	list-style: none;
+	list-style-image: none;
+	list-style-type: none;
+}
+
+.news .content li {
+	background: url(../img/ico/news.jpg) no-repeat 5px 12px;
+	padding-left: 15px;
+}
+
+/* 最右边海商博览列表 */
+.news .content2 {
+	float: left;
+	width: 194px;
+	margin: 1px;
+	overflow: hidden;
+	font-size: 12px;
+	line-height: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.news .content2 ul {
+	list-style: none;
+	padding-left: 7px;
+}
+
+.news .content2 li {
+	margin-top: 5px;
+}
+
+.news a {
+	color: #3366BD;
+	text-decoration: none;
+}
+
+.news a:hover {
+	color: #F26616;
+	text-decoration: underline;
+}
+
+.news .content2 span {
+	color: #999999;
+	display: block;
+}
+
+/*通知*/
+.Notice{border:1px solid #F4C66E; background: url(../img/NoticeBg.jpg) repeat-x; color: #E33737;font-size: 16px; font-weight: bold; margin-bottom:15px;}
+.Notice span{background: url(../img/Notice.jpg) no-repeat 20px 10px; height: 48px; line-height: 48px; display: block;padding-left:70px;}
+
+.center .bulletin {
+	width: 518px;
+	border: 1px solid #F2AE23;
+	margin-bottom:15px;
+	color:#C92911;
+}
+.bulletin ul {
+	width: 518px;
+	margin: 0 auto;
+	list-style: none;
+	overflow: hidden;
+	background-color: #FFFDF3;
+}
+.bulletin li { font-family: Arial; font-size: 12px; line-height: 20px; overflow: hidden; padding: 6px 12px 0; }
+.bulletin li span{ color: #555555; float: right; font-size: 11px; }
+.bulletin li a{ color: #C92911; display: block; margin-bottom: 3px; }

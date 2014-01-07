@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="inquiry" namespace="/inquiry" extends="default">
+		<action name="inquiry_list" class="inquiryAction" method="inquiry_list">
+			<result name="success">/page/inquiry/inquiry_list.jsp</result>
+			<result name="ajaxSuccess">/page/inquiry/inquiry_list_inc.jsp</result>
+		</action>
+
+		<action name="inquiry_view" class="inquiryAction" method="inquiry_view">
+			<result>/page/inquiry/inquiry_view.jsp</result>
+		</action>
+
+		<action name="inquiry_reply_view" class="inquiryAction" method="inquiry_reply_view">
+			<result>/page/inquiry/inquiry_reply_view.jsp</result>
+		</action>
+		
+		<action name="inquiry_remove" class="inquiryBasketAction" method="inquiry_basket_remove_jsonp">
+			<result name="json" type="json">
+				<param name="includeProperties">success,basketCount</param>
+			    <param name="callbackParameter">callback</param>
+			</result>
+		</action>
+
+		<action name="inquiry_delete" class="inquiryAction" method="inquiry_delete">
+			<result type="redirect">inquiry_list.htm?comId=${comId}&amp;userId=${userId}</result>
+		</action>
+		
+		<action name="inquiry_reply_add" class="inquiryAction" method="inquiry_reply_add">
+			<result>/page/inquiry/inquiry_reply_form.jsp</result>
+		</action>
+		
+		<action name="inquiry_reply_add_submit" class="inquiryReplyAction" method="inquiry_reply_add_submit">
+			<interceptor-ref name="resubmitValidateStack" />
+			<result type="redirect">inquiry_view.htm?inqId=${inqId}</result>
+			<result name="input">/page/inquiry/inquiry_reply_form.jsp</result>
+		</action>
+
+		<action name="inquiry_chart" class="inquiryAction" method="inquiry_chart">
+			<result name="ajaxSuccess">/page/inquiry/inquiry_chart.jsp</result>
+			<result name="success">/page/inquiry/inquiry_chart.jsp</result>
+		</action>
+
+		<action name="inquiry_chart_stat" class="inquiryAction" method="inquiry_chart_stat">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="excludeProperties">msg,tip,model</param>
+			</result>
+		</action>
+		
+		<action name="inquiry_download" class="inquiryAction" method="inquiry_download">
+			<result>/page/inquiry/inquiry_download.jsp</result>
+		</action>
+		
+		<action name="inquiry_download_zip" class="inquiryAction" method="inquiry_download_zip">
+			<result name="success" type="stream">
+				<param name="contentType">application/zip</param>
+				<param name="inputName">targetFile</param>
+				<param name="contentDisposition">filename="${zipFilename}"</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+
+		<action name="inquiry_set" class="inquiryAction" method="inquiry_set">
+			<result>/page/inquiry/inquiry_set.jsp</result>
+		</action>
+
+		<action name="inquiry_set_submit" class="inquiryAction" method="inquiry_set_submit">
+			<interceptor-ref name="resubmitValidateStack" />
+			<result type="redirect">inquiry_set.htm</result>
+		</action>
+
+		<action name="inquiry_recycle_list" class="inquiryAction" method="inquiry_recycle_list">
+			<result name="success">/page/inquiry/inquiry_recycle_list.jsp</result>
+			<result name="ajaxSuccess">/page/inquiry/inquiry_recycle_list_inc.jsp</result>
+		</action>
+		
+		<action name="inquiry_recycle_reuse" class="inquiryAction" method="inquiry_recycle_reuse">
+			<result type="redirect">inquiry_recycle_list.htm</result>
+		</action>
+		
+		<action name="inquiry_recycle_delete" class="inquiryAction" method="inquiry_recycle_delete">
+			<result type="redirect">inquiry_recycle_list.htm</result>
+		</action>
+		
+		<action name="inquiry_recycle_empty" class="inquiryAction" method="inquiry_recycle_empty">
+			<result type="redirect">inquiry_recycle_list.htm</result>
+		</action>
+		
+	</package>
+</struts>

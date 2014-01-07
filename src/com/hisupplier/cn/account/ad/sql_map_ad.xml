@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ad">
+	<typeAlias alias="upgradeMail" type="com.hisupplier.cn.account.entity.UpgradeMail"/>
+	<typeAlias alias="adOrder" type="com.hisupplier.cn.account.entity.AdOrder"/>
+	<typeAlias alias="top" type="com.hisupplier.cn.account.entity.Top"/>
+	<typeAlias alias="topOrder" type="com.hisupplier.cn.account.entity.TopOrder"/>
+	
+	<select id="findAdOrderListCount" parameterClass="params" resultClass="int">
+		select count(id) from AdOrder where comId = #loginUser.comId#
+	</select>
+	
+	<select id="findAdOrderList" parameterClass="params" resultClass="adOrder">
+		select
+			id,
+			adType,
+			remark,
+			createTime
+		from AdOrder
+		where comId = #loginUser.comId#
+		order by $sortBy$ $sortOrder$
+		limit #startRow#,#pageSize#
+	</select>
+	
+	<select id="findTopCount" parameterClass="params" resultClass="int">
+		select count(topId) from Top where comId = #loginUser.comId#
+	</select>
+	
+	<select id="findTopList" parameterClass="params" resultClass="top">
+		select
+			topId,
+			imgPath,
+			proName,
+			beginDate,
+			endDate,
+			priority
+		from Top
+		where comId = #loginUser.comId#
+		order by $sortBy$ $sortOrder$
+		limit #startRow#,#pageSize#
+	</select>
+	
+	<select id="findTopOrderCount" parameterClass="params" resultClass="int">
+		select count(id) from TopOrder where comId = #loginUser.comId#
+	</select>
+	
+	<select id="findTopOrderList" parameterClass="params" resultClass="topOrder">
+		select
+			id,
+			topType,
+			keyword,
+			remark,
+			createTime
+		from TopOrder
+		where comId = #loginUser.comId#
+		order by $sortBy$ $sortOrder$
+		limit #startRow#,#pageSize#
+	</select>
+	
+	<select id="findTopKeywordList" parameterClass="java.util.HashMap" resultClass="top">
+		select
+			topId,
+			keyword
+		from TopKeyword
+		where topId in ($topIds$)
+	</select>
+	
+	<select id="findTop" parameterClass="java.util.HashMap" resultClass="top">
+		select 
+			*
+		from Top
+		where comId = #comId# and topId = #topId#
+	</select>
+	
+	<insert id="addUpgradeMail" parameterClass="upgradeMail">
+		insert into UpgradeMail 
+			(comId,upType,remark,createTime)
+		values (#comId#,#upType#,#remark#,#createTime#)
+		<selectKey resultClass="int" keyProperty="id">
+    		select last_insert_id() as ID
+  	 	</selectKey>
+	</insert>
+	
+	<insert id="addAdOrder" parameterClass="adOrder">
+		insert into AdOrder 
+		(adType,comId,catId,keyword,remark,createTime)
+		values (#adType#,#comId#,#catId#,#keyword#,#remark#,#createTime#)
+		<selectKey resultClass="int" keyProperty="id">
+    		select last_insert_id() as ID
+  	 	</selectKey>
+	</insert>
+	
+	<insert id="addTopOrder" parameterClass="topOrder">
+		insert into TopOrder 
+			(topType,comId,keyword,remark,createTime)
+		values (#topType#,#comId#,#keyword#,#remark#,#createTime#)
+		<selectKey resultClass="int" keyProperty="id">
+    		select last_insert_id() as ID
+  	 	</selectKey>
+	</insert>
+		
+</sqlMap>

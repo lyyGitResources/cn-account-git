@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="alert">
+	<typeAlias alias="alert" type="com.hisupplier.cn.account.entity.TradeAlert"/>
+	<typeAlias alias="alertParams" type="com.hisupplier.cn.account.alert.QueryParams"/>
+	
+	<select id="findTradeAlertList" parameterClass="alertParams" resultClass="alert">
+		select 
+			TradeAlert.id,
+			TradeAlert.comId,
+			TradeAlert.userId,
+			TradeAlert.keyword,
+			TradeAlert.catIds,
+			TradeAlert.isProduct as product,
+			TradeAlert.isSell as sell,
+			TradeAlert.isBuy as buy,
+			TradeAlert.isCompany as company,
+			TradeAlert.isEnable as enable,
+			TradeAlert.createTime,
+			Users.email
+		from TradeAlert
+		left join Users on  TradeAlert.userId = Users.userId
+ 		where TradeAlert.comId = #loginUser.comId# 
+ 		<isEqual property="loginUser.admin" prepend="and" compareValue="false">
+ 			 TradeAlert.userId = #loginUser.userId# 
+ 		</isEqual> 
+ 		order by TradeAlert.id desc
+	</select>
+ 	
+	<select id="findTradeAlertCount" parameterClass="int" resultClass="int">
+		select count(id) 
+		from TradeAlert 
+		where comId = #comId# 
+	</select>
+	
+	<select id="findTradeAlert" parameterClass="alertParams" resultClass="alert">
+		select 
+			id,
+			comId,
+			userId,
+			keyword,
+			catIds,
+			isProduct as product,
+			isSell as sell,
+			isBuy as buy,
+			isCompany as company,
+			isEnable as enable,
+			createTime
+		from TradeAlert 
+		where comId = #loginUser.comId# 
+		and userId = #loginUser.userId#  
+		and id = #id#
+	</select>
+		
+	<select id="findKeyword" parameterClass="map" resultClass="int">
+		select count(id) from TradeAlert 
+		where comId = #comId#
+		and keyword = #keyword#
+		<isGreaterThan prepend="and" property="id" compareValue="0">
+			id != #id#
+		</isGreaterThan>
+	</select>
+	
+	<insert id="addTradeAlert" parameterClass="alert">
+		insert into TradeAlert
+		(comId,userId,keyword,catIds,isProduct,isSell,isBuy,isCompany,createTime)
+		values
+		(#comId#,#userId#,#keyword#,#catIds#,#product#,#sell#,#buy#,#company#,#createTime#)
+		<selectKey resultClass="int" keyProperty="id">
+			select last_insert_id() as ID
+		</selectKey>
+	</insert>
+	
+	<update id="updateTradeAlert" parameterClass="alert">
+		update TradeAlert set 
+			keyword = #keyword#,
+			catIds = #catIds#,
+			isProduct = #product#,
+			isSell = #sell#,
+			isBuy = #buy#,
+			isCompany = #company#
+		where comId = #comId# 
+		and userId = #userId#  
+		and id = #id#	
+	</update>
+</sqlMap>

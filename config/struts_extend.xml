@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="default" extends="json-default">
+		<result-types>
+			<result-type name="httpHeader" class="com.hisupplier.commons.struts2.HttpHeaderResult" />
+		</result-types>
+
+		<interceptors>
+
+			<interceptor name="exceptionInterceptor" class="com.hisupplier.commons.struts2.ExceptionInterceptor" />
+			<interceptor name="basicInterceptor" class="com.hisupplier.cn.account.basic.BasicInterceptor" />
+			<interceptor name="hiParams" class="com.hisupplier.patch.struts2.HiParametersInterceptor" />
+			<!--
+				<interceptor name="historyInterceptor" class="com.hisupplier.cn.account.basic.HistoryInterceptor" />
+			-->
+			<interceptor-stack name="strutsDefaultStack">
+				<interceptor-ref name="alias" />
+				<interceptor-ref name="servletConfig" />
+				<interceptor-ref name="prepare" />
+				<interceptor-ref name="i18n" />
+				<interceptor-ref name="chain" />
+				<interceptor-ref name="debugging" />
+				<interceptor-ref name="profiling" />
+				<interceptor-ref name="scopedModelDriven" />
+				<interceptor-ref name="modelDriven" />
+				<interceptor-ref name="fileUpload" />
+				<interceptor-ref name="checkbox" />
+				<interceptor-ref name="staticParams" />
+				<interceptor-ref name="hiParams">
+					<param name="excludeParams">dojo\..*,^struts\..*,struts.token,struts.token.name</param>
+				</interceptor-ref>
+				<interceptor-ref name="conversionError" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="workflow">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+			</interceptor-stack>
+
+			<interceptor-stack name="defaultStack">
+				<interceptor-ref name="timer" />
+				<interceptor-ref name="strutsDefaultStack" />
+				<interceptor-ref name="basicInterceptor" />
+				<interceptor-ref name="exceptionInterceptor" />
+			</interceptor-stack>
+
+			<interceptor-stack name="resubmitValidateStack">
+				<interceptor-ref name="timer" />
+				<interceptor-ref name="strutsDefaultStack" />
+				<interceptor-ref name="basicInterceptor" />
+				<interceptor-ref name="exceptionInterceptor" />
+				<interceptor-ref name="token" />
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="defaultStack" />
+
+		<default-action-ref name="defaultAction" />
+
+		<global-results>
+			<result name="input">/page/error/500.jsp</result>
+			<result name="error">/page/error/500.jsp</result>
+			<result name="limit">/page/error/limit.jsp</result>
+			<result name="errorJson" type="httpHeader" />
+			<result name="pageNotFound">/page/error/404.jsp</result>
+			<result name="invalid.token">/page/error/resubmit.jsp</result>
+			<result name="message">/page/error/messages.jsp</result>
+		</global-results>
+
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="org.springframework.dao.DataAccessException"></exception-mapping>
+			<exception-mapping result="error" exception="com.hisupplier.commons.exception.ServiceException"></exception-mapping>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+			<exception-mapping result="pageNotFound" exception="com.hisupplier.commons.exception.PageNotFoundException"></exception-mapping>
+		</global-exception-mappings>
+
+		<action name="defaultAction" class="homeAction">
+			<result>/page/error/404.jsp</result>
+		</action>
+
+		<action name="limit" class="homeAction">
+			<result>/page/error/limit.jsp</result>
+		</action>
+	</package>
+
+	<include file="com/hisupplier/cn/account/member/actions.xml" />
+	<include file="com/hisupplier/cn/account/user/actions.xml" />
+	<include file="com/hisupplier/cn/account/basic/actions.xml" />
+	<include file="com/hisupplier/cn/account/misc/actions.xml" />
+	<include file="com/hisupplier/cn/account/inquiry/actions.xml" />
+	<include file="com/hisupplier/cn/account/website/actions.xml" />
+	<include file="com/hisupplier/cn/account/alert/actions.xml" />
+	<include file="com/hisupplier/cn/account/group/actions.xml"/>
+	<include file="com/hisupplier/cn/account/product/actions.xml"/>
+	<include file="com/hisupplier/cn/account/user/actions.xml"/>
+	<include file="com/hisupplier/cn/account/ad/actions.xml" />
+	<include file="com/hisupplier/cn/account/menu/actions.xml"/>
+	<include file="com/hisupplier/cn/account/plugin/actions.xml"/>
+	<include file="com/hisupplier/cn/account/message/actions.xml"/>
+	<include file="com/hisupplier/cn/account/patent/actions.xml"/>
+</struts>
+

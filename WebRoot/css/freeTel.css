@@ -1,0 +1,181 @@
+body {
+	background-color: #ffffff;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+
+body,td,th {
+	font-family: Arial;
+	font-size: 12px;
+	color: #003366;
+	line-height: 20px;
+	text-decoration: none;
+}
+
+.biaoti {
+	font-family: Arial;
+	font-size: 14px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #333333;
+}
+
+.biaoti01 {
+	font-family: Arial;
+	font-size: 14px;
+	text-decoration: none;
+	color: #FF0000;
+}
+
+.proNav {
+	margin: 10px auto;
+	color: #000000;
+	font: 12px Arial;
+}
+
+.proNav .typing {
+	float: right;
+}
+
+.proNav select {
+	font-size: 12px;
+	font-family: Arial;
+}
+
+.proNav a {
+	padding: 2px 8px;
+	color: #203558 !important;
+	border: solid 1px #849CC6;
+	text-decoration: none !important;
+}
+
+.proNav a:hover {
+	background-color: #E5EDF9;
+	color: #203558 !important;
+}
+
+.proNav span.current {
+	padding: 2px 8px;
+	color: #ffffff !important;
+	background-color: #5E90C3 !important;
+	border: solid 1px #5E90C3;
+	font-weight: bold;
+}
+
+.proNav .pre {
+	margin: 2px 15px;
+}
+
+.proNav .next {
+	margin: 2px 15px;
+}
+
+.txt {
+	font-family: Arial;
+	font-size: 14px;
+	color: #000000;
+	line-height: 25px;
+	text-decoration: none;
+}
+
+.biaoti03 {
+	font-family: Arial;
+	font-size: 14px;
+	text-decoration: none;
+	font-weight: bold;
+	color: #FF6600;
+}
+
+.biaoti04 {
+	font-family: Arial;
+	font-size: 14px;
+	text-decoration: none;
+	font-weight: bold;
+	color: #003366;
+}
+
+.txt01 {
+	font-family: Arial;
+	font-size: 12px;
+	color: #666666;
+	line-height: 25px;
+	text-decoration: none;
+}
+
+.txt02 {
+	font-family: Arial;
+	font-size: 12px;
+	color: #333333;
+	line-height: 25px;
+	text-decoration: none;
+}
+
+.kuang_image {
+	border: 1px solid #E0E0E0;
+}
+
+.kuang {
+	border: 1px solid #CCDFEE;
+}
+
+.kuang01 {
+	border: 1px solid #EAD7C4;
+}
+
+.txtLink01 {
+	font-family: Arial;
+	font-size: 12px;
+	text-decoration: underline;
+	color: #FF6600;
+}
+
+.txtLink:link {
+	font-family: Arial;
+	font-size: 12px;
+	text-decoration: none;
+	color: #FF6600;
+}
+
+.txtLink:visited {
+	font-family: Arial;
+	font-size: 12px;
+	text-decoration: none;
+	color: #FF6600;
+}
+
+.txtLink:hover {
+	font-family: Arial;
+	font-size: 12px;
+	color: #FF6600;
+	text-decorationu: underline;
+}
+
+.redLink01 {
+	font-family: Arial;
+	font-size: 12px;
+	text-decoration: underline;
+	color: #FF0000;
+}
+
+.redLink:link {
+	font-family: Arial;
+	font-size: 12px;
+	text-decoration: none;
+	color: #FF0000;
+}
+
+.redLink:visited {
+	font-family: Arial;
+	font-size: 12px;
+	text-decoration: none;
+	color: #FF0000;
+}
+
+.redLink:hover {
+	font-family: Arial;
+	font-size: 12px;
+	color: #FF0000;
+	text-decorationu: underline;
+}

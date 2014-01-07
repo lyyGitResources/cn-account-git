@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+		http://www.springframework.org/schema/jee 
+		http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
+
+	<tx:advice id="inquiryTxAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="check*" read-only="true" />
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="update*" read-only="false" />
+			<tx:method name="delete*" read-only="false" />
+			<tx:method name="add*" read-only="false" />
+			<tx:method name="send" read-only="false" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="inquiryServiceMethod" expression="execution(* com.hisupplier.cn.account.inquiry.inquiryService*.*(..))" />
+		<aop:pointcut id="inquirySendServiceImplMethod" expression="execution(* com.hisupplier.cn.account.inquirySendServiceImpl*.*(..))" />
+		<aop:advisor advice-ref="inquiryTxAdvice" pointcut-ref="inquiryServiceMethod" />
+		<aop:advisor advice-ref="inquiryTxAdvice" pointcut-ref="inquirySendServiceImplMethod" />
+	</aop:config>
+	
+	<bean id="inquiryService" class="com.hisupplier.cn.account.inquiry.InquiryService">
+		<property name="userDAO" ref="userDAO" />
+		<property name="companyDAO" ref="companyDAO" />
+		<property name="inquiryDAO" ref="inquiryDAO" />
+	</bean>
+	
+	<bean id="inquirySendService" class="com.hisupplier.cn.account.inquiry.InquirySendServiceImpl">
+		<property name="userDAO" ref="userDAO" />
+		<property name="companyDAO" ref="companyDAO" />
+		<property name="inquiryDAO" ref="inquiryDAO" />
+		<property name="registerService" ref="companyService" />
+		<property name="tradeAlertService" ref="tradeAlertService" />			
+	</bean>
+
+	<bean id="inquiryAction" class="com.hisupplier.cn.account.inquiry.InquiryAction" scope="prototype">
+		<property name="inquiryService" ref="inquiryService" />
+	</bean>
+
+	<bean id="inquiryReplyAction" class="com.hisupplier.cn.account.inquiry.InquiryReplyAction" scope="prototype">
+		<property name="inquiryService" ref="inquiryService" />
+	</bean>
+
+	<bean id="inquiryBasketAction" class="com.hisupplier.cn.account.inquiry.InquiryBasketAction" scope="prototype"/>
+
+	<bean id="inquirySendAction" class="com.hisupplier.cn.account.inquiry.InquirySendAction" scope="prototype">
+		<property name="inquirySendService" ref="inquirySendService" />
+	</bean>
+		
+</beans>

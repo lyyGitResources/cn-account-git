@@ -1,0 +1,14 @@
+
+/*评论*/
+.commentList{float:left;width:734px;padding:0px; font-size:12px;}
+.commentList .content{ float:left; list-style-image:none; list-style-type:none; padding:5px 10px; overflow:hidden;}
+.commentList .content li{ float:left; border-bottom:1px dashed #000000;width:714px;}
+.commentList .span1{ color:#105CB6; font-size:14px; font-weight:bold; margin:5px 0px;}
+.commentList .span1 span{ color:#000000; font-size:12px; font-weight:normal;}
+.commentList .span1 img{float:right;}
+.commentList .span1 .textLeft{ width:640px;}
+.commentList .span2{ color:#BCB9B9; font-size:12px;margin:5px 0px;}
+.commentList .reply{background:#F5F5F5 url(../img/ico/reply.gif) no-repeat 10px 10px; overflow:hidden; margin-bottom:5px; padding-left:35px;color:#000000; line-height:20px; width:680px;padding-top:5px; padding-bottom:5px;}
+.commentList .reply .right{float:right;color:#8F8F8F; width:150px;margin-right:10px;}
+.commentList .reply .left{ float:left; width:500px; overflow:hidden; background: none; margin: 0px; padding: 0px;}
+.commentList .reply .span3{ color:#FF0000;}

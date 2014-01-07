@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="likeRecord">
+	<typeAlias alias="likeRecord" type="com.hisupplier.cn.account.entity.LikeRecord" />
+	
+	<resultMap class="likeRecord" id="likeRecord_map">
+		<result property="id" column="id" nullValue="0"/>
+		<result property="comId" column="comId" nullValue="0" />
+		<result property="proId" column="proId" nullValue="0"/>
+		<result property="liked" column="liked" javaType="boolean"/>
+		<result property="count" column="count"/>
+	</resultMap>
+
+	<insert id="addLikeRecord" parameterClass="likeRecord">
+		<!-- INSERT INTO LikeRecord (proId, comId) VALUES (#proId#, #comId#)
+		<selectKey resultClass="int" keyProperty="id">
+			SELECT LAST_INSERT_ID() AS id
+		</selectKey>
+		 -->
+		 INSERT INTO LikeRecord(proId,comId)
+		SELECT #proId#,#comId#
+		FROM dual 
+		WHERE NOT EXISTS (SELECT id FROM LikeRecord WHERE proId=#proId# AND comId = #comId#)
+	</insert>
+
+	<select id="findLikeRecordByComIdAndProId" parameterClass="likeRecord" resultMap="likeRecord_map">
+		select 
+			count(*) as count, 
+			<isGreaterThan property="comId" compareValue="0">
+			(select count(*) from LikeRecord where proId = lr.proId and comId = #comId# ) as liked, comId,
+			</isGreaterThan>
+			<isEqual property="comId" compareValue="0">
+				0 as liked,0 as comId,
+			</isEqual>
+			 id, proId
+		from LikeRecord lr where proId = #proId#
+	</select>
+</sqlMap>

@@ -1,0 +1,176 @@
+.displayTable {
+	border: 1px solid #CBDDF1;
+	width: 736px;
+	margin-top: 10px;
+	font-size: 12px;
+	float: left;
+}
+
+.displayTable td {
+	text-align: center;
+	padding: 5px 0 5px 0;
+	width: 50%;
+}
+
+.tabMenu td {
+	text-align: center;
+}
+
+.tabMenu td a:link {
+	color: #ffffff;
+	text-decoration: none;
+	display: block;
+}
+
+.tabMenu td a:visited {
+	color: #ffffff;
+	text-decoration: none;
+	display: block;
+}
+
+.tabMenu td a:hover {
+	color: #000000;
+	text-decoration: none;
+	display: block;
+	background: url(../img/tableMenu_bg1.gif) no-repeat right;
+}
+
+.tabMenu td a:active {
+	color: #ffffff;
+	text-decoration: none;
+	display: block;
+}
+
+.tabMenu td.current {
+	color: #000000;
+	background: url(../img/tableMenu_bg1.gif) no-repeat right;
+	text-decoration: none;
+}
+
+.tabMenu td.current a:link {
+	color: #000000;
+	text-decoration: none;
+}
+
+.tabMenu td.current a:visited {
+	color: #000000;
+	text-decoration: none;
+}
+
+.tabMenu td.current a:hover {
+	color: #000000;
+	text-decoration: none;
+	background: url(../img/tableMenu_bg1.gif) no-repeat right;
+}
+
+.tabMenu td.current a:active {
+	color: #000000;
+	text-decoration: none;
+}
+
+.button input {
+	font-size: 12px;
+	background: url(../img/button_bg2.jpg) right repeat-x;
+	height: 25px;
+	line-height: 25px;
+	border-style: none;
+	cursor: pointer;
+	padding: 0 5px;
+	color: #FFFFFF;
+}
+
+/* 按钮样式二 */
+.button2 {
+	width: 736px;
+	float: left;
+	text-align: center;
+	margin: 7px 0px 0 0;
+}
+
+.button2 input {
+	font-size: 12px;
+	background: url(../img/button_bg2.jpg) right repeat-x;
+	height: 25px;
+	line-height: 25px;
+	border-style: none;
+	cursor: pointer;
+	padding: 0 5px;
+	color: #FFFFFF;
+}
+
+.input {
+	font-size: 12px;
+	background: url(../img/button_bg2.jpg) right repeat-x;
+	height: 25px;
+	line-height: 25px;
+	border-style: none;
+	cursor: pointer;
+	padding: 0 5px;
+	color: #FFFFFF;
+}
+
+/* Firefox */
+.onError {
+	background: url(../img/formTip/reg3.gif) no-repeat 0 3px;
+	padding-left: 20px;
+	color: #ff0000;
+	font-size: 12px;
+	text-align: left;
+	height: 20px;
+	line-height: 20px;
+	float: left;
+}
+
+/* IE7 fix */
+*+html .onError {
+	background-position: 0 2px;
+}
+
+/* IE6 fix */
+* html .onError {
+	background-position: 0 2px;
+}
+
+/* Firefox */
+.onFocus {
+	background: url(../img/formTip/reg2.gif) no-repeat 0 3px;
+	padding-left: 20px;
+	color: #003CC8;
+	font-size: 12px;
+	text-align: left;
+	height: 20px;
+	line-height: 20px;
+	float: left;
+}
+
+/* IE7 fix */
+*+html .onFocus {
+	background-position: 0 2px;
+}
+
+/* IE6 fix */
+* html .onFocus {
+	background-position: 0 2px;
+}
+
+/* Firefox */
+.onCorrect {
+	background: url(../img/formTip/reg4.gif) no-repeat 0 3px;
+	padding-left: 20px;
+	color: #5A8F00;
+	font-size: 12px;
+	text-align: left;
+	height: 20px;
+	line-height: 20px;
+	float: left;
+}
+
+/* IE7 fix */
+*+html .onCorrect {
+	background-position: 0 2px;
+}
+
+/* IE6 fix */
+* html .onCorrect {
+	background-position: 0 2px;
+}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="b2b">
+	
+	<insert id="addCategorySuggest" parameterClass="com.hisupplier.commons.entity.cn.CategorySuggest">
+		insert into CategorySuggest
+			(content1,content2,content3,createTime)
+		values
+			(#content1#,#content2#,#content3#,#createTime#)
+		<selectKey resultClass="int" keyProperty="id">
+			select last_insert_id() as ID
+		</selectKey>
+	</insert>
+	
+	<select id="findFriendMaxListOrder" parameterClass="int" resultClass="int">
+		select listOrder
+		from Friend
+		order by listOrder desc
+		limit 1
+	</select>
+	
+	<insert id="addFriend" parameterClass="com.hisupplier.cn.account.entity.Friend">
+		insert into Friend
+			(contact,email,title,catId,linkType,link,linkus,imgPath,brief,listOrder,state,createTime,modifyTime)
+		values
+			(#contact#,#email#,#title#,#catId#,#linkType#,#link#,#linkus#,#imgPath#,#brief#,#listOrder#,#state#,#createTime#,#modifyTime#)
+		<selectKey resultClass="int" keyProperty="id">
+			select last_insert_id() as ID
+		</selectKey>
+	</insert>
+</sqlMap>

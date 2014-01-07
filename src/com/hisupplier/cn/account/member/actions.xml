@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="member" namespace="/member" extends="default">
+		<action name="company_edit" class="companyAction" method="company_edit">
+			<result>/page/member/company_form.jsp</result>
+		</action>
+		<action name="company_edit_submit" class="companyFormAction" method="company_edit_submit">
+			<interceptor-ref name="resubmitValidateStack" />
+			<result type="redirectAction">company_edit</result>
+			<result name="input">/page/member/company_form.jsp</result>
+		</action>
+
+		<action name="contact_edit" class="userAction" method="contact_edit">
+			<result>/page/member/contact_form.jsp</result>
+		</action>
+		<action name="contact_view" class="userAction" method="contact_view">
+			<result>/page/member/contact_view.jsp</result>
+		</action>
+		<action name="contact_more" class="userAction" method="contact_more">
+			<result>/page/member/more_contact_form.jsp</result>
+		</action>		
+		<action name="contact_edit_submit" class="userFormAction" method="contact_edit_submit">
+			<interceptor-ref name="resubmitValidateStack" />
+			<result type="redirectAction">contact_edit</result>
+			<result name="input">/page/member/contact_form.jsp</result>
+		</action>
+		<action name="contact_more_submit" class="userFormAction" method="contact_more_submit">
+			<interceptor-ref name="resubmitValidateStack" />
+			<result type="redirectAction">contact_more?userId=${parentId}</result>
+			<result name="input">/page/member/more_contact_form.jsp</result>
+		</action>
+		<action name="contact_more_delete" class="userAction" method="contact_more_delete">
+			<result type="redirectAction">contact_view</result>
+		</action>
+			
+		<action name="passwd_edit" class="userAction" method="passwd_edit">
+			<result>/page/member/passwd_form.jsp</result>
+		</action>
+		<action name="passwd_edit_submit" class="passwdFormAction" method="passwd_edit_submit">
+			<interceptor-ref name="resubmitValidateStack" />
+			<result name="input">/page/member/passwd_form.jsp</result>
+			<result type="redirectAction">passwd_edit</result>
+		</action>
+		
+		<action name="profile" class="companyProfileAction" method="view">
+			<result>/page/member/profile_view.jsp</result>
+		</action>
+		<action name="profile_edit" class="companyProfileAction" method="edit">
+			<result name="input">/page/member/profile_view.jsp</result>
+			<result type="redirectAction">profile</result>			
+		</action>
+
+		<action name="user_list" class="userAction" method="user_list">
+			<result>/page/member/user_list.jsp</result>
+		</action>
+		<action name="user_add" class="userAction" method="user_add">
+			<result>/page/member/user_form.jsp</result>
+			<result name="input">/page/member/user_form.jsp</result>
+			<result name="error">/page/error/messages.jsp</result>
+		</action>
+		<action name="user_add_submit" class="userFormAction" method="user_add_submit">
+			<interceptor-ref name="resubmitValidateStack" />
+			<result type="redirectAction">user_list</result>
+			<result name="input">/page/member/user_form.jsp</result>
+		</action>
+		<action name="user_edit" class="userAction" method="user_edit">
+			<result>/page/member/user_form.jsp</result>
+		</action>
+		
+		<action name="child_user_edit" class="userAction" method="user_edit">
+			<result>/page/member/user_form.jsp</result>
+		</action>
+		
+		<action name="user_edit_submit" class="userFormAction" method="user_edit_submit">
+			<interceptor-ref name="resubmitValidateStack" />
+			<result type="redirectAction">user_list</result>
+			<result name="input">/page/member/user_form.jsp</result>
+		</action>
+		<action name="sonUser_edit_submit" class="userFormAction" method="user_edit_submit">
+			<result name="input">/page/member/user_form.jsp</result>
+			<result name="success">/page/member/user_form.jsp</result>
+		</action>
+		<action name="user_detail" class="userAction" method="user_detail">
+			<result name="select">/page/member/user_detail.jsp</result>
+		</action>
+		<action name="user_delete" class="userAction" method="user_delete">
+			<result name="error">/page/error/messages.jsp</result>
+			<result type="redirectAction">user_list</result>
+		</action>
+		
+	</package>
+</struts>

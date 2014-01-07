@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="userDefault" extends="default">
+		<global-results>
+			<result name="input">/page/error/user_500.jsp</result>
+			<result name="error">/page/error/user_500.jsp</result>
+			<result name="pageNotFound">/page/error/user_404.jsp</result>
+			<result name="invalid.token">/page/error/user_resubmit.jsp</result>
+		</global-results>
+	</package>
+
+	<package name="user" namespace="/user" extends="userDefault">
+
+		<action name="home" class="homeAction" method="home">
+			<result>/page/basic/home.jsp</result>
+		</action>
+		<!--检测	-->
+		<action name="check_memberId" class="companyAction" method="check_memberId">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">model,result</param>
+			</result>
+		</action>
+		<action name="check_comName" class="companyAction" method="check_comName">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">model,result</param>
+			</result>
+		</action>
+		<action name="check_email" class="userAction" method="check_email">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">model,result</param>
+			</result>
+		</action>
+		<action name="check_password" class="userAction" method="check_password">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">model,result</param>
+			</result>
+		</action>
+
+		<!--简易注册-->
+		<action name="join" class="joinAction" method="join">
+			<result>/page/member/join.jsp</result>
+		</action>
+		<action name="join_submit" class="joinAction" method="join_submit">
+			<result name="success" type="redirect">${autoLoginURL}</result>
+			<result name="input">/page/member/join.jsp</result>
+		</action>
+		
+		<action name="forget_passwd" class="forgetPasswdAction" method="forget_passwd">
+			<result>/page/member/forget_passwd_form.jsp</result>
+		</action>
+		<action name="forget_passwd_send" class="forgetPasswdAction" method="forget_passwd_send">
+			<result>/page/member/forget_passwd_success.jsp</result>
+			<result name="input">/page/member/forget_passwd_form.jsp</result>
+			<result name="error">/page/member/forget_passwd_form.jsp</result>
+		</action>
+		
+		<action name="join_agreement">
+			<result>/page/member/agreement.jsp</result>
+		</action>
+
+		<!--询盘篮和询盘发送-->
+		<action name="inquiry_basket" class="inquiryBasketAction" method="inquiry_basket">
+			<result>/page/inquiry/inquiry_basket.jsp</result>
+		</action>
+		<action name="inquiry_basket_add" class="inquiryBasketAction" method="inquiry_basket_add">
+			<result type="redirect">${returnURL}</result>
+		</action>
+		<action name="inquiry_basket_add_open" class="inquiryBasketAction" method="inquiry_basket_add_open"  />
+		
+		
+		<action name="inquiry_basket_remove" class="inquiryBasketAction" method="inquiry_basket_remove">
+			<result type="redirect">/user/inquiry_basket.htm</result>
+		</action>
+
+		<action name="inquiry" class="inquirySendAction" method="inquiry">
+			<result>/page/inquiry/inquiry_send.jsp</result>
+			<result type="redirect" name="basket">/user/inquiry_basket.htm</result>
+		</action>
+		<action name="inquiry_send" class="inquirySendAction" method="inquiry_send">
+			<result name="input">/page/inquiry/inquiry_send.jsp</result>
+			<result type="redirect">${autoLoginURL}</result>
+			<result name="basket">/user/inquiry_basket.htm</result>
+		</action>
+		<action name="inquiry_success" class="inquirySendAction" method="inquiry_success">
+			<result>/page/inquiry/inquiry_send_success.jsp</result>
+		</action><!--简易商情订阅-->
+
+		<action name="trade_alert_step1" class="tradeAlertStepAction" method="trade_alert_step1">
+			<result>/page/alert/trade_alert_step1.jsp</result>
+			<result name="tradeAlertAdd" type="redirect">
+				/alert/trade_alert_add.htm?mode=${result.tradeAlert.mode}&amp;keyword=${result.tradeAlert.keyword}&amp;catIds=${result.tradeAlert.catIds}
+			</result>
+		</action>
+
+		<action name="trade_alert_step2" class="tradeAlertStepAction" method="trade_alert_step2">
+			<result name="input">/page/alert/trade_alert_step1.jsp</result>
+			<result name="step2">/page/alert/trade_alert_step2.jsp</result>
+			<result name="success" type="redirect">${autoLoginURL}</result>
+		</action>
+
+		<action name="trade_alert_step3" class="tradeAlertStepAction" method="trade_alert_step3">
+			<result name="input">/page/alert/trade_alert_step2.jsp</result>
+			<result name="success" type="redirect">${autoLoginURL}</result>
+		</action>
+		
+		<action name="trade_alert_success" class="tradeAlertStepAction" method="trade_alert_success">
+			<result>/page/alert/trade_alert_success.jsp</result>
+		</action>
+		<action name="trade_alert_sample">
+			<result>/page/user/trade_alert_sample.html</result>
+		</action>
+
+		<action name="category_suggest" class="categorySuggestAction" method="category_suggest">
+			<result>/page/user/category_suggest.jsp</result>
+		</action>
+		<action name="category_suggest_submit" class="categorySuggestAction" method="category_suggest_submit">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="includeProperties">msg,tip</param>
+			</result>
+		</action>
+
+		<action name="friend_link" class="friendAction" method="friend_link">
+			<result>/page/user/friend_link_to_us.jsp</result>
+		</action>
+		<action name="friend_link_to_us" class="friendAction" method="friend_link_to_us">
+			<result name="input">/page/user/friend_link_to_us.jsp</result>
+			<result type="redirect">/user/friend_link.htm#friendForm</result>
+		</action>
+
+		<action name="post_buy_lead" class="postBuyLeadAction" method="post_buy_lead">
+			<result>/page/user/post_buy_lead.jsp</result>
+		</action>
+		<action name="post_buy_lead_submit" class="postBuyLeadAction" method="post_buy_lead_submit">
+			<result name="input">/page/user/post_buy_lead.jsp</result>
+			<result type="redirect">${autoLoginURL}</result>
+		</action>
+		<action name="post_buy_lead_success" class="postBuyLeadAction" method="post_buy_lead_success">
+			<result>/page/user/post_buy_lead_success.jsp</result>
+		</action>
+
+		<action name="contact_us" class="contactUsAction" method="contact_us">
+			<result>/page/user/contact_us.jsp</result>
+		</action>
+		<action name="contact_us_submit" class="contactUsAction" method="contact_us_submit">
+			<result name="input">/page/user/contact_us.jsp</result>
+			<result type="redirect">/user/contact_us.htm</result>
+		</action>
+
+		<action name="relate_category_list" class="queryAction" method="relate_category_list">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">model</param>
+			</result>
+		</action>
+		<action name="relate_keyword_list" class="queryAction" method="relate_keyword_list">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">model</param>
+			</result>
+		</action>
+
+		<action name="product_service_apply" class="productApplyAction" method="product_apply">
+			<result>/page/user/product_apply.jsp</result>
+		</action>
+		<action name="product_apply_submit" class="productApplyAction" method="product_apply_submit">
+			<result name="input">/page/user/product_apply.jsp</result>
+			<result type="redirect">product_service_apply.htm?message=suc</result>
+		</action>
+	</package>
+</struts>

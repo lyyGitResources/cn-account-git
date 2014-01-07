@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="patent" namespace="/patent" extends="default">
+
+		<action name="patentDeblocked" class="patentDeblockedAction" method="patentDeblocked">
+			<result name="success">/page/patent/patent_deblocked.jsp</result>
+		</action>
+		<action name="patentDeblocked_submit" class="patentDeblockedFormAction" method="patentDeblocked_submit">
+			<result name="success" type="redirect">patentDeblocked_list.htm</result>
+			<result name="input">/page/patent/patent_deblocked.jsp</result>
+		</action>
+		<action name="patentDeblocked_list" class="patentDeblockedAction" method="patentDeblocked_list">
+			<result name="success">/page/patent/patent_deblocked_list.jsp</result>
+			<result name="ajaxSuccess">/page/patent/patent_deblocked_list_inc.jsp</result>
+		</action>
+		<action name="patentDeblocked_del" class="patentDeblockedAction" method="patentDeblocked_del">
+			<result name="success" type="redirect">patentDeblocked_list.htm</result>
+		</action>
+		<action name="patentDeblocked_edit" class="patentDeblockedAction" method="patentDeblocked_edit">
+			<result name="success">/page/patent/patent_deblocked.jsp</result>
+		</action>
+		<action name="patentDeblocked_edit_submit" class="patentDeblockedFormAction" method="patentDeblocked_edit_submit">
+			<result name="success" type="redirect">patentDeblocked_list.htm</result>
+			<result name="input">/page/patent/patent_deblocked.jsp</result>
+		</action>
+		<action name="patentDeblocked_license" class="patentDeblockedAction" method="patentDeblocked_license">
+			<result name="success">/page/patent/patent_deblocked_license.jsp</result>
+			<result name="ajaxSuccess">/page/misc/image_list_inc.jsp</result>
+		</action>
+	</package>
+	
+</struts>

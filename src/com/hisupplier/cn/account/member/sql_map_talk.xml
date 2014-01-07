@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="talk">
+	<typeAlias alias="talk" type="com.hisupplier.cn.account.entity.Talk"/>
+	
+
+	<select id="findTalks" resultClass="talk" parameterClass="int">
+	SELECT * FROM Talk WHERE userId = #userId#
+	ORDER BY LENGTH(id), id
+	</select>
+	
+	<select id="findCompanyTalks" resultClass="talk" parameterClass="int">
+	SELECT
+		id,
+		comId,
+		userId,
+		name,
+		code,
+		type,
+		isShow as 'show' 
+	FROM Talk WHERE comId = #comId#
+	ORDER BY LENGTH(id), id
+	</select>
+	
+	<insert id="addTalk" parameterClass="talk">
+	INSERT INTO Talk(id, comId, userId, name, code, type)
+	VALUES(#id#, #comId#, #userId#, #name#, #code#, #type#)
+	</insert>
+</sqlMap>

@@ -1,0 +1,112 @@
+/* 标签页菜单 */
+.tabMenu {
+	width: 736px;
+	background: url(../img/tableMenu_bg.gif) no-repeat right;
+	margin-top: 7px;
+	font-size: 12px;
+	height: 33px;
+	color: #333534;
+	line-height: 28px;
+}
+
+.tabMenu ul {
+	list-style-type: none;
+	text-align: left;
+	padding: 0px;
+	margin: 0px;
+	padding-left:3px;
+}
+
+.tabMenu li {
+	text-align: center;
+	float: left;
+	margin-left: 3px;
+}
+
+.tabMenu li span {
+	display: block;
+	padding: 0 7px;
+	float: left;
+	height: 27px;
+	text-align:center;
+	margin-top:5px;
+	cursor: pointer;
+}
+/* IE6 fix */
+* html .tabMenu li span {
+	margin-top:6px;
+}
+.tabMenu li span:hover {
+	color: #000000;
+	text-decoration: none;
+	padding: 0 6px;
+	display: block;
+	border-left:1px solid #D99125;
+	border-top:1px solid #D99125;
+	border-right:1px solid #D99125;
+	background: url(../img/tableMenu_bg2.gif) repeat-x;
+}
+
+.tabMenu li.current span {
+	color: #000000;
+	text-decoration: none;
+	background: url(../img/tableMenu_bg2.gif) repeat-x;
+	border-left:1px solid #D99125;
+	border-top:1px solid #D99125;
+	border-right:1px solid #D99125;
+	cursor: pointer;
+}
+
+.tabMenu li.current span:hover {
+	padding: 0 7px;
+	cursor: pointer;
+}
+
+
+.commentTabMenu {
+	float: left;
+	width: 736px;
+	border-bottom: 4px solid #3F93D9;
+	background: url(../img/commentMenuBg.jpg) no-repeat left bottom;
+	overflow: hidden;
+}
+
+.commentTabMenu ul {
+	list-style-type: none;
+	float: left;
+	margin: 0 0 0 11px;
+	padding: 0px;
+}
+
+.commentTabMenu li {
+	float: left;
+	background: url(../img/comment_button.gif) repeat-x;
+	width: 141px;
+	height: 25px;
+	margin: 0 5px 0 0px;
+	text-align: center;
+	line-height: 25px;
+	color: #ffffff;
+	font-family: Verdana;
+	font-size: 14px;
+}
+
+.commentTabMenu li span {
+	text-decoration: none;
+	color: #ffffff;
+	display: block;
+	background: url(../img/comment_button.gif) repeat-x;
+	cursor: pointer;
+}
+
+.commentTabMenu li.current {
+	color: #ffffff;
+	display: block;
+	background: url(../img/comment_button2.gif) repeat-x;
+}
+
+.commentTabMenu li.current span {
+	color: #ffffff;
+	display: block;
+	background: url(../img/comment_button2.gif) repeat-x;
+}

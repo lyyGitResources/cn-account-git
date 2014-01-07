@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<decorators defaultdir="/page/decorators">
+	<excludes>
+		<pattern>/js/*</pattern>
+		<pattern>/img/*</pattern>
+		<pattern>/css/*</pattern>
+		<pattern>/user/trade_alert_sample*</pattern>
+	</excludes>
+
+	<decorator name="main" page="main.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+	
+	<decorator name="userFriend" page="user_friend.jsp">
+		<pattern>/user/category_suggest.htm</pattern>
+		<pattern>/user/friend_link*</pattern>
+		<pattern>/user/contact_us*</pattern>
+	</decorator>
+	
+	<decorator name="user" page="user.jsp">
+		<pattern>/user/forget_passwd*</pattern>
+		<pattern>/user/join*</pattern>
+		<pattern>/user/trade_alert*</pattern>
+		<pattern>/user/inquiry*</pattern>
+		<pattern>/user/post_buy_lead*</pattern>
+		<pattern>/user/product*</pattern>
+	</decorator>
+</decorators>

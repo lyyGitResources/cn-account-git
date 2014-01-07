@@ -1,0 +1,121 @@
+
+button.view = 查看  
+button.add = 添加
+button.edit = 修改
+button.delete = 删除
+button.reset = 重置 
+button.submit = 提交
+button.create = 添加
+
+button.reuse = 恢复
+button.cancel = 取消
+button.confirm = 确定
+
+button.restore = 还原
+button.empty = 清空
+
+button.save = 保存
+button.update = 更新
+button.updateOrder = 更新排序
+
+button.back = 返回
+button.backPrePage = 返回上一页
+
+button.upload = 上传
+button.download = 下载
+
+button.open = 打开
+button.close = 关闭
+
+button.clean = 清理
+button.refresh = 刷新
+button.search = 搜索
+
+button.select= 选择
+button.selectCat = 选择目录
+button.remove = 移除
+
+button.more = 更多
+button.reply = 回复
+ 
+button.groupProduct=组内产品
+button.groupTrade=组内商情
+button.groupMenu=组内信息
+
+button.linkTrade=关联商情
+button.linkProduct=关联产品
+
+button.deliver = 发表
+button.addVideoGroup = 创建视频组
+button.manageVideoGroup = 视频组管理
+button.selectVideoGroup = 选择已有分组
+button.upVideo = 上传视频
+button.uploadVideo = 从本地选取
+button.selectVideo = 从视频库选取
+
+button.fckEdit = 编辑
+
+button.modifyCompany = 修改公司信息
+
+button.selectImage = 从图库选取
+
+button.productList = 产品列表
+button.menuList = 菜单列表
+
+button.copyLink = 复制此链接
+
+button.repostProduct = 更新产品
+button.deleteProduct = 删除产品
+button.allotProduct = 分派产品
+button.editProduct = 修改产品
+button.toTrade = 转为商情
+button.addSameProduct = 添加同类产品
+button.selectSimilar = 选择历史目录
+button.addProduct = 添加产品
+button.moreKeyword =更多的推荐关键词
+
+button.editNewProduct = 修改加密产品
+button.addNewProduct = 添加加密产品
+button.toProduct = 转为普通产品
+button.deleteNewProduct = 删除加密产品
+
+button.addFirstGroup = 创建第一层组
+button.addChildGroup = 创建子组
+button.orderFirstGroup = 排列第一层组
+button.orderChildGroup = 排列子组
+button.openAll = 展开
+button.closeAll = 折叠
+
+button.addSpecialGroup = 创建特殊分组
+button.removeProductFromGroup = 删除产品
+button.removeTradeFromGroup = 删除商情
+button.selectGroup = 选择分组
+button.selectSpecialGroup = 选择特殊分组
+button.selectOtherGroup = 调整产品组
+button.removeToOtherProGroup = 调整产品组
+button.removeToOtherTraGroup = 调整商情组
+
+button.editTrade = 修改商情
+button.addSameTrade = 发布同类商情
+button.repostTrade = 重发商情
+button.deleteTrade = 删除商情
+button.allotTrade = 分派商情
+button.addTrade = 添加商情
+button.emptyRecycle = 清空回收站
+
+button.managerProduct = 管理产品
+button.managerTrade = 管理商情
+
+button.saveOrder = 完成排序
+button.orderInGroup = 组内产品排序
+button.orderAll = 所有产品排序
+
+button.featureProduct = 展览此产品
+button.cancelFeature = 撤消展览
+button.selectFeature = 挑选产品
+
+button.addGroup = 添加菜单
+button.editGroup = 修改菜单
+button.menuGroupOrder = 菜单排序
+button.menuOrder = 信息排序
+button.selectChildGroup = 查看子组

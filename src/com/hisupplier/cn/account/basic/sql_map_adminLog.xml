@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="adminLog">
+	<typeAlias alias="adminLog" type="com.hisupplier.cn.account.entity.AdminLog" />
+
+	<select id="findAdminLog" parameterClass="map" resultClass="adminLog">
+		select * from AdminLog where tableName = #tableName# and tableId = #tableId# and operate = 4 order by createTime desc limit 1
+	</select>
+</sqlMap>

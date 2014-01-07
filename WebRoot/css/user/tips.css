@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+.tipsSucceed {
+	border: 1px solid #9FC1E7;
+	padding-top: 70px;
+	padding-left: 56px;
+	overflow: hidden;
+	padding-bottom: 70px;
+}
+
+.tipsSucceed .content {
+	background: url(/img/ico/suc.gif) no-repeat;
+	padding-left: 80px;
+	padding-top: 10px;
+	line-height: 25px;
+	font-size: 14px;
+}
+
+.tipsSucceed .h1 {
+	color: #3A9805;
+	font-size: 16px;
+	font-weight: bold;
+}

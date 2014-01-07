@@ -1,0 +1,51 @@
+inquiry.listTitle = 询盘管理
+inquiry.viewTitle = 查看询盘
+inquiry.charTitle = 询盘报表
+inquiry.downloadTitle = 询盘下载
+inquiry.replyListTitle = 询盘回收站
+
+inquiry.inquiryTotal = 所有询盘
+inquiry.myInquiryTotal = 我的询盘
+inquiry.readCount = 已读询盘
+inquiry.unreadCount = 最新询盘
+
+inquiry.byAllUserId = 所有帐号
+inquiry.bySubject = 按询盘主题搜索
+inquiry.byFromName = 按发件人搜索
+
+inquiry.deleteLimit = 询盘回收站超过200条，不能删除
+inquiry.reuseSuccess = 还原成功
+inquiry.selectLimit = 至少选择一个复选框
+
+inquiry.subject = 主题
+inquiry.content = 内容
+inquiry.fromName = 发件人姓名
+inquiry.fromProvince = 发送人省份
+inquiry.userId = 接收帐号
+inquiry.replied = 已回复
+inquiry.replyDay = (希望您在{0}天内给予答复) 
+inquiry.delete = 删除询盘
+inquiry.preInquiry = 上一封
+inquiry.nextInquiry = 下一封
+inquiry.allReply = 所有回复
+inquiry.showInquriy = 显示原信件
+inquiry.createTime = 发送时间
+
+#询盘设置
+inquiry.setTitle = 询盘设置
+inquiry.inquiryReceive = 询盘接收方式
+inquiry.isReceiveRecommend =接收推荐询盘设置
+inquiry.receiveAdmin = 管理员接收
+inquiry.receiveUser = 子帐号接收
+inquiry.receiveBoth = 同时接收
+
+#询盘回复
+inquiryReply.viewTitle = 查看询盘回复
+inquiryReply.addTitle = 询盘回复
+inquiryReply.toName = 收件人姓名
+inquiryReply.toEmail = 收件人邮箱
+inquiryReply.subject = 主题
+inquiryReply.subject.required = 请输入询盘主题，长度120个字符内
+inquiryReply.content = 内容
+inquiryReply.content.required = 请输入回复内容
+inquiryReply.createTime = 回复时间

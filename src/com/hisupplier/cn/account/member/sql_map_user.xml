@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="user">
+ 	<typeAlias alias="user" type="com.hisupplier.cn.account.entity.User"/>
+	
+	<resultMap id="userMap" class="user">
+		<result property="userId" column="userId"/>
+		<result property="comId" column="comId"/>
+		<result property="email" column="email"/>
+		<result property="passwd" column="passwd"/>
+		<result property="contact" column="contact"/>
+		<result property="sex" column="sex"/>
+		<result property="title" column="title"/>
+		<result property="tel" column="tel"/>
+		<result property="fax" column="fax"/>
+		<result property="department" column="department"/>
+		<result property="job" column="job"/>
+		<result property="mobile" column="mobile"/>
+		<result property="zip" column="zip"/>
+		<result property="province" column="province"/>
+		<result property="city" column="city"/>
+		<result property="town" column="town"/>
+		<result property="street" column="street"/>
+		<result property="headImgPath" column="headImgPath"/>
+		<result property="admin" column="isAdmin"/>
+		<result property="sms" column="isSms"/>
+		<result property="show" column="isShow"/>
+		<result property="showMobile" column="isShowMobile"/>
+		<result property="privilege" column="privilege"/>
+		<result property="tqId" column="tqId"/>
+		<result property="linkId" column="linkId"/>
+		<result property="qq" column="qq"/>
+		<result property="qqcode" column="qqcode"/>
+		<result property="msn" column="msn"/>
+		<result property="msncode" column="msncode"/>
+		<result property="skype" column="skype"/>
+		<result property="notLoginAlertDate" column="notLoginAlertDate"/>
+		<result property="preLoginTime" column="preLoginTime"/>
+		<result property="lastLoginTime" column="lastLoginTime"/>
+		<result property="preLoginIP" column="preLoginIP"/>
+		<result property="loginTimes" column="loginTimes"/>
+		<result property="createTime" column="createTime"/>
+		<result property="modifyTime" column="modifyTime"/>
+		<result property="crmState" column="crmState"/>
+		<result property="state" column="state"/>
+ 	</resultMap>
+ 	
+ 	<resultMap id="userMap2" class="user">
+		<result property="userId" column="userId"/>
+		<result property="comId" column="comId"/>
+		<result property="email" column="email"/>
+		<result property="passwd" column="passwd"/>
+		<result property="contact" column="contact"/>
+		<result property="sex" column="sex"/>
+		<result property="tel" column="tel"/>
+		<result property="fax" column="fax"/>
+		<result property="department" column="department"/>
+		<result property="job" column="job"/>
+		<result property="mobile" column="mobile"/>
+		<result property="zip" column="zip"/>
+		<result property="province" column="province"/>
+		<result property="city" column="city"/>
+		<result property="town" column="town"/>
+		<result property="street" column="street"/>
+		<result property="headImgPath" column="headImgPath"/>
+		<result property="admin" column="isAdmin"/>
+		<result property="sms" column="isSms"/>
+		<result property="show" column="isShow"/>
+		<result property="showMobile" column="isShowMobile"/>
+		<result property="privilege" column="privilege"/>
+		<result property="tqId" column="tqId"/>
+		<result property="linkId" column="linkId"/>
+		<result property="qq" column="qq"/>
+		<result property="qqcode" column="qqcode"/>
+		<result property="msn" column="msn"/>
+		<result property="msncode" column="msncode"/>
+		<result property="skype" column="skype"/>
+		<result property="notLoginAlertDate" column="notLoginAlertDate"/>
+		<result property="preLoginTime" column="preLoginTime"/>
+		<result property="lastLoginTime" column="lastLoginTime"/>
+		<result property="preLoginIP" column="preLoginIP"/>
+		<result property="loginTimes" column="loginTimes"/>
+		<result property="createTime" column="createTime"/>
+		<result property="modifyTime" column="modifyTime"/>
+		<result property="memberId" column="memberId"/>
+		<result property="comName" column="comName"/>
+		<result property="websites" column="websites"/>
+		<result property="state" column="state"/>
+ 	</resultMap>
+ 	
+ 	
+	<select id="findEmail" parameterClass="map" resultClass="int">
+   		select userId
+    	from Users
+    	where email = #email# 
+		<isGreaterThan prepend="and" property="userId" compareValue="0">
+			userId != #userId#
+		</isGreaterThan>
+	</select>
+	
+ 	<select id="findUser" parameterClass="map" resultMap="userMap">
+    	select * from Users
+    	where userId = #userId# 
+    	and comId = #comId#
+ 	</select>
+
+ 	<select id="findUserByAdmin" parameterClass="int" resultMap="userMap">
+    	select * from Users
+    	where comId = #comId#
+    	and isAdmin=1
+ 	</select>
+ 	
+ 	<select id="findUserByEmail" parameterClass="String" resultMap="userMap2">
+    	select 
+    		Users.*,
+    		Company.memberId,
+    		Company.comName,
+    		Company.websites
+    	from Users
+    	left join Company on Company.comId = Users.comId 
+    	where Users.email = #email#
+ 	</select>
+ 	
+ 	<select id="findUserByMemberId" parameterClass="String" resultMap="userMap2">
+    	select 
+    		Users.*,
+    		Company.memberId,
+    		Company.comName,
+    		Company.websites
+    	from Users
+    	left join Company on Company.comId = Users.comId 
+    	where Company.memberId=#memberId# 
+    	and Users.isAdmin = 1
+ 	</select>
+ 	
+ 	<select id="findUserById" parameterClass="int" resultMap="userMap2">
+    	select 
+    		Users.*,
+    		Company.memberId,
+    		Company.comName,
+    		Company.websites
+    	from Users
+    	left join Company on Company.comId = Users.comId 
+    	where Users.userId = #userId#
+ 	</select>
+ 	
+ 	<select id="findUserByParentId" parameterClass="map" resultMap="userMap">
+     	select * from Users 
+    	where parentId = #parentId#
+    	and comId = #comId#
+ 	</select>
+ 	 	
+ 	<select id="findUserList" parameterClass="int" resultMap="userMap">
+    	select * from Users 
+    	where comId = #comId# and parentId = 0 
+    	order by userId desc
+ 	</select>
+ 	
+ 	<select id="findUserListByProCatId" parameterClass="String" resultClass="user">
+		select 
+			distinct 
+			Company.memberId,
+			Users.userId,
+			Users.comId,
+			Users.email,
+			Users.contact
+		from Users
+		left join Company 		on Company.comId 		= Users.comId 
+		left join CompanyExtra 	on CompanyExtra.comId 	= Users.comId
+		left join Product		on Product.comId 		= Users.comId
+		where Company.memberType = 2 
+		and CompanyExtra.isReceiveRecommend = 1
+		and Users.isAdmin = 1
+		and Product.catId in ($catIds$)
+	</select>
+		
+	<insert id="addUser" parameterClass="user">
+		insert into Users (
+			parentId,comId,headImgPath,contact,sex,privilege,province,city,town,street,zip,department,
+			job,email,tel,fax,mobile,isSms,isShowMobile,tqId,linkId,qq,qqcode,msn,msncode,skype,isShow,passwd,
+			notLoginAlertDate,preLoginTime,lastLoginTime,preLoginIP,lastLoginIP,loginTimes,createTime,modifyTime,isAdmin,title) 
+		values(#parentId#,#comId#,#headImgPath#,#contact#,#sex#,#privilege#,#province#,#city#,#town#,#street#,#zip#,#department#,
+			#job#,#email#,#tel#,#fax#,#mobile#,#sms#,#showMobile#,#tqId#,#linkId#,#qq#,#qqcode#,#msn#,#msncode#,#skype#,#show#,#passwd#,
+			#notLoginAlertDate#,#preLoginTime#,#lastLoginTime#,#preLoginIP#,#lastLoginIP#,#loginTimes#,#createTime#,#modifyTime#,#admin#,#title#) 
+		<selectKey resultClass="int" keyProperty="userId">
+			select last_insert_id() as ID
+		</selectKey>
+	</insert>
+	
+	<insert id="updateUser" parameterClass="user">
+		update Users set 
+			comId=#comId#,headImgPath=#headImgPath#,contact=#contact#,sex=#sex#,
+			privilege=#privilege#,province=#province#,city=#city#,town=#town#,
+			street=#street#,zip=#zip#,department=#department#,job=#job#,email=#email#,
+			tel=#tel#,fax=#fax#,mobile=#mobile#,isSms=#sms#,isShowMobile=#showMobile#,
+			tqId=#tqId#,linkId=#linkId#,qq=#qq#,qqcode=#qqcode#,msn=#msn#,msncode=#msncode#,
+			skype=#skype#,isShow=#show#,passwd=#passwd#,notLoginAlertDate=#notLoginAlertDate#,
+			preLoginTime=#preLoginTime#,lastLoginTime=#lastLoginTime#,preLoginIP=#preLoginIP#,
+			lastLoginIP=#lastLoginIP#,loginTimes=#loginTimes#,createTime=#createTime#,modifyTime=#modifyTime#,isAdmin=#admin#,
+			state=#state#,title=#title#
+		where userId=#userId#
+	</insert>
+	
+	<select id="checkPassword" parameterClass="map" resultClass="boolean">
+		select count(userId) from Users where userId = #userId# and passwd = #passwd#
+	</select>
+	
+	<select id="findProvince" parameterClass="int" resultClass="string">
+		select province from Users where comId = #comId# and isAdmin =1;
+	</select>
+</sqlMap>

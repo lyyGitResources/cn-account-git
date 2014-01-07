@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project name="cn-account" default="zip" basedir=".">
+
+	<property name="project" value="hisupplier-cn-account" />
+	<property name="version" value="3.5.0" />
+
+	<property file="../app-lib/build/build.properties" />
+	<import file="../app-lib/build/build.xml" />
+
+	<target name="jar-webservice" depends="compile">
+		<mkdir dir="${build.class}/tmp" />
+		<copy todir="${build.class}/tmp">
+			<fileset dir="${build.class}">
+				<include name="com/hisupplier/cn/account/entity/Inquiry.class" />
+				<include name="com/hisupplier/cn/account/entity/Register.class" />
+				<include name="com/hisupplier/cn/account/entity/TradeAlert.class" />
+				<include name="com/hisupplier/commons/entity/cn/Company.class" />
+				<include name="com/hisupplier/commons/entity/cn/User.class" />
+				<include name="com/hisupplier/cn/account/webservice/InquirySendService.class" />
+				<include name="com/hisupplier/cn/account/webservice/RegisterService.class" />
+				<include name="com/hisupplier/cn/account/webservice/SubscibeService.class" />
+				<include name="com/hisupplier/cn/account/webservice/MemberService.class" />
+			</fileset>
+		</copy>
+		<jar destfile="${dist}/${project}-webservice-${version}-${DSTAMP}.jar" basedir="${build.class}/tmp">
+			<manifest>
+				<attribute name="Created-By" value="${user.name}" />
+				<attribute name="Build-Jdk" value="${java.version}" />
+				<attribute name="Specification-Version" value="" />
+				<attribute name="Specification-Vendor" value="${spec.vendor}" />
+				<attribute name="Specification-Title" value="${project}-search" />
+				<attribute name="Implementation-Version" value="${version}" />
+				<attribute name="Implementation-Vendor" value="${impl.vendor}" />
+			</manifest>
+		</jar>
+		<delete dir="${build.class}/tmp" />
+	</target>
+</project>

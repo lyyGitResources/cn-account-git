@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="error-log" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${log4j.logPath}/cn-account/error.log" />
+		<param name="encoding" value="UTF-8" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{HH:mm:ss} %p %l - %m%n" />
+		</layout>
+	</appender>
+	<appender name="sms-log" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${log4j.logPath}/cn-account/sms.log" />
+		<param name="encoding" value="UTF-8" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{HH:mm:ss} %p %l - %m%n" />
+		</layout>
+	</appender>
+	<appender name="tq-log" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${log4j.logPath}/cn-account/tq.log" />
+		<param name="encoding" value="UTF-8" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{HH:mm:ss} %p %l - %m%n" />
+		</layout>
+	</appender>
+
+	<logger name="com.hisupplier.cn.account.inquiry.InquirySendServiceImpl" additivity="false">
+		<level value="info" />
+		<appender-ref ref="sms-log" />
+	</logger>
+	<logger name="com.hisupplier.commons.tq.TQWebService" additivity="false">
+		<level value="info" />
+		<appender-ref ref="tq-log" />
+	</logger>
+
+	<root>
+		<priority value="error" />
+		<appender-ref ref="error-log" />
+	</root>
+	
+</log4j:configuration>
+

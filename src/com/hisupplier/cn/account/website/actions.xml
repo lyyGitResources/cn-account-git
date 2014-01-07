@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="website" namespace="/website" extends="default">
+	 	<action name="design" method="design" class="websiteAction">
+	 		<result>/page/website/design.jsp</result>
+	 	</action>
+	 	
+		<action name="save" method="save" class="websiteAction">
+			<result name="input">/page/website/design.jsp</result>
+	 		<result type="redirect">/website/design.htm</result>
+	 	</action>
+	 	
+	 	<action name="website_set" method="website_set" class="websiteFormAction">
+	 		<result>/page/website/website_set.jsp</result>
+	 	</action>
+	 	
+	 	<action name="website_set_save" method="website_set_save" class="websiteFormAction">
+	 		<result name="input">/page/website/website_set.jsp</result>
+	 		<result type="redirect">/website/website_set.htm</result>
+	 	</action>
+	 	
+	 	<action name="add_other_form" method="add_other_form" class="websiteFormAction">
+	 		<result>/page/website/add_other_website.jsp</result>
+	 	</action>
+	 	
+	 	<action name="add_other" method="add_other" class="websiteFormAction">
+	 		<result name="input">/page/website/add_other_website.jsp</result>
+	 		<result type="redirect">/website/add_other_form.htm</result>
+	 	</action>
+	</package>
+</struts>

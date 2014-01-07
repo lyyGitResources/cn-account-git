@@ -1,0 +1,223 @@
+struts.messages.invalid.token = 页面已经提交，请勿重复提交！
+pageNotFound = 很抱歉，您访问的页面不存在或者已删除
+serverError = 服务器内部错误，请联系管理员
+invalidRequest = 无效的请求，请返回上一页刷新后再试
+resubmit = 禁止重复提交，请返回上一页刷新后再试
+privilegeLimit = 很抱歉，您的权限不足不能使用该功能，请联系管理员
+
+systemTips=系统提示
+deleteConfirm=您确定要删除?
+
+operate=操作
+operateFail=操作失败，请重试
+addSuccess=添加成功
+replaySuccess=回复成功
+editSuccess=修改成功
+deleteSuccess=删除成功
+closedSuccess=关闭成功
+orderSuccess=排序成功
+
+auditState=审核状态
+auditState.reject = 审核未通过
+auditState.rejectRemark = 未通过原因
+auditState.wait= 等待审核
+auditState.auditing = 正在审核
+auditState.pass = 审核通过
+
+video.reject = 视频审核未通过，请重新选择
+
+serialNumber=编号
+memberId=会员帐号
+memberId.required =请输入有效的会员帐号，以字母开头，可以由4-20个字母、数字，或"-"组成，不能有空格或"_"
+memberId.used= 会员帐号已存在，请重新输入
+memberId.notFound= 会员帐号不存在
+
+comName=公司名称
+comName.required = 请输入公司名称，长度120个字符内
+comName.used=该公司名称已注册，若忘记会员帐号和密码，请联系我们！
+
+email=邮箱
+email.used = 邮箱已存在，请重新输入
+email.required = 请输入有效的邮箱
+emailOrMemberId.required = 请输入有效的会员帐号或邮箱
+
+url.required = 请输入有效的链接地址
+tel.required = 请输入区号和电话号码，区号长度3-5位数字，电话号码长度在7-26个字符内，多个电话用","或"/"分隔，分机号码请用"-"分隔
+fax.required = 请输入区号和传真号码，区号长度3-5位数字，传真号码长度在7-26个字符内，多个传真用","或"/"分隔，分机号码请用"-"分隔
+passwd.required = 请输入密码，由6-20个字符组成，不能有空格
+
+memberType=会员等级
+goldSite=黄金会员
+freeSite=免费会员
+viewCount = 点击数
+oriImage = 原图
+operateTime=操作时间
+createTime=创建时间
+modifyTime=修改时间
+deleteTime=删除时间
+startTime=开始时间
+endTime=结束时间
+auditTime = 审核时间
+startDate=开始日期
+endDate=结束日期
+yes=是
+no=否 
+from=从
+to=到
+allResults = 所有记录
+notResult = 对不起，找不到任何记录
+choose = 请选择
+
+
+pagination.info = 合计{0}，当前{1}-{2}，第{3}页/共{4}页
+pagination.pre = 上一页
+pagination.next = 下一页
+pagination.goto = 转到第
+ 
+attachment = 附件
+attachment.format = {0} 类型均可，最大 {1}KB
+attachment.invalid = 附件的类型或大小不符合要求
+
+image.format = 图片格式
+image.format.type = {0} 格式
+image.format.size = 超过{0}K的图片会被压缩处理
+image.format.scale = 最佳尺寸 {0}
+
+validateCode = 验证码
+validateCode.reload= 看不清，换一张
+validateCode.required = 请输入图片中的字符
+validateCode.error = 验证码错误，请重新输入
+
+input.notice = <span class\="sapn1">&quot;<font class\="red">*</font>&quot; 为必填项</span>
+
+search.userAll = 所有帐号
+search.userAdmin = 管理员
+
+memo.company.info.free = 温馨提示：审核状态为“审核通过”的信息可正常显示，“等待审核”和“审核未通过”的信息无法显示。
+memo.company.info.gold = 温馨提示：审核状态为“审核通过”和“正在审核”的信息可正常显示，“等待审核”和“审核未通过”的信息无法显示。
+memo.info = 温馨提示：审核状态为“等待审核”和“审核通过”的信息可正常显示，只有“审核未通过”的信息才无法显示。
+memo.info2 = 温馨提示：只有审核状态为“审核通过”的信息可正常显示，“等待审核中”和“审核未通过”的信息无法显示。
+
+
+
+button.view = 查看  
+button.add = 添加
+button.edit = 修改
+button.delete = 删除
+button.reset = 重置 
+button.submit = 提交
+button.create = 添加
+
+button.reuse = 恢复
+button.cancel = 取消
+button.confirm = 确定
+
+button.restore = 还原
+button.empty = 清空
+
+button.save = 保存
+button.update = 更新
+button.updateOrder = 更新排序
+
+button.back = 返回
+button.backPrePage = 返回上一页
+
+button.upload = 上传
+button.download = 下载
+
+button.open = 打开
+button.close = 关闭
+
+button.clean = 清理
+button.refresh = 刷新
+button.search = 搜索
+
+button.select= 选择
+button.selectCat = 选择目录
+button.remove = 移除
+
+button.more = 更多
+button.reply = 回复
+ 
+button.groupProduct=组内产品
+button.groupTrade=组内商情
+button.groupMenu=组内信息
+
+button.linkTrade=关联商情
+button.linkProduct=关联产品
+
+button.deliver = 发表
+button.addVideoGroup = 创建视频组
+button.manageVideoGroup = 视频组管理
+button.selectVideoGroup = 选择已有分组
+button.upVideo = 上传视频
+button.uploadVideo = 从本地选取
+button.selectVideo = 从视频库选取
+
+button.fckEdit = 编辑
+
+button.modifyCompany = 修改公司信息
+
+button.selectImage = 从图库选取
+
+button.productList = 产品列表
+button.menuList = 菜单列表
+
+button.copyLink = 复制此链接
+
+button.repostProduct = 更新产品
+button.deleteProduct = 删除产品
+button.allotProduct = 分派产品
+button.editProduct = 修改产品
+button.toTrade = 转为商情
+button.addSameProduct = 添加同类产品
+button.selectSimilar = 选择历史目录
+button.addProduct = 添加产品
+button.moreKeyword =更多的推荐关键词
+
+button.editNewProduct = 修改加密产品
+button.addNewProduct = 添加加密产品
+button.toProduct = 转为普通产品
+button.deleteNewProduct = 删除加密产品
+
+button.addFirstGroup = 创建第一层组
+button.addChildGroup = 创建子组
+button.orderFirstGroup = 排列第一层组
+button.orderChildGroup = 排列子组
+button.openAll = 展开
+button.closeAll = 折叠
+
+button.addSpecialGroup = 创建特殊分组
+button.removeProductFromGroup = 删除产品
+button.removeTradeFromGroup = 删除商情
+button.selectGroup = 选择分组
+button.selectSpecialGroup = 选择特殊分组
+button.selectOtherGroup = 调整产品组
+button.removeToOtherProGroup = 调整产品组
+button.removeToOtherTraGroup = 调整商情组
+
+button.editTrade = 修改商情
+button.addSameTrade = 发布同类商情
+button.repostTrade = 重发商情
+button.repostAllTrade=重发所有商情
+button.deleteTrade = 删除商情
+button.allotTrade = 分派商情
+button.addTrade = 添加商情
+button.emptyRecycle = 清空回收站
+
+button.managerProduct = 管理产品
+button.managerTrade = 管理商情
+
+button.saveOrder = 完成排序
+button.orderInGroup = 组内产品排序
+button.orderAll = 所有产品排序
+
+button.featureProduct = 展览此产品
+button.cancelFeature = 撤消展览
+button.selectFeature = 挑选产品
+
+button.addGroup = 添加菜单
+button.editGroup = 修改菜单
+button.menuGroupOrder = 菜单排序
+button.menuOrder = 信息排序
+button.selectChildGroup = 查看子组

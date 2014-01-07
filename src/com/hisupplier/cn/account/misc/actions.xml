@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="image" namespace="/image" extends="default">
+		<action name="image_list" class="imageAction" method="image_list">
+			<result>/page/misc/image_list.jsp</result>
+			<result name="ajaxSuccess">/page/misc/image_list_inc.jsp</result>
+		</action>
+		<action name="image_select" class="imageAction" method="image_select">
+			<result>/page/misc/image_select.jsp</result>
+			<result name="ajaxSuccess">/page/misc/image_list_inc.jsp</result>
+		</action>
+		<action name="image_delete" class="imageAction" method="image_delete">
+			<result type="redirect">/image/image_list.htm?pageNo=${pageNo}&amp;imgType=${imgType}</result>
+			<result name="patentImgDelete" type="redirect">/patent/patentDeblocked_license.htm</result>
+		</action>
+		<action name="image_name_edit" class="imageAction" method="image_name_edit">
+			<result type="json">
+				<param name="root">action</param>
+				<param name="includeProperties">msg,tip</param>
+			</result>
+		</action>
+
+		<action name="image_upload" class="imageAction" method="image_upload">
+			<result>/page/misc/image_upload_stream.jsp</result>
+		</action>
+		<action name="image_upload_submit" class="imageFormAction">
+			<result name="input">/page/misc/image_upload_stream.jsp</result>
+			<result name="success">/page/misc/inc/image_set.jsp?imgType=${image.imgType}</result>
+		</action>
+	</package>
+
+	<package name="vote" namespace="/vote" extends="default">
+		
+		<action name="vote_list" class="voteAction" method="vote_list">
+			<result>/page/misc/vote_list.jsp</result>
+		</action>
+		
+		<action name="vote_view" class="voteAction" method="vote_view">
+			<result>/page/misc/vote_view.jsp</result>
+			<result name="ajaxSuccess">/page/misc/vote_comment_list_inc.jsp</result>
+		</action>
+		
+		<action name="vote_option_add" class="voteAction" method="vote_option_add">
+			<result name="input">/page/misc/vote_view.jsp</result>
+			<result type="redirect">vote_view.htm?voteId=${voteId}&amp;pageNo=${pageNo}</result>
+		</action>
+		
+		<action name="vote_comment_add" class="voteAction" method="vote_comment_add">
+			<result type="json">
+			<param name="root">action</param>
+			<param name="includeProperties">msg,tip</param>
+			</result>
+		</action>
+	
+	</package>
+	
+	<package name="comment" namespace="/comment" extends="default">
+		
+		<action name="comment_list" class="commentAction" method="comment_list">
+			<result>/page/misc/comment_list.jsp</result>
+			<result name="ajaxSuccess">/page/misc/comment_list_inc.jsp</result>
+		</action>
+		
+		<action name="comment_reply" class="commentAction" method="comment_reply">
+			<result>/page/misc/comment_reply_form.jsp</result>
+		</action>
+		
+		<action name="comment_reply_submit" class="commentAction" method="comment_reply_submit">
+			<result type="json">
+			<param name="root">action</param>
+			<param name="includeProperties">msg,tip</param>
+			</result>
+		</action>
+	
+	</package>
+	
+	<package name="video" namespace="/video" extends="default">
+		
+		<action name="video_group_list" class="videoGroupAction" method="video_group_list">
+			<result>/page/misc/video_group_list.jsp</result>
+			<result name="ajaxSuccess">/page/misc/video_group_list_inc.jsp</result>
+		</action>
+		
+		<action name="video_group_add" class="videoGroupAction" method="video_group_form">
+			<result>/page/misc/video_group_form.jsp</result>
+		</action>
+		
+		<action name="video_group_add_submit" class="videoGroupAction" method="video_group_form_submit">
+			<result type="json">
+			<param name="root">action</param>
+			<param name="includeProperties">msg,tip</param>
+			</result>
+		</action>
+		
+		<action name="video_group_edit" class="videoGroupAction" method="video_group_form">
+			<result>/page/misc/video_group_form.jsp</result>
+		</action>
+		
+		<action name="video_group_edit_submit" class="videoGroupAction" method="video_group_form_submit">
+			<result type="json">
+			<param name="root">action</param>
+			<param name="includeProperties">msg,tip</param>
+			</result>
+		</action>
+		
+		<action name="video_group_delete" class="videoGroupAction" method="video_group_delete">
+			<result type="redirect">video_group_list.htm?pageNo=${pageNo}</result>
+		</action>
+		
+		<action name="video_list" class="videoAction" method="video_list">
+			<result>/page/misc/video_list.jsp</result>
+			<result name="ajaxSuccess">/page/misc/video_list_inc.jsp</result>
+		</action>
+		
+		<action name="video_delete" class="videoAction" method="video_delete">
+			<result type="redirect">video_list.htm?pageNo=${pageNo}</result>
+		</action>
+		
+		<action name="video_edit" class="videoAction" method="video_edit">
+			<result>/page/misc/video_edit_form.jsp</result>
+		</action>
+		
+		<action name="video_edit_submit" class="videoFormAction" method="video_edit_submit">
+			<result type="redirect">video_list.htm?videoType=${videoType}</result>
+		</action>
+		
+		<action name="video_upload" class="videoAction" method="video_upload">
+			<result>/page/misc/video_upload_form.jsp</result>
+		</action>
+
+		<action name="video_upload_submit" class="videoFormAction" method="video_upload_submit">
+			<result type="json">
+			<param name="root">action</param>
+			<param name="includeProperties">msg,tip</param>
+			</result>
+		</action>
+		
+		<action name="video_menu_list" class="videoAction" method="video_menu_list">
+			<result>/page/misc/video_menu_list.jsp</result>
+			<result name="ajaxSuccess">/page/misc/video_menu_list_inc.jsp</result>
+		</action>
+		
+		<action name="video_product_list" class="videoAction" method="video_product_list">
+			<result>/page/misc/video_product_list.jsp</result>
+			<result name="ajaxSuccess">/page/product/product_list_inc.jsp</result>
+		</action>
+		
+		<action name="video_select" class="videoAction" method="video_select">
+			<result>/page/misc/video_select.jsp</result>
+			<result name="ajaxSuccess">/page/misc/video_select_inc.jsp</result>
+		</action>
+	</package>
+	
+</struts>

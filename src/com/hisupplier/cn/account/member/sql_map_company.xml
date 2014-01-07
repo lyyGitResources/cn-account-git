@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="company">
+	<typeAlias alias="company" type="com.hisupplier.cn.account.entity.Company"/>
+	<typeAlias alias="companyProfile" type="com.hisupplier.cn.account.entity.CompanyProfile"/>
+	
+	<select id="findCompanyState" parameterClass="int" resultClass="int">
+	SELECT state
+	FROM Company
+	WHERE comId = #value#
+	</select>
+	
+	<select id="findMemberId" parameterClass="map" resultClass="int">
+		select comId 
+		from Company where memberId = #memberId#
+		<isGreaterThan prepend="and" property="comId" compareValue="0">
+			comId != #comId#
+		</isGreaterThan>
+	</select>
+	
+	<select id="findComName" parameterClass="map" resultClass="int">
+		select comId from Company where comName = #comName#
+		<isGreaterThan prepend="and" property="comId" compareValue="0">
+			comId != #comId#
+		</isGreaterThan>
+		limit 1
+	</select>
+		
+ 	<select id="findCompany" parameterClass="int" resultClass="company">
+    	select 
+			Company.comId,
+			Company.regMode,
+			Company.memberId,
+			Company.memberType,
+			Company.comName,
+			Company.catIds,
+			Company.keywords, 
+			Company.description,
+			Company.domId,
+			Company.businessTypes,
+			Company.qualityCerts,
+			Company.videoId,
+			Company.faceImgPaths,
+			Company.logoImgPath,
+			Company.logoCertImg,
+			Company.websites,
+			Company.state,
+			Company.createTime,
+			Company.modifyTime,
+    		Company.videoId,
+    		Company.crmState,
+    		Company.comNameEN,
+    		
+    		CompanyExtra.isFoodPact foodPact,
+			CompanyExtra.statSite,
+			CompanyExtra.statScript,
+			CompanyExtra.googleSitemapVerify,
+			CompanyExtra.googleLocal,
+			CompanyExtra.goldBeginDate,
+			CompanyExtra.goldEndDate,
+			CompanyExtra.goldIndex,
+			CompanyExtra.goldIndexLastTime,
+			CompanyExtra.newProPass,  
+			CompanyExtra.newProMenuName,
+			CompanyExtra.newProPassExpiry,
+			CompanyExtra.isGroupFold groupFold,
+			CompanyExtra.isProfile profile,
+			CompanyExtra.isContract contract,
+			CompanyExtra.isCustom custom,
+			CompanyExtra.isReceiveRecommend receiveRecommend,
+			CompanyExtra.userMax,
+			CompanyExtra.userCount,
+			CompanyExtra.newProMax,
+			CompanyExtra.newProCount,
+			CompanyExtra.newProRejectCount,
+			CompanyExtra.productMax,
+			CompanyExtra.productCount,
+			CompanyExtra.productRejectCount,
+			CompanyExtra.productDelCount,
+			CompanyExtra.productListStyle,
+			CompanyExtra.optimizeProMax,
+			CompanyExtra.optimizeProCount,
+			CompanyExtra.featureProMax,  
+			CompanyExtra.featureProCount,
+			CompanyExtra.tradeMax,
+			CompanyExtra.tradeCount,
+			CompanyExtra.tradeRejectCount,
+			CompanyExtra.tradeDelCount,
+			CompanyExtra.tradeListStyle,
+			CompanyExtra.menuGroupMax,
+			CompanyExtra.menuGroupCount,
+			CompanyExtra.menuMax,
+			CompanyExtra.imgMax, 
+			CompanyExtra.imgCount,    
+			CompanyExtra.videoMax,   
+			CompanyExtra.videoCount,
+			CompanyExtra.commentCount,
+			CompanyExtra.inquiryDelCount,
+			CompanyExtra.inquiryReceive,
+			CompanyExtra.isShowQR as showQR,
+			CompanyExtra.qrPath, 
+			IFNULL(CompanyProfile.regNO,'') AS regNO, 
+			IFNULL(CompanyProfile.regImgType, 1) AS regImgType, 
+			IFNULL(CompanyProfile.ceo, '') AS ceo
+   		from Company
+    	left join CompanyExtra on Company.comId = CompanyExtra.comId
+    	left join CompanyProfile on Company.comId = CompanyProfile.comId
+    	where Company.comId = #comId#
+ 	</select>
+ 	
+	<select id="findCompanyProfile" parameterClass="int" resultClass="companyProfile">
+		select * from CompanyProfile where comId = #comId#
+	</select>
+	
+	<select id="findCompanyByUserId" parameterClass="map" resultClass="company">
+		select * from Company where comId =( select  comId from Users where email=#email# and userId = #userId#)
+	</select>
+	
+	<insert id="addCompany" parameterClass="company">
+    	insert into Company(
+    		regMode,comName,memberId,catIds,keywords,description,domId,businessTypes,websites,
+    		memberType,state,createTime,modifyTime,updateTime
+    	)values(
+    		#regMode#,#comName#,#memberId#,#catIds#,#keywords#,#description#,#domId#,#businessTypes#,#websites#,
+    		1,15,#createTime#,#modifyTime#,#updateTime#
+    	)
+    	<selectKey resultClass="int" keyProperty="comId">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<insert id="addCompanyExtra" parameterClass="company">
+		insert into CompanyExtra(comId,goldBeginDate,goldEndDate,goldIndexLastTime,menuGroupCount,isProfile)
+		values(#comId#,#goldBeginDate#,#goldEndDate#,#goldIndexLastTime#,#menuGroupCount#,#profile#)
+	</insert>
+	
+	<insert id="addCompanyCategory" parameterClass="map">
+		insert into CompanyCategory(comId,catId) values(#comId#,#catId#)
+	</insert>
+	
+	<insert id="addCompanyProfile" parameterClass="companyProfile">
+		insert CompanyProfile (legalForm,customer,facLocation,facSize,employee,
+				RDStaff,annualSale,expPercent,comId,ceo,regAddress,regCapital,
+				regNo,regAuthority,regLink,establishDate,regDate,regExpiry,
+				regImgPath,createTime,modifyTime,taxImgPath,foodImgPath,regImgPath2,regImgType)
+				
+		values(#legalForm#,#customer#,#facLocation#,#facSize#,#employee#,
+				#RDStaff#,#annualSale#,#expPercent#,#comId#,#ceo#,#regAddress#,#regCapital#,
+				#regNo#,#regAuthority#,#regLink#,#establishDate#,#regDate#,
+				#regExpiry#,#regImgPath#,#createTime#,#modifyTime#,#taxImgPath#,#foodImgPath#,#regImgPath2#,#regImgType#)
+    	<selectKey resultClass="int" keyProperty="comId">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+</sqlMap>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="vote">
+	<typeAlias alias="miscParams" type="com.hisupplier.cn.account.misc.QueryParams"/>
+	<select id="findVote" parameterClass="miscParams" resultClass="com.hisupplier.cn.account.entity.Vote">
+		select  
+			voteId,
+			title,
+			content,
+			voteType,
+			voteCount,
+			commentCount,
+			endTime,
+			state,
+			createTime,
+			modifyTime 
+		from Vote
+		where voteId = #voteId#
+	</select>
+	
+	<sql id="findVoteListWhere">
+		from Vote
+		<![CDATA[
+			where endTime > now()
+			and state = 20
+		]]>
+	</sql>
+	
+	<select id="findVoteListCount" resultClass="int">
+		select count(*) <include refid="findVoteListWhere"/>
+	</select>
+	
+	<select id="findVoteList" parameterClass="miscParams" resultClass="com.hisupplier.cn.account.entity.Vote">
+		select 
+			voteId,
+			title,
+			content,
+			voteType,
+			voteCount,
+			commentCount,
+			endTime,
+			state,
+			createTime,
+			modifyTime 
+		<include refid="findVoteListWhere"/>
+		order by voteId desc
+ 		limit #startRow#,#pageSize#
+	</select>
+	
+	<select id="findvote" resultClass="int">
+		select count(*) from Vote  order by voteId desc
+	</select>
+	
+	<sql id="findVoteCommentListWhere">
+		from VoteComment 
+		left join Users on Users.comId = VoteComment.comId and Users.userId = VoteComment.userId
+		where VoteComment.voteId = #voteId# and VoteComment.state in(15,20)
+	</sql>
+	
+	<select id="findVoteCommentListCount" parameterClass="miscParams" resultClass="int">
+		select count(*) <include refid="findVoteCommentListWhere"/>
+	</select>
+	
+	<select id="findVoteCommentList" parameterClass="miscParams" resultClass="com.hisupplier.cn.account.entity.VoteComment">
+		select 
+			VoteComment.commentId,
+			VoteComment.content,
+			VoteComment.voteId,
+			VoteComment.comId,
+			VoteComment.userId,
+			VoteComment.serId,
+			VoteComment.state,
+			VoteComment.createTime,
+			VoteComment.modifyTime,
+			Users.contact
+		<include refid="findVoteCommentListWhere"/>
+		order by VoteComment.commentId desc
+ 		limit #startRow#,#pageSize#
+	</select>
+	
+	<select id="findVoteLogList" parameterClass="miscParams" resultClass="com.hisupplier.commons.entity.cn.VoteLog">
+		select 
+			voteId,
+			optionId,
+			comId,
+			userId,
+			createTime
+		from VoteLog
+		where comId = #loginUser.comId# 
+		and userId = #loginUser.userId# 
+		and voteId = #voteId#
+	</select>
+	
+	<select id="findVoteOptionList" parameterClass="miscParams" resultClass="com.hisupplier.cn.account.entity.VoteOption">
+		select 
+			optionId,
+			voteId,
+			content,
+			voteCount
+		from VoteOption
+		where voteId = #voteId#
+	</select>
+		
+	<insert id="addVoteLog" parameterClass="java.util.HashMap">
+		insert into 
+		VoteLog
+			(voteId,optionId,comId,userId,createTime) 
+		values
+			(#voteId#,#optionId#,#comId#,#userId#,#createTime#)
+	</insert>
+	
+	<insert id="addVoteComment" parameterClass="com.hisupplier.cn.account.entity.VoteComment" >
+		insert into 
+		VoteComment
+			(content,voteId,comId,userId,serId,state,createTime,modifyTime) 
+		values
+			(#content#,#voteId#,#comId#,#userId#,#serId#,#state#,#createTime#,#modifyTime#)
+	   <selectKey resultClass="int" type="post" keyProperty="commentId" >  
+       	select LAST_INSERT_ID() as commentId
+  		   </selectKey>
+	</insert>
+	
+</sqlMap>

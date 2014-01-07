@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="specialGroup">
+	<typeAlias alias="group" type="com.hisupplier.cn.account.entity.Group" />
+	<typeAlias alias="product" type="com.hisupplier.cn.account.entity.Product" />
+	
+	<select id="findGroupList" parameterClass="int" resultClass="group">
+		select 
+			groupId,
+			groupName,
+			comId,
+			listOrder,
+			productCount,
+			state,
+			createTime,
+			modifyTime
+		from SpecialGroup 
+		where comId = #comId# 
+		and state in(15,20)
+		order by listOrder asc, modifyTime desc
+	</select>
+	
+	<select id="findGroupListById" parameterClass="java.util.HashMap" resultClass="group">
+		select 
+			SpecialGroup.groupId,
+			SpecialGroup.groupName,
+			SpecialGroup.comId,
+			SpecialGroup.listOrder,
+			SpecialGroup.productCount,
+			SpecialGroup.state,
+			SpecialGroup.createTime,
+			SpecialGroup.modifyTime
+		from SpecialGroup
+		left join  SpecialProduct on SpecialProduct.comId = SpecialGroup.comId 
+		and SpecialProduct.groupId = SpecialGroup.groupId 
+		where SpecialGroup.comId = #comId# 
+		and SpecialProduct.proId in
+		<iterate property="proId" open="(" close=")" conjunction=",">
+        	#proId[]#
+      	</iterate>
+		and state in(15,20)
+	</select>
+	
+	<select id="findGroup" parameterClass="java.util.HashMap" resultClass="group">
+		select 
+			groupId,
+			groupName,
+			comId,
+			listOrder,
+			productCount,
+			state,
+			createTime,
+			modifyTime
+		from SpecialGroup 
+		where comId = #comId# 
+		and groupId = #groupId#
+		and state in(15,20)
+	</select>
+	
+	<select id="findMaxListOrder" parameterClass="int" resultClass="int">
+		select listOrder from SpecialGroup where comId = #comId# order by listOrder desc limit 1
+	</select>
+	
+	<select id="findSpecialGroupCountByGroupName" parameterClass="group" resultClass="int">
+		<![CDATA[select count(*) from SpecialGroup where comId = #comId#  and state > 10 and  groupId <> #groupId# and groupName=#groupName#]]>
+	</select>
+	
+	<sql id="findGroupProductListWhere">
+		from Product
+		<isGreaterThan property="groupId" compareValue="0">
+		left join SpecialProduct on Product.proId = SpecialProduct.proId
+		</isGreaterThan> 
+		where Product.comId =#loginUser.comId#
+		<isNotEmpty prepend="and" property="queryText">
+			(Product.proName like '%$queryText$%' or Product.model like '%$queryText$%' or Product.keywords like '%$queryText$%')
+		</isNotEmpty>
+		<isEqual property="groupId" compareValue="0" prepend="and">
+			Product.proId not in(select SpecialProduct.proId from SpecialProduct where SpecialProduct.comId = #loginUser.comId#)
+		</isEqual>
+		<isGreaterThan property="groupId" compareValue="0" prepend="and">
+			SpecialProduct.groupId = #groupId#
+		</isGreaterThan> 
+		and state in (10,15,20)
+	</sql>
+	
+	<select id="findGroupProductListCount" parameterClass="com.hisupplier.cn.account.product.QueryParams" resultClass="int">
+		select count(*) <include refid="findGroupProductListWhere"/>
+	</select>
+	
+	<select id="findGroupProductList" parameterClass="com.hisupplier.cn.account.product.QueryParams" resultClass="product">
+		select 
+			Product.proId,
+			Product.comId,
+			Product.proName,
+			Product.model,
+			Product.keywords,
+			Product.imgId,
+			Product.imgPath,
+			Product.viewCount,
+			Product.state,
+			Product.modifyTime
+		<include refid="findGroupProductListWhere"/> 
+		order by $sortBy$ $sortOrder$
+ 		limit #startRow#,#pageSize#
+	</select>
+
+	<select id="findSpecialProductList" parameterClass="java.util.HashMap" resultClass="com.hisupplier.commons.entity.SpecialProduct">
+		select 
+			groupId,
+			comId,
+			proId
+		from SpecialProduct
+		where comId = #comId#
+		and groupId = #groupId#
+	</select>
+	
+	<insert id="addSpecialProduct" parameterClass="java.util.HashMap">
+		insert into 
+			SpecialProduct
+				(comId,groupId,proId)
+			values
+				(#comId#,#groupId#,#proId#)
+	</insert>
+	
+	<insert id="addGroup" parameterClass="com.hisupplier.cn.account.entity.Group">
+		insert into SpecialGroup
+		(groupName,comId,listOrder,productCount,state,createTime,modifyTime)
+		values
+		(#groupName#,#comId#,#listOrder#,#productCount#,#state#,#createTime#,#modifyTime#)
+		<selectKey resultClass="int" type="post" keyProperty="groupId">
+			select LAST_INSERT_ID() as groupId
+		</selectKey>
+	</insert>
+	
+	<delete id="deleteSpecialProduct" parameterClass="java.util.HashMap">
+		delete from SpecialProduct
+		where comId = #comId#
+		<isNotNull property="groupIds" prepend="and">
+			groupId in ($groupIds$)
+		</isNotNull> 
+		<isNotNull property="proIds" prepend="and">
+			proId in ($proIds$)
+		</isNotNull> 
+	</delete>
+	
+	<delete id="deleteSpecialProductById" parameterClass="java.util.HashMap">
+		delete from SpecialProduct
+		where comId = #comId#
+		and groupId = #groupId#
+		and proId in
+		<iterate property="proId" open="(" close=")" conjunction=",">
+        	#proId[]#
+      	</iterate>
+	</delete>
+
+</sqlMap>

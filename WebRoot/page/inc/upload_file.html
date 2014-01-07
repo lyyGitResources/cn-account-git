@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>hisupplier.com</title>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<link rel="stylesheet" href="http://img.hisupplier.com/css/jquery.inputform.css" type="text/css"></link>
+		<script type="text/javascript" src="http://img.hisupplier.com/js/lib/jquery.js"></script>
+		<script type="text/javascript" src="http://img.hisupplier.com/js/lib/jquery.form.js"></script>
+		<script type="text/javascript" src="http://img.hisupplier.com/js/lib/jquery.inputform.js"></script>
+		<script type="text/javascript" src="http://img.hisupplier.com/js/util.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				params = Util.getQueryParams();
+				$("#fileLink").val(params.fileLink);
+				$("#fileType").val(params.fileType);
+				$("#fileSize").val(params.fileSize);
+				$("#fileExts").val(params.fileExts);
+				$("#showImgId").val(params.showImgId);
+				$("#tmpSaveId").val(params.tmpSaveId); // 临时存储文件大小，文件类型，文件名称，格式：filePath;fileType:XX;fileName:XX
+				$("#uploadUrl").val(params.uploadUrl);
+				$("#returnUrl").val(params.returnUrl);
+				
+				$("#file1").inputfile({button:"<button>从本地选取</botton>"});
+				$("#file1").change(function (){
+					$("#uploadForm").submit();
+				});
+
+		 		$("#uploadForm").attr("action", params.uploadUrl);
+		 		
+		 		//上传成功				
+				if(params.filePath && params.filePath != ""){
+					window.parent.$("#"+params.showImgId).attr("src", params.fileLink + params.filePath);
+					window.parent.$("#"+params.tmpSaveId).val("filePath:" + params.filePath + ";fileType:" + params.fileType + ";fileName:" + params.fileName);
+				}
+				
+		 		//上传失败		 		
+				errorMsg = new Array();
+				if(params.fileNotFound && params.fileNotFound == "true"){
+					errorMsg.push("请从您的计算上选取一张图片");
+				}
+				if(params.fileExtsErr && params.fileExtsErr == "true"){
+					errorMsg.push("图片必须是"+params.fileExts+"等格式，请重新选取");
+				}
+				if(params.fileSizeErr && params.fileSizeErr == "true"){
+					errorMsg.push("图片超过"+params.fileSize+"KB，请调整图片大小或选取其他图片");
+				}
+				if(errorMsg.length > 0){
+					alert(errorMsg.join("\n\r"));
+				}
+ 			});
+		</script> 
+	</head>
+	<body style="margin: 0px; padding: 0px;">
+		<form id="uploadForm" enctype="multipart/form-data" method="post">
+			<input type="file" name="file1" id="file1" class="file" />
+			<input type="hidden" name="fileLink" id="fileLink"/>
+			<input type="hidden" name="fileType" id="fileType"/>
+			<input type="hidden" name="fileSize" id="fileSize"/>
+			<input type="hidden" name="fileExts" id="fileExts"/>
+			<input type="hidden" name="showImgId" id="showImgId"/>
+			<input type="hidden" name="tmpSaveId" id="tmpSaveId"/>
+			<input type="hidden" name="uploadUrl" id="uploadUrl"/>
+			<input type="hidden" name="returnUrl" id="returnUrl"/>
+		</form>
+	</body>
+</html>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE taglib
+   PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+          "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+
+<taglib>
+   <tlib-version>1.0</tlib-version>
+   <jsp-version>1.2</jsp-version>
+   <short-name>Gb2Big5</short-name>
+   <uri>/gb2big5-converter</uri>
+   <tag>
+     <name>Gb2Big5JspWrapper</name>
+     <tag-class>com.hisupplier.commons.character.Gb2Big5JspWrapper</tag-class>
+   </tag>
+</taglib>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="patentDeblocked">
+	<typeAlias alias="params" type="com.hisupplier.cn.account.dao.QueryParams" />
+	<typeAlias alias="mParams" type="com.hisupplier.cn.account.misc.QueryParams" />
+	<typeAlias alias="patentDeblocked" type="com.hisupplier.cn.account.entity.PatentDeblocked" />
+	
+	<sql id="findListWhere">
+		from PatentDeblocked
+		where state > 0 and 
+		comId = #loginUser.comId#
+		<isNotEmpty prepend="and" property="queryText">
+			keywords like '%$queryText$%'
+		</isNotEmpty>
+		<isGreaterThan prepend="and" property="state" compareValue="-1">
+			state = #state#
+		</isGreaterThan>
+		order by modifyTime desc
+	</sql>
+	
+	<insert id="addPatentDeblocked" parameterClass="patentDeblocked">
+		insert into PatentDeblocked
+		(comId,keywords,remark,state,cause,regImgPath,createTime,modifyTime,imgIds)
+		values
+		(#comId#,#keywords#,#remark#,default,#cause#,#regImgPath#,#createTime#,#modifyTime#,#imgIds#)
+		<selectKey resultClass="int" keyProperty="id">
+			select
+			last_insert_id() as ID
+		</selectKey>
+	</insert>
+
+	<select id="findPatentDeblockedList" parameterClass="params" resultClass="patentDeblocked">
+		select
+		id,
+		comId,
+		keywords,
+		remark,
+		state,
+		cause,
+		regImgPath,
+		createTime,
+		modifyTime
+		<include refid="findListWhere"/>
+		limit #startRow#,#pageSize#
+	</select>
+	
+	<select id="findPatentDeblockedListCount" parameterClass="params" resultClass="int">
+		select count(id) 
+		<include refid="findListWhere"/> 
+	</select>
+	
+	<select id="findPatentDeblockedById" parameterClass="mParams" resultClass="patentDeblocked">
+		select
+		id,
+		comId,
+		keywords,
+		remark,
+		state,
+		cause,
+		regImgPath,
+		imgIds 
+		from PatentDeblocked 
+		where id = #tableId# and comId = #comId#
+	</select>
+	
+	<select id="findPatentDeblockedKeywords" parameterClass="patentDeblocked" resultClass="string">
+		select 
+		keywords 
+		from PatentDeblocked 
+		where comId = #comId# and state in (15,20) 
+		<isNotEmpty prepend="and" property="keywords">
+			keywords = #keywords# 
+		</isNotEmpty>
+	</select>
+	
+	<select id="findPatentDeblockedIsUpdate" parameterClass="patentDeblocked" resultClass="patentDeblocked">
+		select id from PatentDeblocked where comId = #comId# and state &gt;10 and keywords = #keywords# and id &lt;&gt; #id#
+	</select>
+	
+	<select id="findPatentDeblockedImgIds" parameterClass="int" resultClass="string">
+		select 
+		imgIds 
+		from PatentDeblocked 
+		where 
+		comId = #comId# and 
+		state > 0 
+	</select>
+</sqlMap>
