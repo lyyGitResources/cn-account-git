@@ -70,7 +70,7 @@
 			<s:if test="result.isNewTemplate"> //设置新模板默认选中模块
 				$("#m_company_info, #m_product_newlist, #m_contact").attr({checked : "checked", disabled :"disabled"});
 			</s:if>
-			<s:if test="result.webSite.templateNo == 90">
+			<s:if test="result.webSite.templateNo == 90  || result.webSite.templateNo == 91">
 			$("#m_company_info, #m_product_newlist, #m_contact, #m_feature_product").attr({checked : "checked", disabled :"disabled"});
 			</s:if>
 		});
@@ -202,7 +202,7 @@
 			if (newHome) {
 				$("#m_company_info, #m_product_newlist, #m_contact").attr({checked : "checked", disabled :"disabled"});
 				$("#m_feature_product").removeAttr("disabled");
-			} else if (templateNo == 90) {
+			} else if (templateNo == 90 || templateNo == 91) {
 				$("#m_company_info, #m_product_newlist, #m_contact, #m_feature_product").attr({checked : "checked", disabled :"disabled"});
 			} else {
 				$("#m_company_info, #m_product_newlist, #m_contact, #m_feature_product").removeAttr("disabled");
