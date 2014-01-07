@@ -40,7 +40,10 @@ public class PostBuyLeadAction extends BasicAction implements ModelDriven<BuyLea
 
 	public String post_buy_lead_submit() throws Exception {
 		tip = this.b2BService.addBuyLead(request, buyLead);
-
+		if (tip.equals("isBlocked")) {
+			this.addActionError("您的账号已被冻结，详情请咨询客服人员：Kitty  工作QQ：239183271   邮箱：service10@hi.cc");
+			return INPUT;
+		}
 		if (!StringUtil.equals(tip, "addSuccess")) {
 			this.addActionError(getText(tip));
 			return INPUT;

@@ -119,6 +119,8 @@ public class InquirySendAction extends ActionSupport implements ModelDriven<Inqu
 				this.addActionError("对不起，短时间内不能连续提交相同内容的询盘，请稍后再试。");
 			} else if (result.equals("alert.limit")){
 				this.addActionError("主账号和子账号共能订阅10条商情,您已订满10条商情");
+			} else if (result.equals("isBlocked")) {
+				this.addActionError("您的账号已被冻结，详情请咨询客服人员：Kitty  工作QQ：239183271   邮箱：service10@hi.cc");
 			}
 			return INPUT;
 		}

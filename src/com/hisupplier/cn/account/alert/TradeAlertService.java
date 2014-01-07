@@ -147,7 +147,9 @@ public class TradeAlertService implements SubscibeService {
 					Ticket ticket = CASClient.getInstance().validatePasswd(alert.getEmail(), alert.getPasswd());
 					if (ticket.getMessage().equals("notfound") || ticket.getMessage().equals("err")) {
 						result = "passwd.error";
-					} else {
+					} else if (ticket.getMessage().equals("blackCN")) {
+						result = "isBlocked";
+					}else {
 						alert.setComId(ticket.getComId());
 						alert.setUserId(ticket.getUserId());
 						return this.addTradeAlert(alert);

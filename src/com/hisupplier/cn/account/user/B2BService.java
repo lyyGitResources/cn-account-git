@@ -163,6 +163,8 @@ public class B2BService {
 					return "buyLead.user.wrong";
 				}else if("error".equals(ticket.getMessage())){
 					return "buyLead.passwd.wrong";
+				}else if("blackCN".equals(ticket.getMessage())) {
+					return "isBlocked";
 				}
 				
 				//登陆票据正确后根据comId检测违规词

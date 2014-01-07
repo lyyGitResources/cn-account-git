@@ -88,6 +88,8 @@ public class TradeAlertStepAction extends BasicAction implements ModelDriven<Tra
 				//转到第二步表单
 				result.put("tradeAlert", tradeAlert);
 				return "step2";
+			} else if (tip.equals("isBlocked")) {
+				this.addActionError("您的账号已被冻结，详情请咨询客服人员：Kitty  工作QQ：239183271   邮箱：service10@hi.cc");
 			}
 
 			result.put("tradeAlert", tradeAlert);

@@ -145,6 +145,8 @@ public class InquirySendServiceImpl implements InquirySendService {
 				memberId = currentMember.getMemberId();
 				if (currentMember.getMessage().equals("notfound") || currentMember.getMessage().equals("error")) {
 					return "passwdError";
+				} else if (currentMember.getMessage().equals("blackCN")) {
+					return "isBlocked";
 				}
 				// 检测15分钟内是否发送相同内容
 				if (isRepeatInquiry(currentMember.getMemberId(), inquiry)) {
