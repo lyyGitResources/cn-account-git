@@ -2339,11 +2339,18 @@ public class ProductService {
 						if (oldTag.getTagId() == tag2.getTagId()) {
 							tag.setTagValueName(tag2.getTagValueName());
 						}
+//						System.out.println("---" + tag2.getTagValueId() + oldTag.getTagValueName());
+						oldTag.setTagValueId(tag2.getTagValueId());
+//						System.out.println("name: " + tag2.getTagValueName());
 					}
+//					if (StringUtil.isBlank(oldTag.getUnit())) {
+//						System.out.println("sss- : " + tag.getTagValueName());
+//					}
 					tag.setUnit(oldTag.getUnit());
 					tag.setType(2);
 					tag2List.add(tag);
 				} else {
+//					System.out.println("else");
 					Tag tag = tagMap.get(oldTag.getTagId());
 					TagValue tagValue = new TagValue();
 					tagValue.setValueId(oldTag.getTagValueId());
@@ -2353,8 +2360,9 @@ public class ProductService {
 						PropertyUtils.copyProperties(tag, oldTag);
 						tag.setTagValueList(new ArrayList<TagValue>());
 						tag.getTagValueList().add(tagValue);
-						tag.setTagValueId(0);
-						tag.setTagValueName("");
+						System.out.println("id: " +tag.getTagValueId());
+//						tag.setTagValueId(0);
+//						tag.setTagValueName("");
 						tag.setType(1);
 						for (Tag tag1 : tagValueList) {
 							if (tag.getTagId() == tag1.getTagId()) {
@@ -2379,6 +2387,9 @@ public class ProductService {
 
 		for (Tag tag3 : tagValueList) {
 			if (tag3.getType() == 3) {
+				if (tag3.getUnit() == null) {
+					tag3.setUnit("");
+				}
 				tagResultList.add(tag3);
 			}
 		}

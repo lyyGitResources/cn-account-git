@@ -46,8 +46,9 @@
 				</tr>
 				<tr>
 					<th>产品属性：</th>
-					<td><s:iterator value="result.product.tagList" id="tag">
-							<s:property value='#tag.tagValueName'/>
+					<td>
+						<s:iterator value="result.product.tagList" id="tag">
+							<s:property value='#tag.tagName'/>&nbsp;:&nbsp;<s:property value='#tag.tagValueName'/>&nbsp;<s:if test="#tag.unit != '' ">(<s:property value="#tag.unit"/>)</s:if>&nbsp;&nbsp;
 						</s:iterator>
 					</td>
 				</tr>
